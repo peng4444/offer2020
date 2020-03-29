@@ -42,4 +42,17 @@ public class Demo442 {
             return res;
         }
     }
+    //会超时
+    public List<Integer> findDuplicates1(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        for(int i =0;i<nums.length;i++){
+            if(list.contains(nums[i])){
+                ans.add(nums[i]);
+            }else{
+                list.add(nums[i]);
+            }
+        }
+        return ans;
+    }
 }

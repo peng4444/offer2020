@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.a_tree;
 
 import java.util.LinkedList;
 import java.util.Stack;
@@ -7,7 +7,7 @@ import java.util.Stack;
  * @ClassName: Demo98
  * @Author: pbj
  * @Date: 2019/12/18 15:32
- * @Description: TODO 验证二叉搜索树
+ * @Description: TODO 98.验证二叉搜索树
  */
 public class Demo98 {
 
@@ -55,17 +55,17 @@ public class Demo98 {
      * @auther: pbj
      * @date: 2019/12/18 15:41
      */
-    public boolean helper(TreeNode root, Integer min, Integer max) {
-        if(root==null) return true;
-        int val = root.val;
-        if(min!=null&& val <= min) return false;
-        if(max!=null&& val >= max) return false;
-        if(!helper(root.right,val,max)) return false;
-        if(!helper(root.left,min,val)) return false;
-        return true;
+    public boolean isValidBST1(TreeNode root) {
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
-    public boolean isValidBST2(TreeNode root) {
-        return helper(root, null, null);
+    private boolean isValidBST(TreeNode root, long min, long max){
+        if (root == null) {
+            return true;
+        }
+        if (root.val <= min || root.val >= max){
+            return false;
+        }
+        return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
     }
 
     /* *

@@ -19,7 +19,7 @@
 [有了四步解题法模板，再也不害怕动态规划！（看不懂算我输）](https://www.cnblogs.com/fivestudy/p/11855853.html)
 [告别动态规划，连刷40道题，我总结了这些套路，看不懂你打](https://www.cnblogs.com/kubidemanong/p/11854724.html)
 [202003-图文解析 2019 面试算法题「字符串处理 + 动态规划 汇总」](https://www.cnblogs.com/yuanhao-1999/p/11704819.html)
-[「面试原题 + 图文详解 + 实例代码」二叉搜索树-双指针-贪心 面试题汇总](https://www.cnblogs.com/yuanhao-1999/p/11685309.html)
+[202003-面试原题 + 图文详解 + 实例代码」二叉搜索树-双指针-贪心 面试题汇总](https://www.cnblogs.com/yuanhao-1999/p/11685309.html)
 [202003-面试高频算法题汇总「图文解析 + 教学视频 + 范例代码」之 二分 + 哈希表 + 堆 + 优先队列 合集](https://www.cnblogs.com/yuanhao-1999/p/11677320.html)
 ```
 [LeetCode开了个会员，截了一些高频率题目分享给大家](https://www.nowcoder.com/discuss/292850)
