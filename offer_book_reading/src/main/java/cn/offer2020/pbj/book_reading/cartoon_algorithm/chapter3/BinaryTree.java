@@ -1,9 +1,6 @@
 package cn.offer2020.pbj.book_reading.cartoon_algorithm.chapter3;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @ClassName: BinaryTree
@@ -99,7 +96,7 @@ public class BinaryTree {
         }
      }
 
-    //二叉树层次遍历   队列实现
+    //二叉树层次遍历//BFS   队列实现
     public static void levelOrderTraversal(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
@@ -114,4 +111,31 @@ public class BinaryTree {
             }
         }
     }
+
+    // 层次遍历(DFS)
+    public static List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        dfs(root, res, 0);
+        return res;
+    }
+
+    private static void dfs(TreeNode root, List<List<Integer>> res, int level) {
+        if (root == null) {
+            return;
+        }
+        if (level == res.size()) {
+            res.add(new ArrayList<>());
+        }
+        res.get(level).add(root.data);
+
+        dfs(root.leftChild, res, level + 1);
+        dfs(root.rightChild, res, level + 1);
+    }
+
+
+
 }

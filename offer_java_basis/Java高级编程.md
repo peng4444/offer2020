@@ -1,5 +1,7 @@
 ###Java高级编程
 ####1.Java多线程
+[多线程系列](https://www.cnblogs.com/weechang/tag/%E5%A4%9A%E7%BA%BF%E7%A8%8B/) 
+[==>> Java并发编程](https://www.cnblogs.com/hongshaodian/category/1663273.html)
 >> 实现多线程的方式
 ```markdown
 1.继承Thread类 Thread类是Runnable接口的子类
@@ -25,6 +27,7 @@
 ```
 [JAVA线程及简单同步实现的原理解析](https://www.cnblogs.com/lijizhi/p/10775748.html)
 ####3.线程的同步和死锁
+[如何优雅地中止线程？](https://www.cnblogs.com/wupeixuan/p/12578851.html)
 ```markdown
 线程的同步和死锁 （多线程访问同一个资源时需要考虑）
                     线程同步使用synchronized关键字
@@ -131,8 +134,9 @@ sleep()和wait()的区别
             String类对于正则的支持
             java.util.regex包支持
 ####10.反射机制
+>> 利用对象找到对象的出处
+[java反射机制精讲](https://www.cnblogs.com/swzx-1213/p/12597159.html)
 ```markdown
-利用对象找到对象的出处,
         Class类对象实例化
             取得class对象：public final Class<?> getClass();//获取对象的类的完整名称
             调用Object类中的getClass()方法
@@ -142,10 +146,10 @@ sleep()和wait()的区别
         反射调用构造
         反射调用方法
         反射调用成员
-        [如何提高使用Java反射的效率？](https://www.cnblogs.com/coding-night/p/10772631.html)
-        最后总结一下，为了更好的使用反射，我们应该在项目启动的时候将反射所需要的相关配置及数据加载进内存中，在运行阶段都从缓存中
-        取这些元数据进行反射操作。大家也不用惧怕反射，虚拟机在不断的优化，只要我们方法用的对，它并没有”传闻“中的那么慢，
-        当我们对性能有极致追求的时候，可以考虑通过三方包，直接对字节码进行操作。
+[如何提高使用Java反射的效率？](https://www.cnblogs.com/coding-night/p/10772631.html)
+最后总结一下，为了更好的使用反射，我们应该在项目启动的时候将反射所需要的相关配置及数据加载进内存中，
+在运行阶段都从缓存中取这些元数据进行反射操作。大家也不用惧怕反射，虚拟机在不断的优化，只要我们方法用的对，
+它并没有”传闻“中的那么慢，当我们对性能有极致追求的时候，可以考虑通过三方包，直接对字节码进行操作。
    反射的常见用法
         1.反射根据类文件看到指定类的属性，比如属性的修饰符，属性的类型，属性名称
         2.查看方法的返回类型，参数，和名字

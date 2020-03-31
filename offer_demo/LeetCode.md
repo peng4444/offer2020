@@ -3,7 +3,6 @@
 ## 参考资料
 [2019完成：算法通关62讲-洗刷刷LeetCode](百度云)
 [五分钟学算法](https://www.cnblogs.com/fivestudy/tag/LeetCode/)
-
 ### 20191228
 ```markdown
 20191228-69,367,633 数学，平方根 ==>二分法和牛顿迭代法
@@ -12,7 +11,6 @@
         -53,70,120,152 动态规划 买卖股票：121,122,123,188,714,309 
         -200,547,146 并查集
 ```
-
 [如何编程获得最多的年终红包奖？](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486900&idx=2&sn=8642a98df9a77606db55ef9059927ecd&chksm=fa0e6235cd79eb23a37d84c53059232b59fac332004d6f3ce71c20bee4b48f1c0ba97b682724&mpshare=1&scene=23&srcid=&sharer_sharetime=1573563700867&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ### 20200326
 ```markdown
@@ -21,6 +19,9 @@
 [202003-图文解析 2019 面试算法题「字符串处理 + 动态规划 汇总」](https://www.cnblogs.com/yuanhao-1999/p/11704819.html)
 [202003-面试原题 + 图文详解 + 实例代码」二叉搜索树-双指针-贪心 面试题汇总](https://www.cnblogs.com/yuanhao-1999/p/11685309.html)
 [202003-面试高频算法题汇总「图文解析 + 教学视频 + 范例代码」之 二分 + 哈希表 + 堆 + 优先队列 合集](https://www.cnblogs.com/yuanhao-1999/p/11677320.html)
+[202003-面试必备：高频算法题汇总「图文解析 + 教学视频 + 范例代码」必知必会 排序 + 二叉树 部分](https://www.cnblogs.com/yuanhao-1999/p/11651884.html)
+[202003-面试必备：高频算法题汇总「图文解析 + 教学视频 + 范例代码」必问之 链表 + 栈 + 队列 部分！](https://www.cnblogs.com/yuanhao-1999/p/11665163.html)
+[202003-面试必备：高频算法题终章「图文解析 + 范例代码」之 矩阵 二进制 + 位运算 + LRU 合集](https://www.cnblogs.com/yuanhao-1999/p/11716019.html)
 ```
 [LeetCode开了个会员，截了一些高频率题目分享给大家](https://www.nowcoder.com/discuss/292850)
 ```markdown
