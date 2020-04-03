@@ -2,6 +2,7 @@ package cn.offer2020.pbj.demo.leetcode.a_tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * @ClassName: Demo226
@@ -55,6 +56,28 @@ public class Demo226 {
             current.right = temp;
             if (current.left != null) queue.add(current.left);
             if (current.right != null) queue.add(current.right);
+        }
+        return root;
+    }
+
+    //栈实现
+    public TreeNode invertTree1(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            final TreeNode node = stack.pop();
+            final TreeNode left = node.left;
+            node.left = node.right;
+            node.right = left;
+            if(node.left != null) {
+                stack.push(node.left);
+            }
+            if(node.right != null) {
+                stack.push(node.right);
+            }
         }
         return root;
     }

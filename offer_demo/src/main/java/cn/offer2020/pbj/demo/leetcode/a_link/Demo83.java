@@ -6,7 +6,7 @@ import org.junit.Test;
  * @ClassName: Demo83
  * @Author: pbj
  * @Date: 2020/1/13 10:51
- * @Description: TODO 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+ * @Description: TODO 83.给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
  */
 public class Demo83 {
     public class ListNode {
