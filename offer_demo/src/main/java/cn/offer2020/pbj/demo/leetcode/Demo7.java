@@ -7,6 +7,57 @@ package cn.offer2020.pbj.demo.leetcode;
  * @Description: TODO
  */
 public class Demo7 {
+    //利用除 10 取余的方法，将最低位和最高倒序输出即可
+    public int reverseInteger(int n) {
+        int reversed_n = 0;
+        while (n != 0) {
+            int temp = reversed_n * 10 + n % 10;
+            n = n / 10;
+            if (temp / 10 != reversed_n) {
+                reversed_n = 0;
+                break;
+            }
+            reversed_n = temp;
+        }
+        return reversed_n;
+    }
+
+
+    public static int reverse2(int x) {
+        int flag = 0;
+        if (x > 0) {
+            flag = 1;
+        } else if (x < 0) {
+            flag = -1;
+        }
+        long y=flag*x;
+        long ret = 0;
+        while (y != 0) {
+            ret=ret*10+(y%10);
+            y = y/10;
+        }
+        return (int)ret*flag;
+    }
+
+    /* *
+     * 功能描述: 弹出和推入数字 & 溢出前进行检查
+     * @param: [x]
+     * @return: int
+     * @auther: pbj
+     * @date: 2019/12/10 17:14
+     */
+    public int reverse3(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            if (rev > Integer.MAX_VALUE/10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
+            if (rev < Integer.MIN_VALUE/10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    }
+
     public static void main(String[] args) {
         System.out.println(Long.MAX_VALUE);
         System.out.println(reverse2(123));
@@ -63,41 +114,6 @@ public class Demo7 {
         }else {
             return (int) a;
         }
-    }
-
-    public static int reverse2(int x) {
-        int flag = 0;
-        if (x > 0) {
-            flag = 1;
-        } else if (x < 0) {
-            flag = -1;
-        }
-        long y=flag*x;
-        long ret = 0;
-        while (y != 0) {
-            ret=ret*10+(y%10);
-            y = y/10;
-        }
-        return (int)ret*flag;
-    }
-
-    /* *
-     * 功能描述: 弹出和推入数字 & 溢出前进行检查
-     * @param: [x]
-     * @return: int
-     * @auther: pbj
-     * @date: 2019/12/10 17:14
-     */
-    public int reverse3(int x) {
-        int rev = 0;
-        while (x != 0) {
-            int pop = x % 10;
-            x /= 10;
-            if (rev > Integer.MAX_VALUE/10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
-            if (rev < Integer.MIN_VALUE/10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
-            rev = rev * 10 + pop;
-        }
-        return rev;
     }
 }
 

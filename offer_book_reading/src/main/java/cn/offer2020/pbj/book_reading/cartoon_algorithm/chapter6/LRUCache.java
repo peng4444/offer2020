@@ -1,6 +1,8 @@
 package cn.offer2020.pbj.book_reading.cartoon_algorithm.chapter6;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @ClassName: LRUCache
@@ -9,6 +11,19 @@ import java.util.HashMap;
  * @Description: TODO LRU
  */
 public class LRUCache {
+    class Node {
+
+        Node(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public Node pre;
+        public Node next;
+        public String key;
+        public String value;
+    }
+
     private Node head;private Node end;
     // 缓存存储上限
     private int limit;
@@ -99,20 +114,6 @@ public class LRUCache {
         }
     }
 
-
-    class Node {
-
-        Node(String key, String value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public Node pre;
-        public Node next;
-        public String key;
-        public String value;
-    }
-
     public static void main(String[] args) {
         LRUCache lruCache = new LRUCache(5);
         lruCache.put("001", " 用户1信息");
@@ -125,6 +126,29 @@ public class LRUCache {
         lruCache.put("006", " 用户6信息");
         System.out.println(lruCache.get("001"));
         System.out.println(lruCache.get("006"));
+    }
+}
+//题目要求实现 LRU 缓存机制，需要在 O(1)时间内完成如下操作：
+//有一种叫做有序字典的数据结构，综合了哈希表和链表，在 Java 中为 LinkedHashMap。
+class LRUCache1 extends LinkedHashMap<Integer, Integer> {
+    private int capacity;
+
+    public LRUCache1(int capacity) {
+        super(capacity, 0.75F, true);
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+        return super.getOrDefault(key, -1);
+    }
+
+    public void put(int key, int value) {
+        super.put(key, value);
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+        return size() > capacity;
     }
 }
 
