@@ -10,6 +10,7 @@ import java.util.Arrays;
  */
 public class Demo88 {
 
+    //双指针
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int i = m-1,j = n-1,index = m+n-1;
         while(i>=0&&j>=0){

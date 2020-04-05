@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @ClassName: Demo169
+ * @ClassName: Demo167
  * @Author: pbj
  * @Date: 2019/12/20 11:26
  * @Description: TODO 多数元素

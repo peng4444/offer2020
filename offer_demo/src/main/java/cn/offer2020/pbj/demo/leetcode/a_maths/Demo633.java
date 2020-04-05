@@ -1,24 +1,30 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.a_maths;
 
 /**
  * @ClassName: Demo633
  * @Author: pbj
  * @Date: 2019/12/28 16:37
  * @Description: TODO 平方数之和
- * 给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a2 + b2 = c。
+ * 给定一个非负整数 c ，你要判断是否存在两个整数 a 和 b，使得 a*a + b*b = c。
  */
 public class Demo633 {
-    //    public boolean judgeSquareSum(int c) {
-//        if(c==0||c==1) return true;
-//        int max = (int)Math.sqrt(c);
-//        int min = (int)Math.sqrt(max);
-//        for (int i = 0; i <= min; i++) {
-//            for (int j = min; j <= max; j++) {
-//                if(i*i+j*j==c) return true;
-//            }
-//        }
-//        return false;
-//    }
+
+    //双指针
+    public boolean judgeSquareSum2(int c) {
+        int i = 0,j=(int)Math.sqrt(c);
+        while(i<=j){
+            int powSum = i*i+j*j;
+            if(powSum==c){
+                return true;
+            }else if(powSum>c){
+                j--;
+            }else{
+                i++;
+            }
+        }
+        return false;
+    }
+
     /* *
      * 功能描述: 二分查找
      * @param: [c]

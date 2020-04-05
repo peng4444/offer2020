@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.a_twopoint;
+package cn.offer2020.pbj.demo.leetcode.a_maths;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,28 +11,6 @@ import java.util.Map;
  */
 public class Demo1 {
 
-    /* *
-     * 功能描述: 使用双指针，一个指针指向值较小的元素，一个指针指向值较大的元素。
-     * 指向较小元素的指针从头向尾遍历，指向较大元素的指针从尾向头遍历。
-     * @param: [nums, target]
-     * @return: int[]
-     * @auther: pbj
-     * @date: 2020/4/2 11:19
-     */
-    public int[] twoSum3(int[] nums, int target) {
-        int i = 0,j=nums.length-1;
-        while (i < j) {
-            int sum = nums[i] + nums[j];
-            if (sum == target) {
-                return new int[]{i+1,j+1};
-            } else if (sum < target) {
-                i++;
-            } else {
-                j--;
-            }
-        }
-        return null;
-    }
     /* *
      * 功能描述: 两遍哈希表 一个简单的实现使用了两次迭代。在第一次迭代中，我们将每个元素的值和它的索引添加到表中。
      * 然后，在第二次迭代中，我们将检查每个元素所对应的目标元素（target - nums[i]target−nums[i]）是否存在于表中。
