@@ -6,6 +6,7 @@ package cn.offer2020.pbj.javabasis.java.basis2.thread_1_2_3;
  * @Date: 2020/3/28 10:07
  * @Description: TODO 线程中止
  * [如何优雅地中止线程？](https://www.cnblogs.com/wupeixuan/p/12578851.html)
+ * [这样终止线程，竟然会导致服务宕机？](https://www.cnblogs.com/vipstone/p/12648933.html)
  * 那 stop() 和 interrupt() 方法的主要区别是什么呢？
  * stop() 方法会真的杀死线程，如果线程持有 ReentrantLock 锁，被 stop() 的线程并不会自动调用 ReentrantLock 的 unlock() 去释放锁，
  * 那其他线程就再也没机会获得 ReentrantLock 锁，这实在是太危险了。所以该方法就不建议使用了，类似的方法还有 suspend() 和 resume() 方法，

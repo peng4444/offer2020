@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.greed;
 
 /**
  * @ClassName: Demo121
@@ -44,7 +44,7 @@ public class Demo121 {
     }
 
     /* *
-     * 功能描述:
+     * 功能描述: 贪心
      * @param:
      * @return:
      * @auther: pbj
