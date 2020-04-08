@@ -43,6 +43,26 @@ public class Demo20 {
         return stack.isEmpty();
     }
 
+
+    public boolean isValid1(String s) {
+        HashMap<Character,Character> map2 = new HashMap<>();
+        map2.put(')','(');
+        map2.put('}','{');
+        map2.put(']','[');
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0;i<s.length();i++){
+            char c = s.charAt(i);
+            if(map2.containsKey(c)){
+                char topElement = stack.empty()?'#':stack.pop();
+                if(topElement!=map.get(c)){
+                    return false;
+                }
+            }else{
+                stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
     /* *
      * 功能描述: 取巧法
      * 时间复杂度大

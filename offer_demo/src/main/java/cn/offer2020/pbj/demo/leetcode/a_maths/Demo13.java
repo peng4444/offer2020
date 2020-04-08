@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.a_maths;
 
 import java.util.HashMap;
 import java.util.Map;
