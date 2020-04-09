@@ -1,12 +1,13 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.a_recursion;
 
 /**
  * @ClassName: Demo90
  * @Author: pbj
  * @Date: 2019/12/28 19:58
- * @Description: TODO  单词搜索
+ * @Description: TODO  79.单词搜索
  */
 public class Demo79 {
+    //一个循环+一个dfs+去掉中间开销，复用原始数组。
     public boolean exist(char[][] board, String word) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {

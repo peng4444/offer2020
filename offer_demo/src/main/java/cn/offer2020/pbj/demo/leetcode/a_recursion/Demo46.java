@@ -1,6 +1,7 @@
 package cn.offer2020.pbj.demo.leetcode.a_recursion;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -30,23 +31,44 @@ public class Demo46 {
      */
 
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
         List<Integer> list = new ArrayList<>();
-        help(ans,list,nums);
-        return ans;
+        backtrack(res, list, nums);
+        return res;
     }
 
-    public void help(List<List<Integer>> ans, List<Integer> list, int[] nums) {
-        if (ans.size() == nums.length) {
-            ans.add(new ArrayList<>(list));
+    public void backtrack(List<List<Integer>> res, List<Integer> list, int[] nums) {
+        if(list.size() == nums.length) {
+            res.add(new ArrayList<Integer>(list));
             return;
         }
-        for(int i = 0;i<nums.length;i++){
-            if (!list.contains(nums[i])) {
-                list.add(nums[i]);
-                help(ans,list,nums);
+        for(int num : nums) {
+            if(!list.contains(num)) {
+                list.add(num);
+                backtrack(res, list, nums);
                 list.remove(list.size() - 1);
             }
+        }
+    }
+
+    List<List<Integer>> ans = new LinkedList<>();
+    public List<List<Integer>> permute1(int[] nums) {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        help(nums,list);
+        return ans;
+    }
+    public void help(int[] num,LinkedList<Integer> list){
+        if(list.size()==num.length){
+            ans.add(new LinkedList(list));
+            return;
+        }
+        for(int i = 0; i<num.length;i++){
+            if(list.contains(num[i])){
+                continue;
+            }
+            list.add(num[i]);
+            help(num,list);
+            list.removeLast();
         }
     }
 }
