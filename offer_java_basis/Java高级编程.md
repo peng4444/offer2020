@@ -39,8 +39,7 @@ sleep()和wait()的区别
             而wait()需要等待notify()进行唤醒
 ```
 ####4.综合实战：生产者和消费者
-  
-  ####5.Java基础类库
+####5.Java基础类库
         *String与StringBuffer相互转换--
          * 利用StringBuffer类的构造方法 public StringBuffer(String str)
          * 利用append()方法，public StringBuffer append(String str);
@@ -64,7 +63,7 @@ sleep()和wait()的区别
             finally：关键字，异常的统一出口
             finalize:方法，Object提供的方法，指的是对象回收前的收尾方法，就算抛出了如何异常，也不会影响到整个程序的正常执行
          对象克隆： protected Object clone() throws CloneNotSupportException
-  ####6.数字操作类
+####6.数字操作类
             [Random在高并发下的缺陷以及JUC对其的优化](https://www.cnblogs.com/CodeBear/p/10748407.html)
             四舍五入: public static long rund(double a)
             随机数：Random rend = new Random(); rend.nextInt(100);

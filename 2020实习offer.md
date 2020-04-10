@@ -2,6 +2,7 @@
 > 实习和秋招或许有所不同
 >> 目标公司：华为，美团，阿里巴巴
 [我艰难的春招之路](https://www.nowcoder.com/discuss/396949?type=2)
+[拿到阿里offer，回馈牛客~【更新中，附上笔记】](https://www.nowcoder.com/discuss/401895?type=2)
 [春招总结，阿里腾讯美团微软PayPal](https://www.nowcoder.com/discuss/396702?type=2)
 [美团java实习面经](https://www.nowcoder.com/discuss/374445?type=2)
 [美团后开实习面经（已收到邮件offer）](https://www.nowcoder.com/discuss/399276?type=2)
