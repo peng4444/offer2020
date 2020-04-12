@@ -1,0 +1,58 @@
+package cn.offer2020.pbj.demo.leetcode.tree;
+
+/**
+ * @ClassName: Demo110
+ * @Author: pbj
+ * @Date: 2020/1/12 14:53
+ * @Description: TODO  平衡二叉树 给定一个二叉树，判断它是否是高度平衡的二叉树。
+ * 一棵高度平衡二叉树定义为：一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
+ */
+public class Demo110 {
+    //定义一个二叉树
+    public class TreeNode{
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
+    private boolean res = true;
+    /* *
+     * 功能描述: 自底向上  时间复杂度为O(n)
+     * @param: [root]
+     * @return: boolean
+     * @auther: pbj
+     * @date: 2020/1/12 15:03
+     */
+    public boolean isBalanced(TreeNode root) {
+        maxDepth(root);
+        return  res;
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        if (Math.abs(left - right) > 1) {
+            res = false;
+        }
+        return 1 + Math.max(left, right);
+    }
+
+    //从顶至底（暴力法）
+    class Solution {
+        public boolean isBalanced(TreeNode root) {
+            if (root == null) return true;
+            return Math.abs(depth(root.left) - depth(root.right)) <= 1 && isBalanced(root.left) && isBalanced(root.right);
+        }
+
+        private int depth(TreeNode root) {
+            if (root == null) return 0;
+            return Math.max(depth(root.left), depth(root.right)) + 1;
+        }
+    }
+}
