@@ -36,6 +36,25 @@ public class Demo198 {
 
     //213.打家劫舍2
     public int rob2(int[] nums) {
+        if(nums.length < 2){
+            return nums.length == 1 ? nums[0] :  0;
+        }
+        int a = process(nums,1,nums.length);
+        int b= process(nums,0,nums.length-1);
+        return Math.max( a , b );
+    }
+    public int process(int[] nums,int begin,int end){
+        if(end == 1){
+            return nums[begin];
+        }
+        int[] dp = new int[nums.length];
+        dp[1] = nums[begin];
+        for(int i= 2; i < dp.length; i++ ){
+            dp[i] = Math.max(dp[i-1],dp[i-2]+nums[++begin]);
+        }
+        return dp[dp.length-1];
+    }
+    public int rob21(int[] nums) {
         if(nums.length==0) return 0;
         if(nums.length==1) return nums[0];
         return Math.max(help(nums,0,nums.length-2),help(nums,1,nums.length-1));
