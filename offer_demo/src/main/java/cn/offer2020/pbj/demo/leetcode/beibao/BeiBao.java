@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.dp;
+package cn.offer2020.pbj.demo.leetcode.beibao;
 
 /**
  * @ClassName: BeiBao
@@ -39,5 +39,18 @@ public class BeiBao {
                 m[i][j] = (a>b?a:b);
             }
         }
+    }
+
+    public int knapsack(int W, int N, int[] weights, int[] values) {
+        int[] dp = new int[W + 1];
+        for (int i = 1; i <= N; i++) {
+            int w = weights[i - 1], v = values[i - 1];
+            for (int j = W; j >= 1; j--) {
+                if (j >= w) {
+                    dp[j] = Math.max(dp[j], dp[j - w] + v);
+                }
+            }
+        }
+        return dp[W];
     }
 }
