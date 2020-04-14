@@ -47,4 +47,43 @@ public class Demo445 {
     }
 
     //递归法  计算出链表的长度，在链表前面补0
+
+
+    //链表翻转
+    public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        ListNode node1 = reverse(l1);
+        ListNode node2 = reverse(l2);
+        int carry = 0;
+        ListNode newHead = new ListNode(0);
+        ListNode curr = newHead;
+        while (node1 != null || node2 != null){
+            int x = node1 != null ? node1.val : 0;
+            int y = node2 != null ? node2.val : 0;
+            int num = (x + y + carry) % 10;
+            ListNode node = new ListNode(num);
+            curr.next = node;
+            curr = node;
+            carry = (x + y + carry) / 10;
+            if (node1 != null) node1 = node1.next;
+            if (node2 != null) node2 = node2.next;
+        }
+        // 最后加上 carry
+        if (carry > 0) curr.next = new ListNode(carry);
+        ListNode res = reverse(newHead.next);
+        return res;
+    }
+    // 链表反转
+    public ListNode reverse(ListNode head){
+        if (head == null) return null;
+        ListNode pre = null;
+        while (head != null){
+            ListNode next = head.next;
+            head.next = pre;
+            pre = head;
+            head = next;
+        }
+        return pre;
+    }
 }
