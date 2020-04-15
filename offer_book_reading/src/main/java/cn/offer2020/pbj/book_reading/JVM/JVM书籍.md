@@ -12,7 +12,10 @@
 ```markdown
 i++:不是原子性操作，虽然读取i和i=i+1都是原子性操作，两个合并就不是原子性操作，可能出现线程不安全。
 ```
+[JVM中的五大内存区域划分详解及快速扫盲](https://www.cnblogs.com/chaogu94/p/12529692.html)
 [JVM-内存模型](https://www.cnblogs.com/ljl150/p/12535658.html)
+
+[大厂面试经：高频率JVM面试问题整理！](https://www.cnblogs.com/xwgblog/p/11842394.html)
 
 
 [Java垃圾收集算法](https://www.cnblogs.com/rainple/p/10793500.html)

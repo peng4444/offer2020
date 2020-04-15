@@ -68,11 +68,20 @@ public class Demo367 {
      */
     public boolean idPerfectSquare2(int num) {
         if(num<2) return true;
-        long x = num/2;
-        while (x * x < num) {
+        long x = num;
+        while (x * x > num) {
             x = (x + num / x) / 2;
         }
         return (x * x == num);
+    }
+    //间隔为等差数列，使用这个特性可以得到从 1 开始的平方序列。
+    public boolean isPerfectSquare3(int num) {
+        int subSum = 1;
+        while(num>0){
+            num = num -subSum;
+            subSum = subSum + 2;
+        }
+        return num ==0;
     }
 
 //    public boolean isPerfectSquare3(int num) {
