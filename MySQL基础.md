@@ -7,5 +7,10 @@
 [MySQL面试总结](https://www.cnblogs.com/canchi/p/12040744.html)
 [索引-建立框架篇](https://www.cnblogs.com/michael9/p/12144435.html)
 
+
+[数据库并发处理 - 上的一把好"锁"](https://www.cnblogs.com/michael9/p/12167434.html)
+[索引很难么？带你从头到尾捋一遍MySQL索引结构，不信你学不会！](https://www.cnblogs.com/javazhiyin/p/12016500.html)
 ## 优秀的博客文章
 [后端程序员必备：书写高质量SQL的30条建议](https://www.cnblogs.com/jay-huaxiao/p/12546973.html)
+
+[教你如何迅速秒杀掉：99%的海量数据处理面试题](https://blog.csdn.net/v_july_v/article/details/7382693)

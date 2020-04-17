@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.tree;
+package cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree;
 
 /**
  * @ClassName: Demo235
@@ -20,7 +20,7 @@ public class Demo235 {
     /* *
      * 功能描述: 递归实现
      * @param: [root, p, q]
-     * @return: cn.offer2020.pbj.demo.leetcode.tree.Demo235.TreeNode
+     * @return: cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree.Demo235.TreeNode
      * @auther: pbj
      * @date: 2019/12/18 17:21
      */
@@ -38,7 +38,7 @@ public class Demo235 {
     /* *
      * 功能描述: 上面的递归迭代实现
      * @param: [root, p, q]
-     * @return: cn.offer2020.pbj.demo.leetcode.tree.Demo235.TreeNode
+     * @return: cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree.Demo235.TreeNode
      * @auther: pbj
      * @date: 2019/12/18 17:22
      */

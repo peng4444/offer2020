@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.tree;
+package cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

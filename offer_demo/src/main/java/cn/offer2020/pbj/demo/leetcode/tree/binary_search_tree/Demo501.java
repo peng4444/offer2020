@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.tree;
+package cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,7 +8,8 @@ import java.util.List;
  * @ClassName: Demo501
  * @Author: pbj
  * @Date: 2020/3/29 11:28
- * @Description: TODO
+ * @Description: TODO [501. 二叉搜索树中的众数](https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/)
+ * 给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。
  */
 public class Demo501 {
 
