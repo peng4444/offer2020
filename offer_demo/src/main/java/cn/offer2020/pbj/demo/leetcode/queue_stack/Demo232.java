@@ -6,8 +6,10 @@ import java.util.Stack;
  * @ClassName: Demo232
  * @Author: pbj
  * @Date: 2019/12/12 10:31
- * @Description: TODO 用栈实现队列
+ * @Description: TODO 232用栈实现队列
  */
+//栈的顺序为后进先出，而队列的顺序为先进先出。使用两个栈实现队列，一个元素需要经过两个栈才能出队列，在经
+//过第一个栈时元素顺序被反转，经过第二个栈时再次被反转，此时就是先进先出顺序。
 public class Demo232 {
     private Stack<Integer> stack1;
     private Stack<Integer> stack2;

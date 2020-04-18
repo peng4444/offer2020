@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.queue_stack;
+package cn.offer2020.pbj.demo.leetcode.hash;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class Demo217 {
         }
         return false;
     }
-    // Time Limit Exceeded
+    // 暴力 Time Limit Exceeded
     public boolean containsDuplicate3(int[] nums) {
         for (int i = 0; i < nums.length; ++i) {
             for (int j = 0; j < i; ++j) {

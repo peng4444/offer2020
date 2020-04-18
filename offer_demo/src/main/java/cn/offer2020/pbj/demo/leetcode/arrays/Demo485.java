@@ -4,7 +4,8 @@ package cn.offer2020.pbj.demo.leetcode.arrays;
  * @ClassName: Demo485
  * @Author: pbj
  * @Date: 2020/3/7 10:59
- * @Description: TODO 最大连续1的个数
+ * @Description: TODO 485.最大连续1的个数
+ * 给定一个二进制数组， 计算其中最大连续1的个数。
  */
 public class Demo485 {
 

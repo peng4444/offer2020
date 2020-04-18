@@ -1,6 +1,7 @@
 # JVM书籍
 ## 参考书籍
 **深入了解Java虚拟机**
+[参考博客：随笔分类 - Java虚拟机](https://www.cnblogs.com/ysocean/category/1151281.html)
 ## 参考博客
 [从多线程的三个特性理解多线程开发](https://www.cnblogs.com/dafanjoy/p/10020225.html)
 >> 1.共享变量

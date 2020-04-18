@@ -7,10 +7,10 @@ import java.util.Stack;
  * @ClassName: Demo20
  * @Author: pbj
  * @Date: 2019/12/12 10:01
- * @Description: TODO 有效的括号
+ * @Description: TODO 20.有效的括号
  */
 public class Demo20 {
-
+    //用栈实现括号匹配
     private HashMap<Character,Character> map;
     public Demo20(){
         this.map = new HashMap<>();

@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.string;
 
 import java.util.Arrays;
 
@@ -6,7 +6,8 @@ import java.util.Arrays;
  * @ClassName: Demo242
  * @Author: pbj
  * @Date: 2019/12/17 10:29
- * @Description: TODO 有效的字母异位词
+ * @Description: TODO 242.有效的字母异位词
+ * 给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
  */
 public class Demo242 {
 
@@ -52,7 +53,7 @@ public class Demo242 {
         }
         return true;
     }
-
+    //或者我们可以先用计数器表计算 ss，然后用 tt 减少计数器表中的每个字母的计数器。如果在任何时候计数器低于零，我们知道 tt 包含一个不在 ss 中的额外字母，并立即返回 FALSE。
     public boolean isAnagram3(String s,String t) {
         if (s.length() != t.length()) {
             return false;

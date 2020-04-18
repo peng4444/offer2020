@@ -7,8 +7,10 @@ import java.util.Queue;
  * @ClassName: Demo225
  * @Author: pbj
  * @Date: 2019/12/12 11:05
- * @Description: TODO 用队列实现栈
+ * @Description: TODO 225.用队列实现栈
  */
+//在将一个元素 x 插入队列时，为了维护原来的后进先出顺序，需要让 x 插入队列首部。而队列的默认插入顺序是队列
+//尾部，因此在将 x 插入队列尾部之后，需要让除了 x 之外的所有元素出队列，再入队列。
 public class Demo225 {
     private Queue<Integer> queue1;
     int top;
