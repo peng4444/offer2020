@@ -4,7 +4,8 @@ package cn.offer2020.pbj.demo.leetcode.tree;
  * @ClassName: Demo208
  * @Author: pbj
  * @Date: 2019/12/28 19:28
- * @Description: TODO 实现 Trie (前缀树) 字典树
+ * @Description: TODO 208.实现 Trie (前缀树) 字典树
+ * [Trie(字典树、前缀树)](https://www.cnblogs.com/reminis/p/12724463.html)
  */
 public class Demo208 {
 

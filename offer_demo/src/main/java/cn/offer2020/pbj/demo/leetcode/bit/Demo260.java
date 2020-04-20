@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.maths;
+package cn.offer2020.pbj.demo.leetcode.bit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,7 @@ import java.util.Map;
  * @Author: pbj
  * @Date: 2020/4/3 11:41
  * @Description: TODO 260. 只出现一次的数字 III
+ * 给定一个整数数组 nums，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。
  */
 public class Demo260 {
 
@@ -16,14 +17,11 @@ public class Demo260 {
         // difference between two numbers (x and y) which were seen only once
         int bitmask = 0;
         for (int num : nums) bitmask ^= num;
-
         // rightmost 1-bit diff between x and y
         int diff = bitmask & (-bitmask);
-
         int x = 0;
         // bitmask which will contain only x
         for (int num : nums) if ((num & diff) != 0) x ^= num;
-
         return new int[]{x, bitmask^x};
     }
 

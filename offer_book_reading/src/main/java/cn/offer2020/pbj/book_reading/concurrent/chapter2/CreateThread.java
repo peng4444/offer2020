@@ -24,34 +24,32 @@ public class CreateThread {
 
     //2.实现Runnable接口
     public static class MyThread1 implements Runnable {
-
         @Override
         public void run() {
             System.out.println("实现Runnable接口，创建线程");
         }
     }
+
     //3.实现Callable接口
     public static class MyThread2 implements Callable {
-
         @Override
         public Object call() throws Exception {
             return "实现Runnable接口，创建线程";
         }
     }
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         //1.Thread类线程启动
         Thread thread1 = new MyThread();
         thread1.start();
-        //2.Runnable接口线程启动
+        //2.Runnable接口线程 调用Thread启动
         MyThread1 thread2 = new MyThread1();
         new Thread(thread2).start();
-        //3.Callable接口线程启动 FutureTask获取返回值
+        //3.Callable接口线程 调用Thread启动 FutureTask获取返回值
         MyThread2 thread3 = new MyThread2();
         FutureTask<Integer> futureTask = new FutureTask<>(thread3);
         new Thread(futureTask).start();
         System.out.println(futureTask.get());
-
         //future类
-
     }
 }
