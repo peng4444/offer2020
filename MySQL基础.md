@@ -18,3 +18,19 @@
 
 [很用心的为你写了 9 道 MySQL 面试题](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247488127&idx=4&sn=040019b9991f9d62dcb0ded7d6cb7d1a&chksm=fa0e7dfecd79f4e8e2ab5b0e84ce7efa25589ebbb9eecf1b51d5413bc7edfc501a903c859201&mpshare=1&scene=23&srcid=&sharer_sharetime=1587272608819&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 
+
+
+## LeetCode MySQL题目
+>> 196. 删除重复的电子邮箱
+```mysql
+DELETE p1.* from Person p1, Person p2 where p1.Email = p2.Email AND p1.Id>p2.Id;
+delete p1 from (Person as p1 left join Person as p2 on p1.Email = p2.Email) where p1.Id = p2.Id;
+delete from Person where Id not in (
+    select Id from(
+        select MIN(Id) as Id
+        from Person
+        GROUP BY Email
+    ) as temp
+)
+
+```

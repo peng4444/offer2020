@@ -144,6 +144,8 @@
         String类对象的内容一旦声明则不可改变，对象内容的改变依靠的是引用地址的改变
 ```    
 ###8.综合实战
+``
+``
 ###9.对象比较
 ```markdown
 对象比较一定是某一个类之间定义的功能
@@ -242,6 +244,8 @@
                  		  * Boolean类: public static boolean parseBoolean(String s)
                  		  */
 ###22.包
+```
+```
 ###23.访问权限控制 ：private default protected public
     类名称每一个单词的首字母大写，其余字母小写：StudentInfo
     属性名称第一个单词字小写，其余每个单词的首字母大写：studentName

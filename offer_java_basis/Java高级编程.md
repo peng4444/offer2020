@@ -70,7 +70,7 @@ sleep()和wait()的区别
             大整数操作类：BigInteger 构造方法：public BigInteger(String str);
             大浮点数：BigDecimal 构造方法：public BigDecimal(String str)
                                 构造方法：public BigDecimal(double val)
-  ####7.日期操作类
+####7.日期操作类
             日期处理类Date
                 有参构造：public Date(long date);接收long型数据 public long getTime();转换为long型
             日期格式化 SimpleDateFormat
@@ -78,7 +78,7 @@ sleep()和wait()的区别
              * 将Date转换为String :public final String frmat(Date date)
              * 将String转换为Date:public Date parse(String source) throws ParseException
              Calender主要是进行日期计算
-  ####8.比较器
+####8.比较器
             Arrays类
              * 二分查找法：public static int binarySearch(数据类型[]a,数据类型 key)
              * 数组比较 public static boolean equals(数据类型[]a,数据类型 []b)
@@ -94,7 +94,7 @@ sleep()和wait()的区别
                 public int compareTo()方法
             java.util.Comparator是一个专门定义一个指定类的比较规则，属于挽救的比较操作，里面有两个方法
                 public int compare() , public boolean equals()
-  ####9.正则表达式
+####9.正则表达式
         正则表达式标记
             所有的正则可以使用的标记都在 java.util.regex.Pattern面定义
             1、单个字符（数量：1）
@@ -155,8 +155,8 @@ sleep()和wait()的区别
         3.通过forName和newInstance方法加载类
         4.通过反射机制调用类的方法
 ```
-  ####11.国际化
-  #####12.文件操作类   
+####11.国际化
+####12.文件操作类   
         [](https://www.cnblogs.com/czwbig/p/10007201.html)
         Java.io包中包括五个核心类:File InputStream OutputStream Reader Writer  一个核心接口:Serializable
             File类 [](https://www.cnblogs.com/czwbig/p/10011718.html)
@@ -167,7 +167,7 @@ sleep()和wait()的区别
                 删除文件。
                 检查路径是文件还是目录。
                 读取目录中的文件列表
-  ####13.字节流和字符流
+####13.字节流和字符流
             字节流（JDK1.0）：InputStream OutputStream[](https://www.cnblogs.com/czwbig/p/10007289.html)
                 InputStream：数据读操作 OutputStream：数据写操作
             字符流（JDK1.1）：Reader：字符输出流 Writer：字符输入流
@@ -181,20 +181,79 @@ sleep()和wait()的区别
              内存流
              	 * 字节内存流： ByteArrayInputStream BytearrayOutputStream
              	 * 字符内存流：CharArrayReader CharArrayWriter
-  ####14.IO辅助概念
+####14.IO辅助概念
     
-  ####15.打印流
-             打印流：PrintStream（打印字节流） PrintWriter(打印字符流) 弥补OutPutStream输出类型不同的影响
-             缓冲区流
-             	 * 缓冲输入流：
-             	 * 字符缓冲区流：BufferedReader，BufferedWriter
-             	 * 字节缓冲区流：BufferedInputStream,BufferedOutputStream
-             扫描流：Scanner InputStream的功能不足
-             对象序列化：将保存在内存中的对象数据转换为二进制数据流进行操作传输的操作，一定要实现java.io.Serializable接口
-                不是所有的类都需要被序列化，只有需要被传输的对象所在的的类才需要进行序列化
-                https://www.cnblogs.com/chenbenbuyi/p/10741195.html
-                https://www.cnblogs.com/9dragon/p/10901448.html
-  
+####15.打印流,缓冲区流，扫描流和序列化
+##### 15.1 打印流
+```markdown
+打印流：PrintStream（打印字节流） PrintWriter(打印字符流) 弥补OutPutStream输出类型不同的影响
+```
+##### 15.2 缓冲区流
+```markdown
+缓冲区流
+* 缓冲输入流：
+* 字符缓冲区流：BufferedReader，BufferedWriter
+* 字节缓冲区流：BufferedInputStream,BufferedOutputStream
+```
+##### 15.3 扫描流
+```markdown
+扫描流：Scanner InputStream的功能不足
+```
+##### 15.4 序列化
+[Java程序员必备：序列化全方位解析](https://www.cnblogs.com/jay-huaxiao/p/12730437.html)-- 
+[java序列化，看这篇就够了](https://www.cnblogs.com/9dragon/p/10901448.html) --
+[序列化/反序列化 -写入任意对象与读出的相关问题](https://www.cnblogs.com/huxiaobai/p/11607989.html)
+###### 15.4.1 序列化的几个问题？
+```markdown
+1、什么是序列化？ 将某个对象保存到磁盘上或者通过网络传输，那么这个类应该实现Serializable接口或者Externalizable接口之一。
+序列化：把Java对象转换为字节序列的过程 -- 反序列：把字节序列恢复为Java对象的过程
+对象序列化：将保存在内存中的对象数据转换为二进制数据流进行操作传输的操作，一定要实现java.io.Serializable接口
+不是所有的类都需要被序列化，只有需要被传输的对象所在的的类才需要进行序列化。
+2、为什么需要序列化？
+Java对象是运行在JVM的堆内存中的，如果想在JVM停止后，把这些对象保存到磁盘或者通过网络传输到另一远程机器，
+怎么办呢？磁盘这些硬件可不认识Java对象，它们只认识二进制这些机器语言，所以我们就要把这些对象转化为字节数组，
+这个过程就是序列化啦~
+3、序列化的用途
+1） 序列化机制可以让对象地保存到硬盘上，减轻内存压力的同时，也起了持久化的作用；
+2） 序列化机制让Java对象在网络传输不再是天方夜谭。
+```
+###### 15.4.2 Java序列化常用API
+```markdown
+java.io.ObjectOutputStream 使用ObjectOutputStream类的writeObject方法，实现序列化
+java.io.ObjectInputStream 使用ObjectInputStream类的readObject方法，实现反序列化
+java.io.Serializable 
+java.io.Externalizable
+```
+###### 15.4.3 序列化的使用
+###### 15.4.4 日常开发序列化的一些注意点
+```markdown
+1.static静态变量和transient 修饰的字段是不会被序列化的
+静态（static）成员变量是属于类级别的，而序列化是针对对象的~所以不能序列化哦。transient关键字，它可以阻止修饰的字段被序列化
+到文件中，在被反序列化后，transient 字段的值被设为初始值，比如int型的值会被设置为 0，对象型初始值会被设置为null。
+2.serialVersionUID问题
+JAVA序列化的机制是通过判断类的serialVersionUID来验证版本是否一致的。
+阿里开发手册，强制要求序列化类新增属性时，不能修改serialVersionUID字段~
+3.如果某个序列化类的成员变量是对象类型，则该对象类型的类必须实现序列化
+如果一个可序列化的类的成员不是基本类型，也不是String类型，那这个引用类型也必须是可序列化的；否则，会导致此类不能序列化。
+4.子类实现了序列化，父类没有实现序列化，父类中的字段丢失问题
+子类实现了Serializable，父类没有实现Serializable接口的话，父类不会被序列化。
+```
+###### 15.4.5 序列化常见面试题
+```markdown
+1.序列化的底层是怎么实现的？
+2.序列化时，如何让某些成员不要序列化？ 可以用transient关键字修饰
+3.在 Java 中,Serializable 和 Externalizable 有什么区别
+Externalizable继承了Serializable，给我们提供 writeExternal() 和 readExternal() 方法, 让我们可以控制
+Java的序列化机制, 不依赖于Java的默认序列化。正确实现 Externalizable 接口可以显著提高应用程序的性能。
+4.serialVersionUID有什么用？
+JAVA序列化的机制是通过判断类的serialVersionUID来验证版本是否一致的。在进行反序列化时，JVM会把传来的字节流中的serialVersionUID
+和本地相应实体类的serialVersionUID进行比较，如果相同，反序列化成功，如果不相同，就抛出InvalidClassException异常。
+5.是否可以自定义序列化过程, 或者是否可以覆盖 Java 中的默认序列化过程？
+可以的
+6.在 Java 序列化期间,哪些变量未序列化？
+static静态变量和transient 修饰的字段是不会被序列化的。静态（static）成员变量是属于类级别的，
+而序列化是针对对象的。transient关键字修字段饰，可以阻止该字段被序列化到文件中。
+```
 ####16.System类对IO的支持
   
 ####17.IO高级应用
@@ -222,11 +281,12 @@ sleep()和wait()的区别
     集合输出 Iterator,ListIterator(双向集合输出),Enumeration,for each ,Enumeration只有在Vector接口中使用
 ####20.JDBC简介
   
-#### Java编程
+#### 21.Java编程
 ```
-    java面向对象编程：继承性，派生性，多态性
-    Java面向切面编程 ：Java静态接口，Java动态代理，字节码提升
-    Java面向元数据编程 ：泛型，反射，注解
-    Java面向函数编程：函数式接口，函数式默认方法，函数式方法引用
-    Java面向模块编程
+java面向对象编程：继承性，派生性，多态性
+Java面向切面编程 ：Java静态接口，Java动态代理，字节码提升
+Java面向元数据编程 ：泛型，反射，注解
+Java面向函数编程：函数式接口，函数式默认方法，函数式方法引用
+Java面向模块编程    
 ```
+

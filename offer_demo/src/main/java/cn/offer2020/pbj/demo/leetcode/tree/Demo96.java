@@ -4,7 +4,8 @@ package cn.offer2020.pbj.demo.leetcode.tree;
  * @ClassName: Demo96
  * @Author: pbj
  * @Date: 2020/3/12 16:15
- * @Description: TODO
+ * @Description: TODO 96. 不同的二叉搜索树
+ * 给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
  */
 public class Demo96 {
 
@@ -22,10 +23,7 @@ public class Demo96 {
     }
 
     /* *
-     * 功能描述:  作者：guanpengchn
-    链接：https://leetcode-cn.com/problems/unique-binary-search-trees/solution/hua-jie-suan-fa-96-bu-tong-de-er-cha-sou-suo-shu-b/
-    来源：力扣（LeetCode）
-    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     * 功能描述:
      * @param:
      * @return:
      * @auther: pbj
