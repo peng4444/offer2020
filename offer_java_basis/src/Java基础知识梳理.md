@@ -67,6 +67,30 @@
 [[Array List和Linked List实现分析](https://www.cnblogs.com/fenjyang/p/11480944.html)]
 
 [[Java 迭代接口：Iterator、ListIterator 和 Spliterator](https://www.cnblogs.com/liululee/p/11416038.html)]
+
 [Comparable接口的实现和使用](https://www.cnblogs.com/wl-centrinc/p/11872758.html)
+
+### 20200423
+[口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
+```markdown
+1.数组转List:Arrays.toList(arrays)：
+        不支持增删元素，会抛出UnsupportedOperationException
+        共享原始数组，修改原始数组，影响新集合；修改新集合，影响原始数组。
+        返回结果为Arrays一个内部类，修复List<String> list = new ArrayList<>(Arrays.asList(arrays));
+2.List.subList()：
+        生成新集合也会与原始 List 互相影响。SubList持有原始List引用，导致原有List无法被释放
+        ArrayList的subList结果不可强转成ArrayList。subList返回的是ArrayList的内部类SubList，并不是ArrayList而是
+        ArrayList的一个视图，对于SubList子列表的所有操作最终会反映到原列表上。
+3.foreach删除元素：
+        foreach这种迭代方式实际就是 Iterator 迭代器实现方式 所以ArrayList可能报异常
+        CopyOnWriteList写操作发生在快照上，不会发生异常。
+        修复 使用 Iterator#remove 删除元素，JDK1.8 List#removeIf
+4.不可变集合：
+        不可变集合只能被读取，不能做任何修改，包括增加，删除，修改，从而保护不可变集合的安全。
+        不可变集合仅仅是原集合的视图，原集合任何改动都会影响不可变集合。
+        使用 JDK9 List#of 方法。使用 Guava immutable list两种方式防止上。
+5.使用工具类Arrays.asList()把数组转换成集合时，不能使用其修改集合相关的方法，它的add/remove/clear方法会抛出
+UnsupportedOperationException异常。asList的返回对象是一个Arrays内部类，并没有实现集合的修改方法。
+```
 ## JVM
 

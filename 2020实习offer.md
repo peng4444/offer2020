@@ -17,6 +17,11 @@
 [美团前三面小总结（后端）](https://www.nowcoder.com/discuss/385204?type=2)
 [美团_Java开发_一二面面经](https://www.nowcoder.com/discuss/401264?type=2)
 
+[程序员常见智力题30道 精](https://www.nowcoder.com/discuss/414594?type=5)
+
+[4.22字节跳动客户端一二三面](https://www.nowcoder.com/discuss/414964?type=2)
+
+[京东Java实习一面面经](https://www.nowcoder.com/discuss/414996?type=2)
 
 作者：Rinsing呀
 链接：https://www.nowcoder.com/discuss/411309?type=2
