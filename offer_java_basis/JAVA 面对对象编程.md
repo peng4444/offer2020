@@ -255,21 +255,25 @@
 ###24.异常
 ###25.类图
 ###27.Java5新特性
-        可变参数 ： 实现任意多个整数数据相加操作,(相同数据类型，多个参数) 
-            private static int add(int ... data){  }
-        foreach循环： 每一次循环实际上都表示数组的角标增长，会取得一个数组的内容，并且将其设置给x 
-            for(int x : data) {  }  
-        静态导入：import static cn.pbj.utils.* 导入所有的静态方法
+```markdown
+可变参数 ： 实现任意多个整数数据相加操作,(相同数据类型，多个参数) 
+private static int add(int ... data){  }
+foreach循环： 每一次循环实际上都表示数组的角标增长，会取得一个数组的内容，并且将其设置给x 
+for(int x : data) {  }  
+静态导入：import static cn.pbj.utils.* 导入所有的静态方法
+```
 ###28.泛型
         类在定义的时候，可以使用一个标记，此标记就表示类中属性或者方法参数的类型标记，使用的时候再动态的设置类型
         泛型解决的是想下转型所带来的安全隐患，其核心就是在扫描类或接口时不设置参数或属性的内容
         通配符:？ 可以接受任意的泛型类型，只能够取出，不能修改
 ###29.枚举
-        enum是一个关键字，而Enum是一个抽象类
-        使用enum定义枚举就相当于一个类继承了Enum这个抽象类 
-        枚举之中定义的构造方法不能使用public声明，如果没有无参构造，请手工调用构造传递参数
-        枚举对象必须放在首行，随后才可以定义属性，构造和普通方法。
-        枚举的遍历 A[] a = A.values; [聊一聊Java的枚举enum](https://www.cnblogs.com/LiaHon/p/11283026.html)
+```markdown
+enum是一个关键字，而Enum是一个抽象类
+使用enum定义枚举就相当于一个类继承了Enum这个抽象类 
+枚举之中定义的构造方法不能使用public声明，如果没有无参构造，请手工调用构造传递参数
+枚举对象必须放在首行，随后才可以定义属性，构造和普通方法。
+枚举的遍历 A[] a = A.values; [聊一聊Java的枚举enum](https://www.cnblogs.com/LiaHon/p/11283026.html)
+```
 ###30.Annotation
         @Override 准确覆写 @Deprecated 过期声明  @SuppressWarnings压制警告
 ###31.Java8新特性

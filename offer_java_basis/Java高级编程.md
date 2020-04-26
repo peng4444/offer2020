@@ -290,3 +290,11 @@ Java面向函数编程：函数式接口，函数式默认方法，函数式方�
 Java面向模块编程    
 ```
 
+#### Java的自动装箱和拆箱
+[Java的自动装箱和拆箱](cnblogs.com/lewisyoung/p/12769084.html)
+```markdown
+自动装箱就是讲基础类型转换成包装类型，自动拆箱就是讲包装类型转换成基础类型。
+在Integer i1 = i0;时，系统执行的是 Integer.valueOf 的方法，在int i2 = i1;时，系统执行了 Integer.intValue 方法
+在 equals 的时候，int 参数先被自动装箱为 Integer 类型，然后进行比较。在 == 比较时，Integer 类型自动拆箱。
+```
+
