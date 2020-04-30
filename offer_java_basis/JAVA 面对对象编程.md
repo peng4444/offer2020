@@ -253,6 +253,11 @@
     常量名称使用大写字母： MSG
     包名称使用小写字母：cn.cn.cn
 ###24.异常
+```markdown
+Throwable可以用来表示任何可以作为异常抛出的类，分为两种：Error和Exception。其中Error用来表示JVM无法处理的错误，Exception分为两种：
+    受检异常 ：需要用 try...catch... 语句捕获并进行处理，并且可以从异常中恢复；
+    非受检异常 ：是程序运行时错误，例如除 0 会引发 Arithmetic Exception，此时程序崩溃并且无法恢复。
+```
 ###25.类图
 ###27.Java5新特性
 ```markdown
@@ -263,9 +268,11 @@ for(int x : data) {  }
 静态导入：import static cn.pbj.utils.* 导入所有的静态方法
 ```
 ###28.泛型
-        类在定义的时候，可以使用一个标记，此标记就表示类中属性或者方法参数的类型标记，使用的时候再动态的设置类型
+```markdown
+类在定义的时候，可以使用一个标记，此标记就表示类中属性或者方法参数的类型标记，使用的时候再动态的设置类型
         泛型解决的是想下转型所带来的安全隐患，其核心就是在扫描类或接口时不设置参数或属性的内容
         通配符:？ 可以接受任意的泛型类型，只能够取出，不能修改
+```
 ###29.枚举
 ```markdown
 enum是一个关键字，而Enum是一个抽象类
@@ -275,8 +282,11 @@ enum是一个关键字，而Enum是一个抽象类
 枚举的遍历 A[] a = A.values; [聊一聊Java的枚举enum](https://www.cnblogs.com/LiaHon/p/11283026.html)
 ```
 ###30.Annotation
-        @Override 准确覆写 @Deprecated 过期声明  @SuppressWarnings压制警告
+```markdown
+@Override 准确覆写 @Deprecated 过期声明  @SuppressWarnings压制警告
+```
 ###31.Java8新特性
+```markdown
         接口增强，使用default与static在接口中定义方法
             允许在接口里面定义普通方法
             允许在接口里面定义static方法，直接调用接口static方法使用
@@ -309,6 +319,7 @@ enum是一个关键字，而Enum是一个抽象类
             		//断言型接口 String类里面有一个equalsIgnoreCase()方法
             		Predicate<String> pre = "Hello" :: equalsIgnoreCase;
             		System.out.println(pre.test("hello"));
+```
 ###32.Java9新特性
   
 ###33.Java10新特性
