@@ -1,8 +1,12 @@
 #MySQL学习面试总结
 ## MySQL基础
+[MySQL基础知识和常用命令总结](https://www.cnblogs.com/justisme/p/12797955.html)
+
+[分享自己整理的MySQL基础笔记](https://www.nowcoder.com/discuss/353707)
+
 ###参考资料
 [CyC2018大佬]()
-[分享自己整理的MySQL基础笔记](https://www.nowcoder.com/discuss/353707)
+
 [写一手好 SQL 很有必要](https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247485420&idx=1&sn=2dad5815b5cf5d65ac386cd115403de0&chksm=f9f51c08ce82951e7cff92cc3888104cac2e24a16f6c5f1ee701a359a5b7e16cbaa5f458aaab&mpshare=1&scene=23&srcid=&sharer_sharetime=1576124148148&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 [1000行MySQL学习笔记](https://mp.weixin.qq.com/s?__biz=MzIxNTQ0MDQxNg==&mid=2247486626&idx=1&sn=360e0ff2e280e800a5e6defb2cc5aabf&chksm=979901eda0ee88fbaf17f81b6cbf1d870aa59bd78ea2fcf25a91e9ca157f2c77f9d6f6bb7f95&mpshare=1&scene=23&srcid=&sharer_sharetime=1575470170943&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 [MySQL高手系列](https://www.cnblogs.com/itsoku123/category/1539183.html)
@@ -60,6 +64,8 @@ MyISAM 存储引擎支持空间数据索引（R-Tree），可以用于地理数�
 可以有效地使用任意维度来进行组合查询。必须使用 GIS 相关的函数来维护数据。
 ```
 ### 索引优化
+[MySQL如何创建一个好索引？创建索引的5条建议](https://www.cnblogs.com/chenkeyu/p/12799207.html)
+
 #### 1.独立的列
 ```markdown
 在进行查询时，索引列不能是表达式的一部分，也不能是函数的参数，否则无法使用索引。
