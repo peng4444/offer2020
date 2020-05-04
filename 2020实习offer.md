@@ -1,6 +1,8 @@
 # 2020实习offer
-> 实习和秋招或许有所不同
+>> 实习和秋招或许有所不同
 >> 目标公司：华为，美团，阿里巴巴
+[总结了一下秋招在杭州可能的企业](https://www.nowcoder.com/discuss/421982)
+>> 目标工作地：杭州-上海
 [我艰难的春招之路](https://www.nowcoder.com/discuss/396949?type=2)
 [拿到阿里offer，回馈牛客~【更新中，附上笔记】](https://www.nowcoder.com/discuss/401895?type=2)
 [春招总结，阿里腾讯美团微软PayPal](https://www.nowcoder.com/discuss/396702?type=2)
