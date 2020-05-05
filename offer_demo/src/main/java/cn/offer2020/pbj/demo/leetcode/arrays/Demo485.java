@@ -8,6 +8,20 @@ package cn.offer2020.pbj.demo.leetcode.arrays;
  * 给定一个二进制数组， 计算其中最大连续1的个数。
  */
 public class Demo485 {
+    //自己写的
+    public int findMaxConsecutiveOnes0(int[] nums) {
+        int curLen = 0;
+        int len = Integer.MIN_VALUE;
+        for(int i = 0;i<nums.length;i++){
+            if(nums[i]==1){
+                curLen ++;
+            }else{
+                curLen = 0;
+            }
+            len = Math.max(len,curLen);
+        }
+        return len;
+    }
 
     public int findMaxConsecutiveOnes(int[] nums) {
         int count = 0,maxCount =0;
