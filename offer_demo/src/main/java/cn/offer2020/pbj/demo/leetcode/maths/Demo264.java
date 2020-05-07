@@ -10,22 +10,19 @@ import java.util.PriorityQueue;
  * @Description: TODO 264. 丑数 II
  */
 public class Demo264 {
+    //三指针，第一个丑数是1，以后的丑数都是基于前面的小丑数分别乘2，3，5构成的。
+    // 我们每次添加进去一个当前计算出来个三个丑数的最小的一个，并且是谁计算的，谁指针就后移一位。
     public int nthUglyNumber(int n) {
-        int[] num = new int[n];
-        num[0] = 1;
-        int index2 = 0,index3 = 0,index5 = 0;
-        int[] result=new int[n];
-        result[0]=1;
-
-        int begin = 1;
-        while(begin<n){
-            result[begin]=Math.min(result[index2]*2,Math.min(result[index3]*3,result[index5]*5));
-            if(result[begin]==result[index2]*2) index2++;
-            if(result[begin]==result[index3]*3) index3++;
-            if(result[begin]==result[index5]*5) index5++;
-            begin++;
+        int num2 = 0,num3 = 0,num5 = 0;
+        int[] ans = new int[n];
+        ans[0] = 1;
+        for(int i = 1;i<n;i++){
+            ans[i] = Math.min(ans[num2]*2,Math.min(ans[num3]*3,ans[num5]*5));
+            if(ans[i] == ans[num2]*2) num2++;
+            if(ans[i] == ans[num3]*3) num3++;
+            if(ans[i] == ans[num5]*5) num5++;
         }
-        return result[--begin];
+        return ans[n-1];
     }
     //堆
     class Ugly {

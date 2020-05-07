@@ -174,9 +174,9 @@ static:静态变量：又称为类变量，也就是说这个变量属于类的�
 #### 2.Java容器中的设计模式
 [设计模式 - 迭代器模式详解及其在ArrayList中的应用](https://www.cnblogs.com/songjilong/p/12807345.html)
 ```markdown
-迭代器模式：Collection继承了Iterable 接口，其中的iterator()方法能够产生一个Iterator对象，通过这个对象就可以迭代遍历Collection中的元素。
-            从 JDK 1.5 之后可以使用 foreach 方法来遍历实现了 Iterable 接口的聚合对象。
-适配器模式：java.util.Arrays#asList() 可以把数组类型转换为 List 类型。
+迭代器模式：Collection继承了Iterable接口，iterator()方法能够产生一个Iterator对象，通过这个对象就可以迭代遍历Collection中的元素。
+            从 JDK1.5之后可以使用foreach方法来遍历实现了Iterable接口的聚合对象。
+适配器模式：java.util.Arrays#asList()可以把数组类型转换为List类型。
             应该注意的是asList()的参数为泛型的变长参数，不能使用基本类型数组作为参数，只能使用相应的包装类型数组。
 ```
 
@@ -194,13 +194,13 @@ static:静态变量：又称为类变量，也就是说这个变量属于类的�
 
 [红黑树这个数据结构，让你又爱又恨？看了这篇，妥妥的征服它](https://www.cnblogs.com/wskwbog/p/11236136.html)
 
-[[Java集合 HashSet的原理及常用方法](https://www.cnblogs.com/LiaHon/p/11257805.html)]
+[[Java集合HashSet的原理及常用方法](https://www.cnblogs.com/LiaHon/p/11257805.html)]
 
 [[TreeMap 还能排序？分析下源码就明白了](https://www.cnblogs.com/wskwbog/p/11245010.html)]
 
-[[这 3 个 Set 集合的实现有点简单，那来做个总结吧](https://www.cnblogs.com/wskwbog/p/11260056.html)]
+[[这 3 个 Set集合的实现有点简单，那来做个总结吧](https://www.cnblogs.com/wskwbog/p/11260056.html)]
 
-[[HashMap、Hash Table、ConcurrentHashMap](https://www.cnblogs.com/wudidamowang666/p/11286279.html)]
+[[HashMap、HashTable、ConcurrentHashMap](https://www.cnblogs.com/wudidamowang666/p/11286279.html)]
 
 [[Java集合系列(四)：HashMap、Hashtable、LinkedHashMap、TreeMap的使用方法及区别](https://www.cnblogs.com/zwwhnly/p/11304627.html)]
 

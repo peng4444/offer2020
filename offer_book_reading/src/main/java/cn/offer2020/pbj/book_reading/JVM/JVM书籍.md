@@ -12,7 +12,9 @@
 >> 参考：cyc2018大佬
 
 >> 参考：[Java程序员必备基础结构图](https://www.cnblogs.com/jay-huaxiao/p/12819379.html)
-### 运行时数据区域
+
+>> 参考：[一文带你学会java的jvm精华知识点](https://www.cnblogs.com/jichi/p/12827921.html)
+### 1.运行时数据区域
 ![运行时数据区域](https://user-gold-cdn.xitu.io/2020/4/29/171c6a4017b17e4a?w=906&h=699&f=png&s=69259)
 ```markdown
 程序计数器(线程私有):记录正在执行的虚拟机字节码指令的地址（如果正在执行的是本地方法则为空）。
@@ -33,8 +35,26 @@ Java虚拟机栈(线程私有):每个Java方法在执行的同时会创建一个
 方法区(线程共享):用于存放已被加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。
         运行时常量池:运行时常量池是方法区的一部分。
 ```
-### 
-### JVM是如果确定对象是垃圾对象的呢？JVM判断对象是否存活算法：
+### 2.Java类实例化时，JVM执行顺序？
+```markdown
+1.父类静态代码块
+2.父类静态变量
+3.子类静态代码块
+3.子类静态变量
+4.父类成员变量赋值
+5.父类构造方式开始执行
+6.子类成员变量赋值
+7.子类构造方式开始执行
+需要注意的地方是静态变量和静态代码块谁在前面谁先执行。
+```
+### 3.JVM虚拟机何时结束生命周期
+```markdown
+执行了System.exit()方法；
+程序正常执行结束；
+程序在执行过程中遇到了异常或错误而异常终止；
+由于操作系统出现错误而导致Java虚拟机进程；
+```
+### 4.JVM是如果确定对象是垃圾对象的呢？JVM判断对象是否存活算法：
 ```markdown
 垃圾收集主要是针对堆和方法区进行。
 程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后就会消失，因此不需要对这三个区域进行垃圾回收。
@@ -57,7 +77,7 @@ Java虚拟机栈(线程私有):每个Java方法在执行的同时会创建一个
 finalize():当一个对象可被回收时，如果需要执行该对象的finalize()方法，那么就有可能在该方法中让对象重新被引用，
             从而实现自救。自救只能进行一次，如果回收的对象之前调用了finalize()方法自救，后面回收时不会再调用该方法。
 ```
-### JVM垃圾回收算法
+### 5.JVM垃圾回收算法
 [Java垃圾收集算法](https://www.cnblogs.com/rainple/p/10793500.html)
 [JVM垃圾回收算法详解](https://www.cnblogs.com/xwgblog/p/11703104.html)
 ```markdown
@@ -77,7 +97,7 @@ finalize():当一个对象可被回收时，如果需要执行该对象的finali
         新生代使用：复制算法
         老年代使用：标记 - 清除 或者 标记 - 整理 算法
 ```
-### 垃圾回收器
+### 6.垃圾回收器
 [一文了解JVM全部垃圾回收器，从Serial到ZGC](https://www.cnblogs.com/zackku/p/10056865.html)
 ```markdown
 Serial收集器:(新生代收集器)
@@ -117,12 +137,13 @@ G1收集器:(混合收集器)
         而且停顿用户线程将大幅度提高收集效率。
 ZGC(Z Garbage Collector): 
     在JDK 11中新加入的具有实验性质的低延迟垃圾收集器，
-    
+jdk1.7 默认垃圾收集器Parallel Scavenge（新生代）+Parallel Old（老年代）
+jdk1.8 默认垃圾收集器Parallel Scavenge（新生代）+Parallel Old（老年代）
+jdk1.9 默认垃圾收集器G1
+ -XX:+PrintCommandLineFlagsjvm参数可查看默认设置收集器类型
+ -XX:+PrintGCDetails亦可通过打印的GC日志的新生代、老年代名称判断   
 ```
-
-
-  
-### 内存分配与回收策略
+### 7.内存分配与回收策略
 [垃圾回收与内存分配策略](https://www.cnblogs.com/CodeMLB/p/12113279.html)
 #### Minor GC 和 Full GC
 ```markdown
@@ -159,7 +180,8 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
     5. Concurrent Mode Failure:执行CMS GC的过程中同时有对象要放入老年代，而此时老年代空间不足（可能是GC过程中浮动垃圾过多导致暂时
         性的空间不足），便会报Concurrent Mode Failure错误，并触发Full GC。
 ```
-### 类的生命周期和加载机制
+### 8.类的生命周期、初始化时机和加载机制
+#### 1.类的生命周期
 ![类的生命周期图](https://user-gold-cdn.xitu.io/2020/4/30/171c843fe9b784cb?w=1364&h=707&f=png&s=67514)
 ```markdown
 类是在运行期间第一次使用时动态加载的，而不是一次性加载所有类。因为如果一次性加载，那么会占用很多的内存。
@@ -191,7 +213,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
         初始化阶段才真正开始执行类中定义的Java程序代码。初始化阶段是虚拟机执行类构造器<clinit>()方法的过程。
         在准备阶段，类变量已经赋过一次系统要求的初始值，而在初始化阶段，根据程序员通过程序制定的主观计划去初始化类变量和其它资源。 
 ```
-#### 类初始化时机
+#### 2.类初始化时机
 ```markdown
 1. 主动引用
 2. 被动引用
@@ -202,7 +224,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
     3.常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量的类的初始化。
         System.out.println(ConstClass.HELLOWORLD);
 ```
-#### 类加载器分类
+#### 3.类加载器分类
 ```markdown
 从 Java 虚拟机的角度来讲，只存在以下两种不同的类加载器：
     启动类加载器（Bootstrap ClassLoader），使用 C++ 实现，是虚拟机自身的一部分；
@@ -212,7 +234,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
     扩展类加载器（Extension ClassLoader）
     应用程序类加载器（Application ClassLoader）
 ```
-#### 双亲委派模型
+#### 4.双亲委派模型
 ![双亲委派模型](https://user-gold-cdn.xitu.io/2020/4/30/171c84d6f56e220d?w=880&h=857&f=png&s=70024)
 ```markdown
 双亲委派模型构成
@@ -224,8 +246,12 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
     如果没有双亲委派，那么用户是不是可以自己定义一个java.lang.Object的同名类，java.lang.String的同名类，并把它放到ClassPath中,
     那么类之间的比较结果及类的唯一性将无法保证，因此，双亲委派模型可以防止内存中出现多份同样的字节码。
 ```
-#### 自定义类加载器实现
-### 栈帧概念结构图
+#### 5.自定义类加载器实现
+```markdown
+自定义类加载器必须继承classloader。需要实现里面的findClass方法。
+我们可以传入路径，通过二进制输出流，将路径内容读取为二进制数组。通过调用defineClass方法定义class。
+```
+### 9.栈帧概念结构图
 ![栈帧概念结构图](https://user-gold-cdn.xitu.io/2020/5/1/171d0288ac431ad3?w=709&h=814&f=png&s=64282)
 ```markdown
 栈帧是用于支持虚拟机进行方法调用和方法执行背后的数据结构。栈帧存储了方法的局部变量表、操作数栈、动态连接和方法返回地址信息。
@@ -240,7 +266,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
 方法返回地址
     当一个方法开始执行时, 只有两种方式退出这个方法 。一种是执行引擎遇到任意一个方法返回的字节码指令。另外一种退出方式是在方法执行过程中遇到了异常。
 ```
-### Java内存模型图
+### 10.Java内存模型图
 ![Java内存模型图](https://user-gold-cdn.xitu.io/2020/5/1/171cef6637426e1e?w=823&h=759&f=png&s=251488)
 ```markdown
 Java内存模型规定了所有的变量都存储在主内存中
@@ -249,9 +275,19 @@ Java内存模型规定了所有的变量都存储在主内存中
 线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存。
 不同的线程之间也无法直接访问对方工作内存中的变量，线程间变量的传递均需要自己的工作内存和主存之间进行数据同步进行。
 ```
-### JVM参数思维导图
+### 11.JVM参数思维导图
 ![](https://user-gold-cdn.xitu.io/2020/5/1/171cfb2cb8a29672?w=1479&h=945&f=png&s=154318)
-
+### 12.JVM触发full gc的几种情况？
+```markdown
+System.gc()方法的调用:建议JVM进行Full GC,只是建议而非一定,但很多情况下它会触发Full GC,从而增加Full GC的频率,也即增加了间歇性停顿的次数。
+    强烈影响系建议能不使用此方法就别使用，让虚拟机自己去管理它的内存，可通过通过-XX:+ DisableExplicitGC来禁止RMI调用System.gc。
+老年代空间不足:老年代空间只有在新生代对象转入及创建为大对象、大数组时才会出现不足的现象，当执行Full GC后空间仍然不足，则抛出如下错误：
+    java.lang.OutOfMemoryError: Java heap space为避免以上两种状况引起的Full GC，调优时应尽量做到让对象在Minor GC阶段被回收、让对象在新生代多存活一段时间及不要创建过大的对象及数组。
+永生区空间不足:JVM规范中运行时数据区域中的方法区，在HotSpot虚拟机中又被习惯称为永生代或者永生区，Permanet Generation中存放的为一些class的信息、常量、静态变量等数据，
+    当系统中要加载的类、反射的类和调用的方法较多时，Permanet Generation可能会被占满，在未配置为采用CMS GC的情况下也会执行Full GC。如果经过Full GC仍然回收不了，那么JVM会抛出如下错误信息：
+    java.lang.OutOfMemoryError: PermGen space为避免Perm Gen占满造成Full GC现象，可采用的方法为增大Perm Gen空间或转为使用CMS GC。
+CMS GC时出现promotion failed和concurrent mode failure
+```
 ## 相关博客文章
 ### [1.从多线程的三个特性理解多线程开发](https://www.cnblogs.com/dafanjoy/p/10020225.html)
 >> 1.共享变量
@@ -266,30 +302,33 @@ i++:不是原子性操作，虽然读取i和i=i+1都是原子性操作，两个�
 ### [2.关于强引用、软引用、弱引用、幻象引用，你该如何回答？](https://www.cnblogs.com/cxuanBlog/p/12774370.html)|
 ```markdown
 1. 强引用:被强引用关联的对象不会被回收。使用new一个新对象的方式来创建强引用。
-        Object obj = new Object();
+    Object obj = new Object();
+    平时使用的new就是强引用，把一个对象赋给一个引用变量。它处于可达状态的时候，是不会被垃圾回收的。强引用是造成内存泄漏的主要原因。
 2. 软引用:被软引用关联的对象只有在内存不够的情况下才会被回收。使用SoftReference类来创建软引用。
-        Object obj = new Object();
-        SoftReference<Object> sf = new SoftReference<Object>(obj);
-        obj = null; // 使对象只被软引用关联
+    Object obj = new Object();
+    SoftReference<Object> sf = new SoftReference<Object>(obj);
+    obj = null; // 使对象只被软引用关联
+    软引用配合softreference使用，当系统中有足够的内存的时候，不会被回收，当系统中内存空间不足的时候会被回收，软引用存在于对内存敏感的程序中。
 3. 弱引用:被弱引用关联的对象一定会被回收，也就是说它只能存活到下一次垃圾回收发生之前。使用WeakReference类来创建弱引用。
-        Object obj = new Object();
-        WeakReference<Object> wf = new WeakReference<Object>(obj);
-        obj = null;
+    Object obj = new Object();
+    WeakReference<Object> wf = new WeakReference<Object>(obj);
+    obj = null;
+    弱引用配合weakreference类来实现。比软引用的生存期更短，对于弱引用对象来说，只要垃圾回收机制一回收，不管内存空间是否充足就直接回收掉。
 4. 虚引用:又称为幽灵引用或者幻影引用，一个对象是否有虚引用的存在，不会对其生存时间造成影响，也无法通过虚引用得到一个对象。
-       为一个对象设置虚引用的唯一目的是能在这个对象被回收时收到一个系统通知。使用PhantomReference来创建虚引用。
-       Object obj = new Object();
-       PhantomReference<Object> pf = new PhantomReference<Object>(obj, null);
-       obj = null;
+    为一个对象设置虚引用的唯一目的是能在这个对象被回收时收到一个系统通知。使用PhantomReference来创建虚引用。
+    Object obj = new Object();
+    PhantomReference<Object> pf = new PhantomReference<Object>(obj, null);
+    obj = null;
+    虚引用需要phantomreference来实现，不能单独使用，必须配合引用队列。虚引用主要作用是跟踪对象的被垃圾回收的状态。
+5.引用队列
+使用软引用，弱引用和虚引用的时候都可以关联这个引用队列。程序通过判断引用队列里面是不是有这个对象来判断，对象是否已经被回收了。
+软引用，弱引用和虚引用用来解决oom问题，用来保存图片的路径。主要用于缓存。
 ```
 
-
+###
 [JVM中的五大内存区域划分详解及快速扫盲](https://www.cnblogs.com/chaogu94/p/12529692.html)
+
 [JVM-内存模型](https://www.cnblogs.com/ljl150/p/12535658.html)
-
-
-
-
-
 
 [大厂面试经：高频率JVM面试问题整理！](https://www.cnblogs.com/xwgblog/p/11842394.html)
 
