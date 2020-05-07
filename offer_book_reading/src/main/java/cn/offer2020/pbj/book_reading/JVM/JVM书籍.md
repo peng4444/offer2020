@@ -49,10 +49,11 @@ Java虚拟机栈(线程私有):每个Java方法在执行的同时会创建一个
 ```
 ### 3.JVM虚拟机何时结束生命周期
 ```markdown
-执行了System.exit()方法；
-程序正常执行结束；
-程序在执行过程中遇到了异常或错误而异常终止；
-由于操作系统出现错误而导致Java虚拟机进程；
+1.程序正常执行结束；
+2.程序在执行过程中遇到了异常或错误而异常终止；
+3.由于操作系统出现错误而导致Java虚拟机进程；
+4.某线程调用Runtime类或System类的exit方法，或Runtime类的halt方法，并且Java安全管理器也允许这次exit或halt操作。
+5.除此之外，JNI( Java Native Interface) 规范描述了用JNI Invocation API来加载或卸载Java虛拟机时，Java虛拟机的退出情况。
 ```
 ### 4.JVM是如果确定对象是垃圾对象的呢？JVM判断对象是否存活算法：
 ```markdown
@@ -181,6 +182,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
         性的空间不足），便会报Concurrent Mode Failure错误，并触发Full GC。
 ```
 ### 8.类的生命周期、初始化时机和加载机制
+[JVM之类加载器、加载过程及双亲委派机制](https://www.cnblogs.com/songjilong/p/12834729.html)
 #### 1.类的生命周期
 ![类的生命周期图](https://user-gold-cdn.xitu.io/2020/4/30/171c843fe9b784cb?w=1364&h=707&f=png&s=67514)
 ```markdown
@@ -226,13 +228,31 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
 ```
 #### 3.类加载器分类
 ```markdown
-从 Java 虚拟机的角度来讲，只存在以下两种不同的类加载器：
-    启动类加载器（Bootstrap ClassLoader），使用 C++ 实现，是虚拟机自身的一部分；
-    所有其它类的加载器，使用 Java 实现，独立于虚拟机，继承自抽象类 java.lang.ClassLoader。
-从 Java 开发人员的角度看，类加载器可以划分得更细致一些：
+JVM 支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoader）和自定义类加载器（User-Defined ClassLoader）。
+从Java虚拟机的角度来讲，只存在以下两种不同的类加载器：
+    启动类加载器（Bootstrap ClassLoader），使用C++ 实现，是虚拟机自身的一部分；
+    所有其它类的加载器，使用Java实现，独立于虚拟机，继承自抽象类 java.lang.ClassLoader。
+从Java开发人员的角度看，类加载器可以划分得更细致一些：
     启动类加载器（Bootstrap ClassLoader）
+        这个类加载器使用 C/C++ 编写，嵌套在 JVM 内部
+        它用来加载 Java 核心类库 ( JAVA_HOME/jre/lib/rt.jar、resources.jar、sun.boot.class.path 路径下的内容)，用于提供 Java 自身需要的类
+        并不继承 ClassLoader，没有父加载器
+        加载扩展类和应用程序类加载器，并指定为它们的父加载器
+        出于安全考虑，bootstrap 启动类加载器只加载包名为 java、javax、sun 开头的类
     扩展类加载器（Extension ClassLoader）
+        Java 语言编写，由 sun.misc.Launcher$ExtClassLoader 实现
+        派生于 ClassLoader 类
+        父类加载器为启动类加载器
+        从java.ext.dirs系统属性所指定的目录中加载类库，或从JDK的安装目录的jre/lib/ext子目录(扩展目录)下加载类库。如果用户创建的JAR放在此目录下，也会自动由扩展类加载器加载。
     应用程序类加载器（Application ClassLoader）
+        Java 语言编写，由sun.misc.Launcher$AppClassLoader实现
+        派生于ClassLoader类
+        父类加载器为扩展类加载器
+        它负责加载环境变量classpath或系统属性java.class.path指定路径下的类库
+        该类加载器是程序中默认的类加载器，一般来说，Java应用的类都是由它来完成加载
+        通过ClassLoader.getSystemClassLoader()方法可以获取到该类加载器
+    用户自定义类加载器（User-Defined ClassLoader）
+        在Java的日常应用程序开发中，类的加载几乎是由上述3种类加载器相互配合执行的，在必要时，我们还可以自定义类加载器，来定制类的加载方式。
 ```
 #### 4.双亲委派模型
 ![双亲委派模型](https://user-gold-cdn.xitu.io/2020/4/30/171c84d6f56e220d?w=880&h=857&f=png&s=70024)
@@ -240,16 +260,26 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
 双亲委派模型构成
     启动类加载器，扩展类加载器，应用程序类加载器，自定义类加载器
 双亲委派模型工作过程是
-    如果一个类加载器收到类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器完成。每个类加载器都是如此，
-    只有当父加载器在自己的搜索范围内找不到指定的类时（即ClassNotFoundException），子加载器才会尝试自己去加载。
+    1.如果一个类加载器收到类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器完成。每个类加载器都是如此，
+    2.只有当父加载器在自己的搜索范围内找不到指定的类时（即ClassNotFoundException），子加载器才会尝试自己去加载。
 为什么需要双亲委派模型？
     如果没有双亲委派，那么用户是不是可以自己定义一个java.lang.Object的同名类，java.lang.String的同名类，并把它放到ClassPath中,
     那么类之间的比较结果及类的唯一性将无法保证，因此，双亲委派模型可以防止内存中出现多份同样的字节码。
+    1、避免类的重复加载
+    2、保护程序安全，防止核心API被随意篡改
 ```
 #### 5.自定义类加载器实现
 ```markdown
 自定义类加载器必须继承classloader。需要实现里面的findClass方法。
 我们可以传入路径，通过二进制输出流，将路径内容读取为二进制数组。通过调用defineClass方法定义class。
+```
+#### 6.获取ClassLoader的途径
+```markdown
+方式	                                 代码
+获取当前类的ClassLoader	             clazz.getClassLoader()
+获取当前线程上下文的 ClassLoader	   Thread.currentThread().getContextClassLoader()
+获取系统的 ClassLoader	            ClassLoader.getSystemClassLoader()
+获取调用者的 ClassLoader	          DriverManager.getCallerClassLoader()
 ```
 ### 9.栈帧概念结构图
 ![栈帧概念结构图](https://user-gold-cdn.xitu.io/2020/5/1/171d0288ac431ad3?w=709&h=814&f=png&s=64282)
@@ -266,7 +296,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
 方法返回地址
     当一个方法开始执行时, 只有两种方式退出这个方法 。一种是执行引擎遇到任意一个方法返回的字节码指令。另外一种退出方式是在方法执行过程中遇到了异常。
 ```
-### 10.Java内存模型图
+### 10.JVM内存模型图
 ![Java内存模型图](https://user-gold-cdn.xitu.io/2020/5/1/171cef6637426e1e?w=823&h=759&f=png&s=251488)
 ```markdown
 Java内存模型规定了所有的变量都存储在主内存中
