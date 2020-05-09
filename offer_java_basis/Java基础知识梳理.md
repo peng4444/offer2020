@@ -131,6 +131,10 @@ final:声明数据为常量，可以是编译时常量，也可以是在运行�
     对于引用类型，final使引用不变，也就不能引用其它对象，但是被引用的对象本身是可以修改的。
     final声明方法不能被子类重写。
     final声明类不允许被继承。
+    包含final域的对象的引用和读这个final域，不能重排序；构造函数对final域的写入和这个对象的引用被赋值，不能重排序。
+    使用场景：
+     不可改变域
+     多线程使用场景，使用 final 关键字或者：synchronized、volatile、锁
 static:静态变量：又称为类变量，也就是说这个变量属于类的，类所有的实例都共享静态变量，可以直接通过类名来访问它。静态变量在内存中只存在一份。
     实例变量：每创建一个实例就会产生一个实例变量，它与该实例同生共死。
     静态方法在类加载的时候就存在了，它不依赖于任何实例。所以静态方法必须有实现，也就是说它不能是抽象方法。
@@ -170,6 +174,9 @@ JAVA反射机制是在运行状态中，对于任意一个类，都能够知道�
        反射是很多框架的基础
        通过反射运行配置文件
        通过反射越过泛型检查
+反射中，Class.forName() 和 ClassLoader.loadClass()区别？
+ Class.forName()执行的是类加载过程的链接和初始化。需要整个类完全加载到内存中，以获取该类的信息。
+ ClassLoader.loadClass()执行的只是类加载过程中的第一步，加载过程。loadClass方法是在双亲委派中调用，此时判断类由哪一个类加载器加载，因此类还未加载到内存中。
 ```
 ### 8.抽象类和接口的区别？普通类和抽象类有哪些区别？
 ```markdown
@@ -218,11 +225,11 @@ AIO (Asynchronous I/O): AIO也就是NIO2。在Java7中引入了NIO的改进版NI
 ```markdown
 数组 - > 链表 ->类集  ：类集就是Java数据结构的实现，类集就是动态对象数组   源码
     Collection
-        List（有序，可重复）
+        List（有序，可重复集合）
             ArrayList:基于动态数组实现，支持随机访问。
             LinkedList:基于双向链表实现，只能顺序访问，但是可以快速地在链表中间插入和删除元素。还可以用作栈、队列和双向队列。
             Vector:和 ArrayList 类似，但它是线程安全的。
-        Set（无序，不可重复）
+        Set（无序，不可重复集合）
             HashSet:HashSet 查找的时间复杂度为 O(1)，TreeSet 则为 O(logN)。基于哈希表实现，支持快速查找，但不支持有序性操作。
                     并且失去了元素的插入顺序信息，也就是说使用 Iterator 遍历 HashSet 得到的结果是不确定的。
             LinkedHashSet:具有 HashSet 的查找效率，且内部使用双向链表维护元素的插入顺序。
@@ -238,11 +245,36 @@ AIO (Asynchronous I/O): AIO也就是NIO2。在Java7中引入了NIO的改进版NI
         HashMap：基于哈希表实现。
         LinkedHashMap：继承HashMap实现Map接口，使用双向链表来维护元素的顺序，顺序为插入顺序或者最近最少使用（LRU）顺序。
         SortedMap接口
-            TreeMap：基于红黑树实现。
-            
-集合输出 Iterator,ListIterator(双向集合输出),Enumeration,for each ,Enumeration只有在Vector接口中使用
+            TreeMap：基于红黑树实现。          
+集合输出 Iterator,ListIterator(双向集合输出),Enumeration,foreach,Enumeration只有在Vector接口中使用
+Map 遍历的两种方式
+ keyset和entryset，前者是获得key的集合，后者是获得key-value的集合，返回的都是set视图，利用set有迭代器iterator，通过iterator.next来遍历。
+ 推荐使用entrySet()方法，效率较高。对于keySet其实是遍历了2次，一次是转为iterator，一次就是从HashMap中取出key所对于的value。
+    而entryset只是遍历了第一次，它把key和value都放到了entry中，所以快了。    
 ```
-#### 2.Java容器中的设计模式
+#### 2.Collection和Collections有什么区别？
+```markdown
+ Collection是容器接口，是List和Set的根接口
+ Collections是工具类，提供处理集合的各种方法
+如何决定使用HashMap还是TreeMap？
+ HashMap效率高，存取数据快，但是数据无序
+ TreeMap效率低，但是存储数据是排序的，可以取到最大和最小值
+ArrayList和LinkedList的区别是什么？
+ ArrayList动态数组，索引方便，插入不方便
+ LinkedList链表，索引不方便，插入方便
+ArrayList和Vector的区别是什么？
+ ArrayList 线程不安全，扩容*1.5
+ Vector方法使用synchronized关键字。线程安全，扩容*2，效率比ArrayList低，适合存大数据并且要求线程安全
+Iterator和ListIterator有什么区别？
+ Iterator是List和Set的迭代器
+ ListIterator是List的迭代器
+ Iterator单向，ListIterator双向，ListIterator继承自Iterator，并且实现了更多功能，添加替换等。
+在 Queue中poll()和remove()有什么区别？
+ poll()和remove ()都将移除并且返回对头，但是在poll()在队列为空时返回null，而remove()会抛出NoSuchElementException异常。
+ peek()和element ()都将在不移除的情况下返回队头，但是peek()方法在队列为空时返回null，调用element()方法会抛出NoSuchElementException 异常。
+ add()和offer()都是向队列中添加一个元素。但是如果想在一个满的队列中加入一个新元素，调用add()方法就会抛出一个unchecked异常，而调用offer()方法会返回false。
+```
+#### 3.Java容器中的设计模式
 [设计模式 - 迭代器模式详解及其在ArrayList中的应用](https://www.cnblogs.com/songjilong/p/12807345.html)
 ```markdown
 迭代器模式：Collection继承了Iterable接口，iterator()方法能够产生一个Iterator对象，通过这个对象就可以迭代遍历Collection中的元素。
@@ -286,6 +318,21 @@ AIO (Asynchronous I/O): AIO也就是NIO2。在Java7中引入了NIO的改进版NI
 [[Java 迭代接口：Iterator、ListIterator 和 Spliterator](https://www.cnblogs.com/liululee/p/11416038.html)]
 
 [Comparable接口的实现和使用](https://www.cnblogs.com/wl-centrinc/p/11872758.html)
+#### 4.ConcurrentHashMap 如何实现线程同步
+```markdown
+hashmap的线程安全版，引入segment，每一个segment都是线程安全的，相当于一个hashtable，因此ConcurrentHashMap也不允许出现 null。
+这样就把整个类锁变成了局部锁，用哪一个segment就给哪一个segment加锁。减少竞争，提高效率。
+对于 jdk1.8 的改进：
+ 取消的 segment，转而采用数组元素作为锁。把锁的粒度从多个 node 变成一个 node，进一步减少锁竞争
+ 链表大于 8 的时候转化为红黑树
+实现线程同步：元素 Node，字段修饰为 final 和 volatile，采用乐观锁 CAS，和分而治之的思想
+ put 操作和初始化操作：
+     volatile字段，标识位，表示当前是否有线程在初始化，volatile 字段保证了所有线程的可见。
+     CAS 机制，保证只有一个线程能够初始化
+ size()/判断大小
+     首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
+     失败就初始化桶，每一个桶并发的记录（同样是 CAS 机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
+```
 
 #### [1.口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
 ```markdown
@@ -338,6 +385,7 @@ UnsupportedOperationException异常。asList的返回对象是一个Arrays内部
     所以如果需要对外返回Map这三个方法产生的集合，建议再来个套娃。new ArrayList<>(map.values());
     最后再简单提一下，使用foreach方式遍历新增/删除Map中元素，也将会和List集合一样，抛出ConcurrentModificationException。
 ```
+#### [3.还在用迭代器处理集合吗？试试Stream，真香](https://www.cnblogs.com/keatsCoder/p/12846233.html)
 ### 4.Java IO
 ```markdown
 Java 的 I/O 大概可以分成以下几类：
