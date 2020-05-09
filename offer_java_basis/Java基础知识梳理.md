@@ -323,15 +323,15 @@ Iterator和ListIterator有什么区别？
 hashmap的线程安全版，引入segment，每一个segment都是线程安全的，相当于一个hashtable，因此ConcurrentHashMap也不允许出现 null。
 这样就把整个类锁变成了局部锁，用哪一个segment就给哪一个segment加锁。减少竞争，提高效率。
 对于 jdk1.8 的改进：
- 取消的 segment，转而采用数组元素作为锁。把锁的粒度从多个 node 变成一个 node，进一步减少锁竞争
- 链表大于 8 的时候转化为红黑树
-实现线程同步：元素 Node，字段修饰为 final 和 volatile，采用乐观锁 CAS，和分而治之的思想
- put 操作和初始化操作：
-     volatile字段，标识位，表示当前是否有线程在初始化，volatile 字段保证了所有线程的可见。
-     CAS 机制，保证只有一个线程能够初始化
- size()/判断大小
-     首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
-     失败就初始化桶，每一个桶并发的记录（同样是 CAS 机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
+     取消的 segment，转而采用数组元素作为锁。把锁的粒度从多个 node 变成一个 node，进一步减少锁竞争
+     链表大于 8 的时候转化为红黑树
+实现线程同步：元素 Node，字段修饰为 final 和 volatile，采用乐观锁CAS，和分而治之的思想
+     put 操作和初始化操作：
+         volatile字段，标识位，表示当前是否有线程在初始化，volatile 字段保证了所有线程的可见。
+         CAS机制，保证只有一个线程能够初始化
+     size()/判断大小
+         首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
+         失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
 ```
 
 #### [1.口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
@@ -386,7 +386,8 @@ UnsupportedOperationException异常。asList的返回对象是一个Arrays内部
     最后再简单提一下，使用foreach方式遍历新增/删除Map中元素，也将会和List集合一样，抛出ConcurrentModificationException。
 ```
 #### [3.还在用迭代器处理集合吗？试试Stream，真香](https://www.cnblogs.com/keatsCoder/p/12846233.html)
-### 4.Java IO
+
+### 4.Java I/O
 ```markdown
 Java 的 I/O 大概可以分成以下几类：
     磁盘操作：File
@@ -400,7 +401,7 @@ Java 的 I/O 大概可以分成以下几类：
 InputStream/Reader: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。
 OutputStream/Writer: 所有输出流的基类，前者是字节输出流，后者是字符输出流。
 ```
-#### 装饰者模式
+#### Java I/O装饰者模式
 ```markdown
 Java I/O 使用了装饰者模式来实现。以 InputStream 为例，
     InputStream是抽象组件；

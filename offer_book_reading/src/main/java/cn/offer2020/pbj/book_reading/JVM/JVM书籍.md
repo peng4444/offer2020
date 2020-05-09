@@ -14,6 +14,10 @@
 >> 参考：[Java程序员必备基础结构图](https://www.cnblogs.com/jay-huaxiao/p/12819379.html)
 
 >> 参考：[一文带你学会java的jvm精华知识点](https://www.cnblogs.com/jichi/p/12827921.html)
+
+>> 参考：[JVM-内存模型](https://www.cnblogs.com/ljl150/p/12535658.html)
+[JVM中的五大内存区域划分详解及快速扫盲](https://www.cnblogs.com/chaogu94/p/12529692.html)
+[JVM系列-2、JVM内存结构](https://www.cnblogs.com/xiexiandong/p/12845933.html)
 ### 1.运行时数据区域
 ![运行时数据区域](https://user-gold-cdn.xitu.io/2020/4/29/171c6a4017b17e4a?w=906&h=699&f=png&s=69259)
 ```markdown
@@ -80,6 +84,7 @@ finalize():当一个对象可被回收时，如果需要执行该对象的finali
 ```
 ### 5.JVM垃圾回收算法
 [Java垃圾收集算法](https://www.cnblogs.com/rainple/p/10793500.html)
+
 [JVM垃圾回收算法详解](https://www.cnblogs.com/xwgblog/p/11703104.html)
 ```markdown
 在JVM内存模型中会将堆内存划分新生代、老年代两个区域，两块区域的主要区别在于新生代存放存活时间较短的对象，
@@ -358,9 +363,5 @@ i++:不是原子性操作，虽然读取i和i=i+1都是原子性操作，两个�
 ```
 
 ###
-[JVM中的五大内存区域划分详解及快速扫盲](https://www.cnblogs.com/chaogu94/p/12529692.html)
-
-[JVM-内存模型](https://www.cnblogs.com/ljl150/p/12535658.html)
-
 [大厂面试经：高频率JVM面试问题整理！](https://www.cnblogs.com/xwgblog/p/11842394.html)
 

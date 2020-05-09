@@ -2509,3 +2509,36 @@ public ArrayList<ArrayList<Integer>> print(TreeNode pRoot) {
 		 return sum;
 	 }
 ```
+
+
+## 程序员面试经典（第六版）
+#### 17.04 消失的数字
+>> 数组nums包含从0到n的所有整数，但其中缺了一个。请编写代码找出那个缺失的整数。你有办法在O(n)时间内完成吗？
+```java
+//相加求和再减
+class Solution {
+    public int missingNumber(int[] nums) {
+        int len = nums.length;
+        int sum = (0+len)*(len+1)/2;
+        for(int i = 0;i<nums.length;i++){
+            sum = sum - nums[i];
+        }
+        return sum;
+    }
+}
+
+//利用异或的特性，res = res ^ x ^ x。对同一个值异或两次，那么结果等于它本身，所以我们对res从0-nums.length进行异或，
+//同时对nums数组中的值进行异或，出现重复的会消失，所以最后res的值是只出现一次的数字，也就是nums数组中缺失的那个数字。
+class Solution {
+    public int missingNumber(int[] nums) {
+        int res = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            res ^= i;
+            res ^= nums[i];
+        }
+        res ^= nums.length;
+        
+        return res;
+    }
+}
+```
