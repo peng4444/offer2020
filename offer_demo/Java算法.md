@@ -9,3 +9,8 @@
 
 
 [动手实现一致性哈希算法,并搭建环境测试其负载均衡](https://www.cnblogs.com/tanshaoshenghao/p/10816480.html)
+
+
+[布隆过滤器，你也可以处理十几亿的大数据](https://www.cnblogs.com/lazyegg/p/12857374.html)
+
+[布隆过滤器(Bloom Filter)](https://www.cnblogs.com/cbkj-xd/p/12863619.html)
