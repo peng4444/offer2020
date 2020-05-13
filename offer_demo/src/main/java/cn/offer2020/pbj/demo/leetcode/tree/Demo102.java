@@ -9,7 +9,7 @@ import java.util.Queue;
  * @ClassName: Demo102
  * @Author: pbj
  * @Date: 2019/12/20 16:59
- * @Description: TODO 二叉树的层次遍历
+ * @Description: TODO 102.二叉树的层次遍历
  */
 public class Demo102 {
     public class TreeNode {
@@ -46,10 +46,8 @@ public class Demo102 {
                 if (currNode.right != null) {//如果取出的节点有右孩子
                     queue.add(currNode.right);//将其加入到队列
                 }
-
             }
             ans.add(currLevel);//将当前层的节点加入到结果集
-
         }
         return ans;
     }

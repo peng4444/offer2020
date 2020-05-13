@@ -6,7 +6,8 @@ import java.util.Arrays;
  * @ClassName: JiWeijiuSort
  * @Author: pbj
  * @Date: 2019/9/19 09:20
- * @Description: TODO 鸡尾酒排序：的元素比较和交换过程是双向的 有序区【最后面几个或者最前面几个有序】不再排序
+ * @Description: TODO 鸡尾酒排序：的元素比较和交换过程是双向的 每次循环则将最小元素和最大元素分别推至左右两侧 有序区【最后面几个或者最前面几个有序】不再排序
+ * [数据结构 7 基础排序算法详解 鸡尾酒排序法、了解钟摆排序实现](https://www.cnblogs.com/ChromeT/p/12867378.html#_labelTop)
  *  场景：大部分有序   代码量增加
  */
 public class JiWeijiuSort {

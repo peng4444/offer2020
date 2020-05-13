@@ -451,6 +451,19 @@ select name,population,area from World where area > 3000000
     UNION 
 select name,population,area from World where population > 25000000;
 ```
+### 601. 体育馆的人流量
+```mysql
+-- X 市建了一个新的体育馆，每日人流量信息被记录在这三列信息中：序号 (id)、日期 (visit_date)、 人流量 (people)。
+-- 请编写一个查询语句，找出人流量的高峰期。高峰期时，至少连续三行记录中的人流量不少于100。
+select distinct a.* from stadium a,stadium b,stadium c 
+    where a.people>=100 and b.people>=100 and c.people>=100
+and (
+    (a.id = b.id+1 and b.id = c.id + 1 and a.id = c.id + 2) or 
+    (a.id = b.id-1 and a.id = c.id + 1 and b.id = c.id + 2) or 
+    (a.id = b.id-1 and b.id = c.id - 1 and c.id = a.id + 2)
+) order by a.id;
+
+```
 ### 627.交换工资
 ```mysql
 -- 给定一个salary表，如下所示，有m=男性和f=女性的值。交换所有的f和m值（例如，将所有f值更改为m，反之亦然）。
