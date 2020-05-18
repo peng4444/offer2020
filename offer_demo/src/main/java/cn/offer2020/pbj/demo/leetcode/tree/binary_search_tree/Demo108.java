@@ -19,6 +19,8 @@ public class Demo108 {
     public TreeNode sortedArrayToBST(int[] nums) {
         return toBST(nums,0,nums.length-1);
     }
+
+    //将有序数组转换为二叉搜索树
     private TreeNode toBST(int[] nums,int start,int end){
         if(end<start){
             return null;
