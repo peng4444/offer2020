@@ -1,4 +1,9 @@
 # Effective Java 3
+>> [Effective Java Third Edition](https://www.cnblogs.com/IcanFixIt/tag/Effective%20Java%20Third%20Edition/)
+
+[TOC]
+
+
 ## 第一章 引言
 ```markdown
     代码应该被重用，而不是被拷贝。组件之间的依赖性应该尽可能地降到最小。

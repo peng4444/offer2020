@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.book_reading.JVM;
+package cn.offer2020.pbj.book_reading.JVM.jvmdemo;
 
 import java.util.concurrent.locks.ReentrantLock;
 

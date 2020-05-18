@@ -1,13 +1,13 @@
 # JVM书籍
-
-[TOC]
-
-
 >> **深入了解Java虚拟机第二版，第三版**
 
 >> [参考博客：随笔分类 - Java虚拟机](https://www.cnblogs.com/ysocean/category/1151281.html)
 
 >> [ JVM 底层原理知识总结](https://doocs.github.io/jvm)
+
+[TOC]
+
+
 ## 基础知识整理
 >> 参考：cyc2018大佬
 
