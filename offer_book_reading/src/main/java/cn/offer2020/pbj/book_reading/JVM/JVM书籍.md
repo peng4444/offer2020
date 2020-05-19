@@ -339,6 +339,7 @@ System.gc()方法的调用:建议JVM进行Full GC,只是建议而非一定,但�
     java.lang.OutOfMemoryError: PermGen space为避免Perm Gen占满造成Full GC现象，可采用的方法为增大Perm Gen空间或转为使用CMS GC。
 CMS GC时出现promotion failed和concurrent mode failure
 ```
+
 ## 相关博客文章
 ### [1.从多线程的三个特性理解多线程开发](https://www.cnblogs.com/dafanjoy/p/10020225.html)
 >> 1.共享变量
