@@ -7,7 +7,11 @@ package cn.offer2020.pbj.book_reading.concurrent.chapter8;
  * @Description: TODO 双重锁检查实现单例模式
  */
 public class Singleton {
-    private static volatile Singleton instance; // volatile可以保证可见性和有序性防止指令重排
+    private static volatile Singleton instance = null; // volatile可以保证可见性和有序性防止指令重排
+
+    private Singleton() {
+        System.out.println(Thread.currentThread().getName()+"\t 我是构造方法Singleton()");
+    }
     // 双重锁检验
     public static Singleton getInstance() {
         if (instance == null) { // 第7行
@@ -18,5 +22,16 @@ public class Singleton {
             }
         }
         return instance;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Singleton.getInstance() == Singleton.getInstance());
+
+        //并发多线程环境，
+        for (int i = 0; i <= 10; i++) {
+            new Thread(() ->{
+                Singleton.getInstance();
+            },String.valueOf(i)).start();
+        }
     }
 }

@@ -25,7 +25,6 @@ public class VolatileExample {
 
     //可见性问题出现  count极小概率会出现等于0的情况
     private static int count = 0;//volatile修饰变量解决Java内存可见性
-
     @Test
     public void testDemo() throws Exception {
         Thread th1 = new Thread(() -> {
@@ -45,10 +44,12 @@ public class VolatileExample {
         int idx = 0;
         while (idx++ < 10000) {
             count1++;
+            // AtomicInteger atomicInteger = new AtomicInteger();
+            // atomicInteger.getAndIncrement();//可以保证原子性
         }
     }
 
-    @Test
+    @Test // 测试代码
     public void testDemo1() throws InterruptedException {
         VolatileExample test = new VolatileExample();
         // 创建两个线程，执行 add() 操作
@@ -66,5 +67,40 @@ public class VolatileExample {
         th2.join();
         // 介于1w-2w,即使加了volatile也达不到2w
         System.out.println(test.count1);
+    }
+
+    // volatile 可见性
+    // 共享变量
+    static int counter = 0;
+
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(() -> {
+            int temp = 0;
+            while (true) {
+                if (temp != counter) {
+                    temp = counter;
+                    // 打印counter的值，期望打印 12345
+                    System.out.print(counter);
+                }
+            }
+        });
+
+        Thread thread2 = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                counter++;
+                // 等待1秒，给读线程足够的时间读取变量counter的最新值
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // 退出程序
+            System.exit(0);
+        });
+
+        thread1.start();
+        thread2.start();
     }
 }

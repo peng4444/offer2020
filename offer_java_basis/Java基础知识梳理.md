@@ -279,25 +279,33 @@ Map 遍历的两种方式
 ```
 #### 2.Collection和Collections有什么区别？
 ```markdown
- Collection是容器接口，是List和Set的根接口
- Collections是工具类，提供处理集合的各种方法
+ Collection是容器接口，是List和Set的根接口; Collections是工具类，提供处理集合的各种方法
 如何决定使用HashMap还是TreeMap？
- HashMap效率高，存取数据快，但是数据无序
- TreeMap效率低，但是存储数据是排序的，可以取到最大和最小值
+     HashMap效率高，存取数据快，但是数据无序
+     TreeMap效率低，但是存储数据是排序的，可以取到最大和最小值
 ArrayList和LinkedList的区别是什么？
- ArrayList动态数组，索引方便，插入不方便
- LinkedList链表，索引不方便，插入方便
+     ArrayList动态数组，索引方便，插入不方便
+     LinkedList链表，索引不方便，插入方便
 ArrayList和Vector的区别是什么？
- ArrayList 线程不安全，扩容*1.5
- Vector方法使用synchronized关键字。线程安全，扩容*2，效率比ArrayList低，适合存大数据并且要求线程安全
+     ArrayList 线程不安全，扩容*1.5
+     Vector方法使用synchronized关键字。线程安全，扩容*2，效率比ArrayList低，适合存大数据并且要求线程安全
 Iterator和ListIterator有什么区别？
- Iterator是List和Set的迭代器
- ListIterator是List的迭代器
- Iterator单向，ListIterator双向，ListIterator继承自Iterator，并且实现了更多功能，添加替换等。
+     Iterator是List和Set的迭代器
+     ListIterator是List的迭代器
+     Iterator单向，ListIterator双向，ListIterator继承自Iterator，并且实现了更多功能，添加替换等。
 在 Queue中poll()和remove()有什么区别？
- poll()和remove ()都将移除并且返回对头，但是在poll()在队列为空时返回null，而remove()会抛出NoSuchElementException异常。
- peek()和element ()都将在不移除的情况下返回队头，但是peek()方法在队列为空时返回null，调用element()方法会抛出NoSuchElementException 异常。
- add()和offer()都是向队列中添加一个元素。但是如果想在一个满的队列中加入一个新元素，调用add()方法就会抛出一个unchecked异常，而调用offer()方法会返回false。
+     poll()和remove ()都将移除并且返回对头，但是在poll()在队列为空时返回null，而remove()会抛出NoSuchElementException异常。
+     peek()和element ()都将在不移除的情况下返回队头，但是peek()方法在队列为空时返回null，调用element()方法会抛出NoSuchElementException 异常。
+     add()和offer()都是向队列中添加一个元素。但是如果想在一个满的队列中加入一个新元素，调用add()方法就会抛出一个unchecked异常，而调用offer()方法会返回false。
+```
+### 3.[Java 集合排序策略接口 Comparator](https://www.cnblogs.com/felordcn/p/12921857.html)
+```markdown
+List<People> peoples = new ArrayList<>();
+  // 中间省略
+  // 按照年龄从小到大排序
+peoples.sort(Comparator.comparing(People::getAge));
+Comparator是一个函数式接口。它经常用于没有天然排序的集合进行排序，如 Collections.sort 或 Arrays.sort。
+或者对于某些有序数据结构的排序规则进行声明，如TreeSet 、TreeMap。也就是该接口主要用来进行集合排序。
 ```
 #### 3.Java容器中的设计模式
 [设计模式 - 迭代器模式详解及其在ArrayList中的应用](https://www.cnblogs.com/songjilong/p/12807345.html)

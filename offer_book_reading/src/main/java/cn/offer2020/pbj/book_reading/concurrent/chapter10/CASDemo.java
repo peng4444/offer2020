@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Date: 2020/5/19 17:29
  * @Description: TODO CAS （compareAndSwap），中文叫比较交换，一种无锁原子算法。
  * [【漫画】CAS原理分析！无锁原子类也能解决并发问题！](https://www.cnblogs.com/liuyanling/p/12913356.html)
+ * 当且仅当V的值等于期待值A时,CAS通过原子方式用新值B来更新V的值，否则不会执行任何操作（比较和替换是一个原子操作）。
  */
 public class CASDemo {
     // count必须用volatile修饰 保证不同线程之间的可见性
