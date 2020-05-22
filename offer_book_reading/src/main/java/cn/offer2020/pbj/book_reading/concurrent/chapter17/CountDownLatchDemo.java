@@ -1,5 +1,7 @@
 package cn.offer2020.pbj.book_reading.concurrent.chapter17;
 
+import org.junit.Test;
+
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
@@ -50,5 +52,47 @@ public class CountDownLatchDemo {
         new Thread(new PreTaskThread("加载地图数据", countDownLatch)).start();
         new Thread(new PreTaskThread("加载人物模型", countDownLatch)).start();
         new Thread(new PreTaskThread("加载背景音乐", countDownLatch)).start();
+    }
+
+    /* *
+     * 功能描述: 多线程模拟秦国灭亡六国，统一。
+     * @param: []
+     * @return: void
+     * @auther: pbj
+     * @date: 2020/5/22 14:42
+     */
+    @Test
+    public void SixCOuntry() throws InterruptedException {
+        //使用CountDownLatch 才能保证所有的线程走完成。
+        CountDownLatch countDownLatch = new CountDownLatch(6);
+        for (int i = 1; i <= 6; i++) {
+            new Thread(()->{
+                System.out.println(Thread.currentThread().getName()+"国，灭亡");
+                countDownLatch.countDown();
+            },CountryEnum.foreach_CountryEnum(i).getRetName()).start();
+        }
+        countDownLatch.await();
+        System.out.println(Thread.currentThread().getName()+"*****秦国统一");
+    }
+
+
+    /* *
+     * 功能描述: 代码演示多线程输出和CountDownLatch控制线程
+     * @param: []
+     * @return: void
+     * @auther: pbj
+     * @date: 2020/5/22 14:22
+     */
+    @Test
+    public void UnCountDownLatchDemo() throws InterruptedException {
+        //使用CountDownLatch 才能保证所有的线程走完成。
+        CountDownLatch countDownLatch = new CountDownLatch(6);
+        for (int i = 1; i <= 6; i++) {
+            new Thread(()->{
+                System.out.println(Thread.currentThread().getName()+"上完自习，离开教室");
+            },String.valueOf(i)).start();
+        }
+        countDownLatch.await();
+        System.out.println(Thread.currentThread().getName()+"*****班长最后走人");
     }
 }

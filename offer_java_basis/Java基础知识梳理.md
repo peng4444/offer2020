@@ -244,8 +244,8 @@ Object的clone()方法是浅拷贝，即如果类中属性有自定义引用类�
 [一句话撸完重量级锁、自旋锁、轻量级锁、偏向锁、悲观、乐观锁等各种锁](https://www.cnblogs.com/kubidemanong/p/10777928.html)
 [【BAT面试题系列】面试官：你了解乐观锁和悲观锁吗？](https://www.cnblogs.com/kismetv/p/10787228.html)
 ### 2.同步、异步
-### 3.Java容器
-#### 1.Java容器集合
+### 3.Java容器集合
+#### 1.Java容器集合简介
 [java集合详解](https://www.cnblogs.com/yanzezhong/p/12808089.html)
 ```markdown
 数组 - > 链表 ->类集  ：类集就是Java数据结构的实现，类集就是动态对象数组   源码
@@ -277,6 +277,28 @@ Map 遍历的两种方式
  推荐使用entrySet()方法，效率较高。对于keySet其实是遍历了2次，一次是转为iterator，一次就是从HashMap中取出key所对于的value。
     而entryset只是遍历了第一次，它把key和value都放到了entry中，所以快了。    
 ```
+#### Java容器集合源码
+##### [ArrayList详解-源码分析](https://www.cnblogs.com/strive-for-life/p/12923608.html)
+```markdown
+* ArrayList是基于数组实现的集合列表
+* 支持任意性的访问（可根据索引直接得到你想要的元素）
+* 线程不安全
+* 支持动态扩容
+* 查询快，增删慢
+默认默认容量大小为10，新数组的容量大小为旧数组容量的1.5倍，2^n。
+详细讲解ArrayList的部分源码。
+```
+##### [LinkedList详解-源码分析](https://www.cnblogs.com/strive-for-life/p/12932845.html)
+```markdown
+* 基于双向链表实现
+* 便于插入和删除，不便于遍历
+* 非线程安全
+* 有序（链表维护顺序）
+transient关键字标识变量不会被序列化。节点都被transient修饰。
+LinkedList是基于双向链表实现的，即每一个节点都保存了上一个节点和下一个节点的信息。
+LinkedList根据索引获取元素效率低的原因是因为它需要一个节点一个节点的遍历，获取首节点和尾节点很快。
+LinkedList实现了Deque接口，具有双向队列的性质，可以实现数据结构中的堆栈。
+```
 #### 2.Collection和Collections有什么区别？
 ```markdown
  Collection是容器接口，是List和Set的根接口; Collections是工具类，提供处理集合的各种方法
@@ -298,7 +320,7 @@ Iterator和ListIterator有什么区别？
      peek()和element ()都将在不移除的情况下返回队头，但是peek()方法在队列为空时返回null，调用element()方法会抛出NoSuchElementException 异常。
      add()和offer()都是向队列中添加一个元素。但是如果想在一个满的队列中加入一个新元素，调用add()方法就会抛出一个unchecked异常，而调用offer()方法会返回false。
 ```
-### 3.[Java 集合排序策略接口 Comparator](https://www.cnblogs.com/felordcn/p/12921857.html)
+#### 3.[Java 集合排序策略接口 Comparator](https://www.cnblogs.com/felordcn/p/12921857.html)
 ```markdown
 List<People> peoples = new ArrayList<>();
   // 中间省略
@@ -366,6 +388,7 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
          首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
          失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
 ```
+
 ### 4.Java集合容器
 #### [1.口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
 ```markdown

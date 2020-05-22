@@ -9,12 +9,12 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @Date: 2020/4/17 22:10
  * @Description: TODO 阻塞队列实现生产者消费者模型
  */
-public class Test {
+public class ConsumerProducerBlockingQueueDemo {
     private int queueSize = 10;
     private ArrayBlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(queueSize);
 
     public static void main(String[] args)  {
-        Test test = new Test();
+        ConsumerProducerBlockingQueueDemo test = new ConsumerProducerBlockingQueueDemo();
         Producer producer = test.new Producer();
         Consumer consumer = test.new Consumer();
 

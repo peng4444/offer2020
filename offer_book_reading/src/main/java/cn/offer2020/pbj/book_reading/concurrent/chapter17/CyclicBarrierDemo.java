@@ -8,7 +8,7 @@ import java.util.concurrent.CyclicBarrier;
  * @ClassName: CyclicBarrierDemo
  * @Author: pbj
  * @Date: 2020/4/18 17:02
- * @Description: TODO
+ * @Description: TODO CyclicBarrier多线程
  * 我们同样用玩游戏的例子。如果玩一个游戏有多个“关卡”，那使用CountDownLatch显然不太合适，
  * 那需要为每个关卡都创建一个实例。那我们可以使用CyclicBarrier来实现每个关卡的数据加载等待功能。
  */

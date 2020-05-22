@@ -1,13 +1,17 @@
 package cn.offer2020.pbj.book_reading.concurrent.chapter17;
 
+import org.junit.Test;
+
 import java.util.Random;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName: SemaphoreDemo
  * @Author: pbj
  * @Date: 2020/4/18 16:54
- * @Description: TODO Semaphore往往用于资源有限的场景中，去限制线程的数量。举个例子，我想限制同时只能有3个线程在工作.
+ * @Description: TODO Semaphore往往用于资源有限的场景中，去限制线程的数量。
+ * 举个例子，我想限制同时只能有3个线程在工作.
  */
 public class SemaphoreDemo {
     static class MyThread implements Runnable {
@@ -37,6 +41,36 @@ public class SemaphoreDemo {
         Semaphore semaphore = new Semaphore(3);
         for (int i = 0; i < 10; i++) {
             new Thread(new MyThread(i, semaphore)).start();
+        }
+    }
+
+    /* *
+     * 功能描述: Semaphore模拟抢车位
+     * @param: []
+     * @return: void
+     * @auther: pbj
+     * @date: 2020/5/22 15:04
+     */
+    @Test
+    public void getCar(){
+        Semaphore semaphore = new Semaphore(3);//模拟有三个车位
+        for (int i = 1; i <= 6; i++) {//模拟有六部汽车
+            new Thread(()->{
+                try {
+                    semaphore.acquire();
+                    System.out.println(Thread.currentThread().getName()+"抢到车位");
+                    try {
+                        TimeUnit.SECONDS.sleep(3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName()+"停车3秒后离开车位");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }finally {
+                    semaphore.release();
+                }
+            },String.valueOf(i)).start();
         }
     }
 }
