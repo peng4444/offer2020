@@ -165,6 +165,7 @@ MyISAM 存储引擎支持空间数据索引（R-Tree），可以用于地理数�
 ```
 ### 查询性能优化
 #### 1.使用Explain进行分析
+[Explain 执行计划包含字段信息](https://www.cnblogs.com/chengxy-nds/p/12924373.html)
 ```markdown
 Explain 用来分析 SELECT 查询语句，开发人员可以通过分析 Explain 结果来优化查询语句。
 比较重要的字段有：select_type : 查询类型，有简单查询、联合查询、子查询等,key : 使用的索引,rows : 扫描的行数。
@@ -391,7 +392,16 @@ MySQL的一些问题：性能优化、高可用性、强一致性、安全、备
 [教你如何迅速秒杀掉：99%的海量数据处理面试题](https://blog.csdn.net/v_july_v/article/details/7382693)
 
 [很用心的为你写了 9 道 MySQL 面试题](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247488127&idx=4&sn=040019b9991f9d62dcb0ded7d6cb7d1a&chksm=fa0e7dfecd79f4e8e2ab5b0e84ce7efa25589ebbb9eecf1b51d5413bc7edfc501a903c859201&mpshare=1&scene=23&srcid=&sharer_sharetime=1587272608819&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+
 [mysql insert锁机制](https://blog.csdn.net/zhanghongzheng3213/article/details/53436240)
+
+### [LSM设计一个数据库引擎](https://www.cnblogs.com/WeaRang/p/12939513.html)
+>> 为提升数据库系统的写性能，我们发现磁盘的顺序写性能远远大于随机写性能，甚至性能高于内存的随机写。
+>> 所以在很多偏向写性能的数据库系统中，以牺牲一部分读性能和增大写放大的情况下引入了 LSM 数据结构
+```markdown
+
+```
+
 ## LeetCode MySQL题目
 ```mysql
 -- 175,181,183,184,176,177,178,180,626,
@@ -510,9 +520,4 @@ SELECT CLASS
 ```
 ##
 
-[借助leetcode题目来了解BFS和DFS](https://www.cnblogs.com/yhycoder/p/12786423.html#shwtop)
-[一份热乎乎的腾讯后端面试真题](https://www.cnblogs.com/jay-huaxiao/p/12776714.html)
-[Java面试系列第2篇-Object类中的方法](https://www.cnblogs.com/extjs4/p/12772027.html)
-[Java岗结束春招，总结面经回馈牛客，祝大家都能得偿所愿~](https://www.nowcoder.com/discuss/416945?type=2)
-[https://github.com/2020GetGoodOffer/test]
-[各大公司面试题分类整理](https://www.cnblogs.com/lvmengtian/p/12796820.html)
+

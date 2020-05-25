@@ -19,3 +19,8 @@
 
 ## 数据结构和算法
 [[从今天开始修炼数据结构]串、KMP模式匹配算法](https://www.cnblogs.com/Joey777210/p/11973279.html)
+
+[Kd Tree算法详解](https://www.cnblogs.com/PythonLearner/p/12952929.html)
+```markdown
+kd树（k-dimensional树的简称），是一种分割k维数据空间的数据结构，主要应用于多维空间关键数据的近邻查找(Nearest Neighbor)和近似最近邻查找(Approximate Nearest Neighbor)。
+```

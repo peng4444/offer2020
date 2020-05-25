@@ -371,7 +371,7 @@ Comparator是一个函数式接口。它经常用于没有天然排序的集合�
 适配器模式：java.util.Arrays#asList()可以把数组类型转换为List类型。
             应该注意的是asList()的参数为泛型的变长参数，不能使用基本类型数组作为参数，只能使用相应的包装类型数组。
 ```
-
+#### 
 [[面试必问之ArrayList](https://www.cnblogs.com/fsmly/p/11283921.html)]
 
 [LinkedList集合解析及手写集合](https://www.cnblogs.com/hang-on/p/11469263.html)
@@ -423,7 +423,7 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
          失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
 ```
 
-### 4.Java集合容器
+### 4.Java集合容器博客
 #### [1.口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
 ```markdown
 1.数组转List:Arrays.toList(arrays)：
@@ -483,6 +483,7 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
 ```markdown
 当我们有两个list集合的时候，我们可以使用retainAll方法求得两个list集合的子集。
 ```
+
 ### 5.Java I/O
 ```markdown
 Java 的 I/O 大概可以分成以下几类：

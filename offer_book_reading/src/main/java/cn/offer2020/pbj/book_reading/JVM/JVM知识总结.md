@@ -106,9 +106,9 @@ finalize():当一个对象可被回收时，如果需要执行该对象的finali
 ### 6.垃圾回收器
 [一文了解JVM全部垃圾回收器，从Serial到ZGC](https://www.cnblogs.com/zackku/p/10056865.html)
 ```markdown
-Serial收集器:(新生代收集器、复制算法)
+Serial收集器:(新生代收集器、复制算法，串行垃圾回收器)
     是单线程执行垃圾回收的。当需要执行垃圾回收时，程序会暂停一切手上的工作，然后单线程执行垃圾回收。
-ParNew收集器:(新生代收集器、复制算法)
+ParNew收集器:(新生代收集器、复制算法，并行垃圾回收器)
     ParNew同样用于新生代，是Serial的多线程版本，并且在参数、算法（同样是复制算法）上也完全和Serial相同。
 Parallel Scavenge收集器:(新生代收集器、复制算法)
     新生代的收集器，同样用的是复制算法，也是并行多线程收集。与ParNew最大的不同，它关注的是垃圾回收的吞吐量。
@@ -116,19 +116,19 @@ Serial Old收集器:(老年代收集器、标记-整理算法)
     是Serial收集器的老年代版本，与Serial一样是单线程，不同的是算法用的是标记-整理（Mark-Compact）。
 Parallel Old收集器:(老年代收集器、标记-整理算法)
     是Parallel Scavenge收集器的老年代版本，是Parallel Scavenge老年代的版本。其中的算法替换成Mark-Compact。
-CMS收集器:(老年代收集器、标记-整理算法)
+CMS收集器:(老年代收集器、标记-整理算法，并发垃圾回收器)
     同样是老年代的收集器。它关注的是垃圾回收最短的停顿时间（低停顿），在老年代并不频繁GC的场景下，是比较适用的。
     分为以下四个流程：
     初始标记：仅仅只是标记一下GC Roots能直接关联到的对象，速度很快，需要停顿。
     并发标记：进行GC Roots Tracing的过程，它在整个回收过程中耗时最长，不需要停顿。
     重新标记：为了修正并发标记期间因用户程序继续运作而导致标记产生变动的那一部分对象的标记记录，需要停顿。
     并发清除：不需要停顿。
-    缺点:1.吞吐量低：低停顿时间是以牺牲吞吐量为代价的，导致 CPU 利用率不够高。
+    缺点:1.吞吐量低：低停顿时间是以牺牲吞吐量为代价的，导致CPU利用率不够高。
          2.无法处理浮动垃圾，可能出现Concurrent Mode Failure。
-        浮动垃圾是指并发清除阶段由于用户线程继续运行而产生的垃圾，这部分垃圾只能到下一次GC时才能进行回收。
-        由于浮动垃圾的存在，因此需要预留出一部分内存，意味着 CMS 收集不能像其它收集器那样等待老年代快满的时候再回收。
-        如果预留的内存不够存放浮动垃圾，就会出现Concurrent Mode Failure，这时虚拟机将临时启用Serial Old来替代CMS。
-         3.标记-清除算法导致的空间碎片往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。。
+         浮动垃圾是指并发清除阶段由于用户线程继续运行而产生的垃圾，这部分垃圾只能到下一次GC时才能进行回收。
+         由于浮动垃圾的存在，因此需要预留出一部分内存，意味着CMS收集不能像其它收集器那样等待老年代快满的时候再回收。
+         如果预留的内存不够存放浮动垃圾，就会出现Concurrent Mode Failure，这时虚拟机将临时启用Serial Old来替代CMS。
+         3.标记-清除算法导致的空间碎片往往出现老年代空间剩余，但无法找到足够大连续空间来分配当前对象，不得不提前触发一次 Full GC。
 G1收集器:(混合收集器)
     G1可以说是CMS的终极改进版，解决了CMS内存碎片、更多的内存空间登问题。虽然流程与CMS比较相似，但底层的原理已是完全不同。
     G1（Garbage-First），它是一款面向服务端应用的垃圾收集器，在多CPU和大内存的场景下有很好的性能。HotSpot开发团队赋予它的使命是未来可以替换掉CMS收集器。
@@ -160,8 +160,11 @@ ZGC(Z Garbage Collector):
 jdk1.7 默认垃圾收集器Parallel Scavenge（新生代）+Parallel Old（老年代）
 jdk1.8 默认垃圾收集器Parallel Scavenge（新生代）+Parallel Old（老年代）
 jdk1.9 默认垃圾收集器G1
- -XX:+PrintCommandLineFlagsjvm参数可查看默认设置收集器类型
- -XX:+PrintGCDetails亦可通过打印的GC日志的新生代、老年代名称判断   
+ -XX:+PrintCommandLineFlags jvm参数可查看默认设置收集器类型
+ -XX:+PrintGCDetails 亦可通过打印的GC日志的新生代、老年代名称判断
+ java -XX:+PrintCommandLineFlags -version   --查看默认的垃圾回收器
+ java的GC回收的类型主要有几种：
+   UseSerialGC,UseParallelGC,UseConcMarkSweepGC,UseParNewGC,UseParallelOldGC,UseG1GC
 ```
 ### 7.内存分配与回收策略
 [垃圾回收与内存分配策略](https://www.cnblogs.com/CodeMLB/p/12113279.html)
@@ -388,7 +391,32 @@ i++:不是原子性操作，虽然读取i和i=i+1都是原子性操作，两个�
 使用软引用，弱引用和虚引用的时候都可以关联这个引用队列。程序通过判断引用队列里面是不是有这个对象来判断，对象是否已经被回收了。
 软引用，弱引用和虚引用用来解决OOM问题，用来保存图片的路径。主要用于缓存。
 ```
-
+### 对OOM的认识
+```markdown
+Java.lang.StackOverflowError 栈内存溢出
+Java.lang.OutOfMemoryError.Java heap space 堆内存溢出
+Java.lang.OutOfMemoryError.GC overhead limit exceeded GC超出警戒，回收时间过长
+Java.lang.OutOfMemoryError.Direct buffer memory 直接内存溢出
+Java.lang.OutOfMemoryError.unable to create new native thread 不能再创建更多的本地线程
+Java.lang.OutOfMemoryError.Metaspace 元空间内存溢出
+```
+```java
+public class GcOverheadDemo{
+    public static void main(String[] args){
+      int i = 0;
+      List<String> list = new ArrayList<>();
+      try{
+          while(true){
+              list.add(String.valueOf(i).intern());
+          }
+      }catch (Throwable e){
+      System.out.println("******************i:"+i);
+          e.printStackTrace();
+          throw  e;
+      }
+    }
+}
+```
 ###
 [【JVM系列】一步步解析java执行内幕](https://www.cnblogs.com/wangjiming/p/10455993.html)
 [大厂面试经：高频率JVM面试问题整理！](https://www.cnblogs.com/xwgblog/p/11842394.html)
