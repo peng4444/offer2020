@@ -6,7 +6,9 @@ import java.util.ArrayDeque;
  * @ClassName: Demo239
  * @Author: pbj
  * @Date: 2019/12/12 20:29
- * @Description: TODO 滑动窗口最大值
+ * @Description: TODO 239.滑动窗口最大值
+ * 给定一个数组nums，有一个大小为k的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的k个数字。滑动窗口每次只向右移动一位。
+ * 返回滑动窗口中的最大值。
  */
 public class Demo239 {
     /* *
@@ -44,7 +46,7 @@ public class Demo239 {
     }
 
     /* *
-     * 功能描述: 双向队列
+     * 功能描述: 双向队列 O(n)
      * @param:
      * @return:
      * @auther: pbj

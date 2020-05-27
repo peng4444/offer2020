@@ -1,6 +1,7 @@
 package cn.offer2020.pbj.demo.leetcode.string;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * @ClassName: Demo242
@@ -28,6 +29,20 @@ public class Demo242 {
         Arrays.sort(tc);
         return Arrays.equals(sc, tc);
     }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String s = scanner.nextLine();
+        String t = scanner.nextLine();
+        if(s.length()!=t.length())
+            System.out.println(false);
+        char[] sc = s.toCharArray();
+        char[] tc = t.toCharArray();
+        Arrays.sort(sc);
+        Arrays.sort(tc);
+        System.out.println(Arrays.equals(sc, tc));
+    }
+
 
     /* *
      * 功能描述: 利用hash散列表，将字符串中的每个字符的个数进行记录，之后比较每个字符的个数是否相等。

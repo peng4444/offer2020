@@ -315,24 +315,25 @@ enum是一个关键字，而Enum是一个抽象类
 @Override 准确覆写 @Deprecated 过期声明  @SuppressWarnings压制警告
 ```
 ###31.Java8新特性
+[有点干货 | Jdk1.8新特性实战篇(41个案例)](https://www.cnblogs.com/xiaofuge/p/12963331.html)
 ```markdown
-        接口增强，使用default与static在接口中定义方法
-            允许在接口里面定义普通方法
-            允许在接口里面定义static方法，直接调用接口static方法使用
-            Java允许内部类访问方法参数的时候开业不加上final关键字
-        lambda表达式有它自己的优点：（1）简洁，（2）易并行计算。尤其适用于遍历结果，循环计算数值或者赋值的时候非常方便。
-        	缺点:（1）若不用并行计算，很多时候计算速度没有比传统的 for 循环快。
-        　　 	（2）不容易使用debug模式调试。
-        　　 	（3）在 lambda 语句中直接强制类型转换不方便。
-        　　 	（4）不可以在foreach中修改foreach外面的值。    
-        Lamda表达式的三种方式：（参数） ->单行语句；  （参数） -> {单行语句}； （参数） ->表达式；
-            避免了匿名内部类定义过多的无用操作
-        Java8新特性 	方法引用
+接口增强，使用default与static在接口中定义方法
+    允许在接口里面定义普通方法
+    允许在接口里面定义static方法，直接调用接口static方法使用
+    Java允许内部类访问方法参数的时候开业不加上final关键字           
+lambda表达式有它自己的优点：（1）简洁，（2）易并行计算。尤其适用于遍历结果，循环计算数值或者赋值的时候非常方便。
+   缺点:（1）若不用并行计算，很多时候计算速度没有比传统的 for 循环快。
+        （2）不容易使用debug模式调试。
+        （3）在 lambda 语句中直接强制类型转换不方便。
+        （4）不可以在foreach中修改foreach外面的值。    
+   Lamda表达式的三种方式：（参数） ->单行语句；  （参数） -> {单行语句}； （参数） ->表达式；
+        避免了匿名内部类定义过多的无用操作        
+Java8新特性 	方法引用
            引用静态方法： 类方法 ：：static方法名称
            引用某一个对象的方法： 实例化对象 ：：普通方法；
            引用特定类型的方法： 特定类：：普通方法；
            引用构造方法： 类名称 ：：new；
-        内建函数式接口
+内建函数式接口
             //功能性接口(Function):public interface Function<T,R>{public R apply(T t);}
             		//此接口需要接受一个参数，并且返回一个处理结果
             		Function<String,Boolean> fun = "he3**" :: startsWith;
@@ -347,7 +348,7 @@ enum是一个关键字，而Enum是一个抽象类
             		System.out.println(sup.get());
             		//断言型接口 String类里面有一个equalsIgnoreCase()方法
             		Predicate<String> pre = "Hello" :: equalsIgnoreCase;
-            		System.out.println(pre.test("hello"));
+            		System.out.println(pre.test("hello"));        
 ```
 ###32.Java9新特性
   

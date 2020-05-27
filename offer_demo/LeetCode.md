@@ -1,8 +1,38 @@
 # 数据结构和算法刷题==>最终目标通过笔试
-[六千字干货文：到底要怎么去学算法？](https://www.cnblogs.com/fivestudy/p/10521687.html)
-## 参考资料
-[2019完成：算法通关62讲-洗刷刷LeetCode](百度云)
-[五分钟学算法](https://www.cnblogs.com/fivestudy/tag/LeetCode/)
+## 参考博客及视频
+>> [参考博客>>六千字干货文：到底要怎么去学算法？](https://www.cnblogs.com/fivestudy/p/10521687.html)
+
+>> [参考视频>>算法通关62讲-洗刷刷LeetCode](百度云)
+
+>> [参考视频>>300分钟实现数据结构与算法全掌握(完整版)](https://www.bilibili.com/video/BV14K4115737/)
+
+>> [参考博客>>五分钟学算法](https://www.cnblogs.com/fivestudy/tag/LeetCode/)
+
+## [参考书籍>>漫画算法](https://github.com/peng4444/offer2020/blob/master/offer_book_reading/src/main/java/cn/offer2020/pbj/book_reading/%E6%BC%AB%E7%94%BB%E7%AE%97%E6%B3%95.md)
+```markdown
+常用数据结构：
+    数组：242,
+    链表：25,
+    栈：20,
+    队列：739,
+    双向队列：239,
+    树：230；
+高级数据结构：
+    优先队列：347，
+    图：图的储存和表达方式：邻接矩阵，邻接链表
+        图的遍历方式：深度优先，广度优先
+        二部图的检测(Bipartite),数的检测，环的检测，有向图，无向图。  785
+        拓扑排序
+        联合-查找算法(Union-Find)
+        最短路径：Dijkstra,Bellman-Ford
+    前缀树(字典树)：212
+    线段树：一种按照二叉树的形式存储数据的结构，每个节点保存的都是数据里某一段的总和。315
+    树状数组：308
+        基本特征：利用数组来表达多叉树的结构，和优先队列有些相似。
+        优先队列是用数组来表示完全二叉树，而树状数组是多叉树。
+        树状数组的第一个元素是空节点。
+        如果节点tree[y]是tree[x]的父节点，那么需要满足y = x - (x&(-x))
+```
 ### 20191228
 ```markdown
 20191228-69,367,633 数学，平方根 ==>二分法和牛顿迭代法
