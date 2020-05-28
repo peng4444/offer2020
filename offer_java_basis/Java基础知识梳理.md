@@ -264,6 +264,7 @@ Object的clone()方法是浅拷贝，即如果类中属性有自定义引用类�
 对象的属性的Class也实现Cloneable接口，在克隆对象时也手动克隆属性，完成深拷贝
 结合序列化(JDK java.io.Serializable接口、JSON格式、XML格式等)，完成深拷贝
 ```
+
 ## Java高级
 ### 1.多线程和并发
 [Java并发之AQS全面详解](https://www.cnblogs.com/Ccwwlx/p/12116668.html)

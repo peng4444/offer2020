@@ -1,4 +1,5 @@
 # java编程思想读书笔记
+[Thinking in Java (Java 编程思想)](https://wizardforcel.gitbooks.io/thinking-in-java/content/)
 ## 第1章：对象入门
 ```markdown
 这一章是对面向对象的程序设计（OOP）的一个综述，其中包括对“什么是对象”之类的基本问题的回答，

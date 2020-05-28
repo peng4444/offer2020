@@ -313,6 +313,10 @@ JVM 支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoad
 自定义类加载器必须继承classloader。需要实现里面的findClass方法。
 我们可以传入路径，通过二进制输出流，将路径内容读取为二进制数组。通过调用defineClass方法定义class。
 ```
+[自定义ClassLoader](https://www.cnblogs.com/heartlake/p/12980009.html)
+```markdown
+
+```
 #### 6.获取ClassLoader的途径
 ```markdown
 方式	                                 代码
@@ -407,7 +411,7 @@ i++:不是原子性操作，虽然读取i和i=i+1都是原子性操作，两个�
 使用软引用，弱引用和虚引用的时候都可以关联这个引用队列。程序通过判断引用队列里面是不是有这个对象来判断，对象是否已经被回收了。
 软引用，弱引用和虚引用用来解决OOM问题，用来保存图片的路径。主要用于缓存。
 ```
-### 对OOM的认识
+### 3.对OOM的认识
 ```markdown
 Java.lang.StackOverflowError 栈内存溢出
 Java.lang.OutOfMemoryError.Java heap space 堆内存溢出
@@ -432,6 +436,50 @@ public class GcOverheadDemo{
       }
     }
 }
+```
+### 又抓了一个导致频繁GC的鬼--数组动态扩容
+[又抓了一个导致频繁GC的鬼--数组动态扩容](https://www.cnblogs.com/perfma/p/12981030.html)
+```markdown
+系统一直在做cms gc，但是老生代一直不降下去，但是执行一次jmap -histo:live之后，也就是主动触发一次full gc之后，
+通过jstat -gcutil来看老生代一下就降下去了，初看下理论上不太可能，因为full gc也会对old做回收，
+于是我要同事针对他们的场景写了一个简单的demo出来，然后果然还真能重现，不过他的demo设置的Heap有32G，
+于是我通过慢慢调整，最终在很小的内存下也能重现出来
+```
+```java
+// -Xmx500M -Xms500M -Xmn200M -XX:+UseConcMarkSweepGC
+// -XX:+UseCMSInitiatingDccupancyOnly -XX:CMSInitiatingOccupancyFraction=90
+public class Test{
+    public static void main(String[] args){
+      allocateMemory();
+      try{
+          Thread.sleep(10000);
+      }catch (Exception e){
+          
+      }
+    }
+    public static void allocateMemory(){
+        List<byte[]> list = new ArrayList<>();
+        int size = 1024 * 1024 * 480;
+        int lne = size / (20*1024);
+        for(int i = 0;i<len;i++){
+            try{
+                byte[] bytes = new byte[20*1024];
+                list.add(bytes);
+            }catch (java.lang.OutOfMemoryError error){
+                
+            }
+        }
+    }
+}
+```
+```markdown
+正如我上面注释里写的JVM参数，控制新生代200M，老生代300M，老生代使用率达到90%的时候触发CMS GC，
+大家可以跑跑看，这种情况下会发现不断做CMS GC，但是老生代就是不降下去，但是只要你主动触发一次Full GC，老生代立马就会回收。
+当allocateMemory方法执行完之后，期待的结果是gc之后List及里面的byte数组都应该被回收掉，可是事实并不是这样的。
+存在跨代引用的问题：因为传给System.arrayCopy的新数组是在java层面构建传进来的，在新生代分配的可能性最大，这样再加上拷贝仅仅是浅拷贝，
+那么老生代里的byte数组因为存在新生代里新数组的引用，那仅仅做CMS GC就不可能回收这些老生代的对象了，因为CMS GC的一个gc root就是新生代里的对象
+只要保证在cms gc回收old之前做一次ygc就能保证新生代里的那个新数组被回收而没有指向老生代那些byte数组，
+那么这些数组就能正常被cms gc回收了，所以加上-XX:+CMSScavengeBeforeRemark即可解此问题。
 ```
 ###
 [【JVM系列】一步步解析java执行内幕](https://www.cnblogs.com/wangjiming/p/10455993.html)
