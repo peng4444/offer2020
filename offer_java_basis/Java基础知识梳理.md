@@ -486,11 +486,12 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
 ```
 
 ### 5.Java I/O
+#### Java的I/O大概可以分成以下几类：
 ```markdown
 Java 的 I/O 大概可以分成以下几类：
     磁盘操作：File
-    字节操作：InputStream 和 OutputStream
-    字符操作：Reader 和 Writer
+    字节操作：字节输入流:InputStream和字节输出流:OutputStream;字节缓冲区类：BufferedInputStream和BufferedOutputStream
+    字符操作：字符输入流:Reader和字符输出流:Writer;字符缓冲区类BufferedReader和BufferedWriter。
     对象操作：Serializable
     网络操作：Socket
     新的输入/输出：NIO
@@ -498,7 +499,10 @@ Java 的 I/O 大概可以分成以下几类：
 按照操作单元划分，可以划分为字节流和字符流；
 InputStream/Reader: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。
 OutputStream/Writer: 所有输出流的基类，前者是字节输出流，后者是字符输出流。
-```
+Java提供了从字节流到字符流的转换流，分别是InputStreamReader和OutputStreamWriter，但没有从字符流到字节流的转换流。
+ 实际上：字符流=字节流+编码表
+```|
+#### [#### 面试必备：详解Java I/O流，掌握这些就可以说精通了？](https://www.cnblogs.com/happyone/p/12663145.html)
 #### Java I/O装饰者模式
 ```markdown
 Java I/O 使用了装饰者模式来实现。以 InputStream 为例，
@@ -506,5 +510,13 @@ Java I/O 使用了装饰者模式来实现。以 InputStream 为例，
     FileInputStream是InputStream的子类，属于具体组件，提供了字节流的输入操作；
     FilterInputStream属于抽象装饰者，装饰者用于装饰组件，为组件提供额外的功能。例如BufferedInputStream为FileInputStream提供缓存的功能。
 ```
-
+#### Java的字节流，字符流和缓冲流对比探究
+>> [Java的字节流，字符流和缓冲流对比探究](https://www.cnblogs.com/misterchaos/p/12985332.html)
+```markdown
+根据以上实验，可以总结得出，字节流和字符流具有以下区别：
+在同样使用缓冲区的前提下，字节流比字符流的效率稍微高一点。对于频繁操作且每次输入输出的数据量较小时，使用缓冲区可以带来明显的效率提升。
+操作对象上，字节流操作的基本单元为字节，字符流操作的基本单元为Unicode码元（字符）。
+字节流通常用于处理二进制数据，实际上它可以处理任意类型的数据，但它不支持直接写入或读取Unicode码元。而字符流通常处理文本数据，它支持写入及读取Unicode码元。
+从源码可以看出来，字节流默认不使用缓冲区，而字符流内部使用了缓冲区。
+```
 ## 其他

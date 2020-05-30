@@ -361,6 +361,7 @@ java -XX:+PrintFlagsInotial
 java -XX:+PrintFlagsFinal
 java -XX:+PrintFlagsFinal -version
 ```
+[JVM常用启动参数](https://www.cnblogs.com/flashsun/p/7246232.html)
 ### 12.JVM触发full gc的几种情况？
 ```markdown
 System.gc()方法的调用:建议JVM进行Full GC,只是建议而非一定,但很多情况下它会触发Full GC,从而增加Full GC的频率,也即增加了间歇性停顿的次数。
@@ -481,7 +482,7 @@ public class Test{
 只要保证在cms gc回收old之前做一次ygc就能保证新生代里的那个新数组被回收而没有指向老生代那些byte数组，
 那么这些数组就能正常被cms gc回收了，所以加上-XX:+CMSScavengeBeforeRemark即可解此问题。
 ```
-###
-[【JVM系列】一步步解析java执行内幕](https://www.cnblogs.com/wangjiming/p/10455993.html)
-[大厂面试经：高频率JVM面试问题整理！](https://www.cnblogs.com/xwgblog/p/11842394.html)
-[JVM 面试考点总结](https://mp.weixin.qq.com/s?__biz=MzI3ODg2OTY1OQ==&mid=2247485506&idx=1&sn=cfa4f73ab24edb757649cc849621777e&chksm=eb512bb6dc26a2a0b1f9103aa70eb4504c60523661dfd151aace4ac25d2ab2a333e181249b10&mpshare=1&scene=23&srcid=#rd)
+
+### [【JVM系列】一步步解析java执行内幕](https://www.cnblogs.com/wangjiming/p/10455993.html)
+### [大厂面试经：高频率JVM面试问题整理！](https://www.cnblogs.com/xwgblog/p/11842394.html)
+### [JVM 面试考点总结](https://mp.weixin.qq.com/s?__biz=MzI3ODg2OTY1OQ==&mid=2247485506&idx=1&sn=cfa4f73ab24edb757649cc849621777e&chksm=eb512bb6dc26a2a0b1f9103aa70eb4504c60523661dfd151aace4ac25d2ab2a333e181249b10&mpshare=1&scene=23&srcid=#rd)
