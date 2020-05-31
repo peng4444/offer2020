@@ -16,6 +16,8 @@
 [MySQL基础知识和常用命令总结](https://www.cnblogs.com/justisme/p/12797955.html)
 
 [分享自己整理的MySQL基础笔记](https://www.nowcoder.com/discuss/353707)
+
+[MySQL 三万字精华总结 + 面试100 问，吊打面试官绰绰有余（收藏系列）](https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247487818&idx=2&sn=61e5c392c68bb6b1474d140e8ee6e3ba&chksm=ce405a9ef937d3888cfa608e3b3e7c329b1255f5d60d6e5bc3ddb2c754f22f24ad2c11e317ab&mpshare=1&scene=23&srcid=&sharer_sharetime=1590881519689&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ### 数据库范式
 ```markdown
  第一范式：无重复的列,实体中的某个属性不能有多个值或者不能有重复的属性。

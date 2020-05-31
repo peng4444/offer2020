@@ -3,6 +3,7 @@
 >> 目标公司：华为，美团，阿里巴巴
 [总结了一下秋招在杭州可能的企业](https://www.nowcoder.com/discuss/421982)
 >> 目标工作地：杭州-上海
+[一二线城市知名 IT 互联网公司名单！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247489140&idx=2&sn=6eda6924742168e9c1accfbe07c14439&chksm=fa0e79f5cd79f0e38fc0af4759dfdafce172b1c6dac7c56ce3e126397fdcf5b86054a06e2c0e&mpshare=1&scene=23&srcid=&sharer_sharetime=1590881708029&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ```markdown
 1. 熟悉企业开发的流程，尽量去接触从需求、测试、上线到文档的整个过程 
 

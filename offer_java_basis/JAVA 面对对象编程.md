@@ -314,7 +314,7 @@ enum是一个关键字，而Enum是一个抽象类
 ```markdown
 @Override 准确覆写 @Deprecated 过期声明  @SuppressWarnings压制警告
 ```
-###31.Java8新特性
+### 31.Java8新特性
 [有点干货 | Jdk1.8新特性实战篇(41个案例)](https://www.cnblogs.com/xiaofuge/p/12963331.html)
 ```markdown
 接口增强，使用default与static在接口中定义方法
@@ -351,6 +351,21 @@ Java8新特性 	方法引用
             		Predicate<String> pre = "Hello" :: equalsIgnoreCase;
             		System.out.println(pre.test("hello"));        
 ```
+#### [【Java8新特性】不了解Optional类，简历上别说你懂Java8！！](https://www.cnblogs.com/binghe001/p/12995007.html)
+```markdown
+什么是Optional类？
+Optional类(java.util.Optional)是一个容器类，代表一个值存在或不存在，原来用null表示一个值不存在，现在Optional可以更好的表达这个概念。并且可以避免空指针异常。
+Optional类常用方法：
+    Optional.of(T t) : 创建一个 Optional 实例。
+    Optional.empty() : 创建一个空的 Optional 实例。
+    Optional.ofNullable(T t):若 t 不为 null,创建 Optional 实例,否则创建空实例。
+    isPresent() : 判断是否包含值。
+    orElse(T t) : 如果调用对象包含值，返回该值，否则返回t。
+    orElseGet(Supplier s) :如果调用对象包含值，返回该值，否则返回 s 获取的值。
+    map(Function f): 如果有值对其处理，并返回处理后的Optional，否则返回 Optional.empty()。
+    flatMap(Function mapper):与 map 类似，要求返回值必须是Optional。
+```
+
 ###32.Java9新特性
   
 ###33.Java10新特性

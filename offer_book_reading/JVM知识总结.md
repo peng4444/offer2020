@@ -438,7 +438,7 @@ public class GcOverheadDemo{
     }
 }
 ```
-### 又抓了一个导致频繁GC的鬼--数组动态扩容
+### 4.又抓了一个导致频繁GC的鬼--数组动态扩容
 [又抓了一个导致频繁GC的鬼--数组动态扩容](https://www.cnblogs.com/perfma/p/12981030.html)
 ```markdown
 系统一直在做cms gc，但是老生代一直不降下去，但是执行一次jmap -histo:live之后，也就是主动触发一次full gc之后，
@@ -482,7 +482,24 @@ public class Test{
 只要保证在cms gc回收old之前做一次ygc就能保证新生代里的那个新数组被回收而没有指向老生代那些byte数组，
 那么这些数组就能正常被cms gc回收了，所以加上-XX:+CMSScavengeBeforeRemark即可解此问题。
 ```
-
+### 5.JVM性能调优监控工具jps、jstack、jmap、jhat、jstat、hprof 使用详解
+[JVM性能调优监控工具jps、jstack、jmap、jhat、jstat、hprof 使用详解](https://mp.weixin.qq.com/s?__biz=MzU2NDg0OTgyMA==&mid=2247487317&idx=1&sn=fc0a61244b401301a1eacad7730476c6&chksm=fc45f2a6cb327bb07d5270ac4ad3c12493fdc0750d9ce816203d33631725fe0dceb69bcfdec2&mpshare=1&scene=23&srcid=&sharer_sharetime=1590881871386&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+```markdown
+jps主要用来输出JVM中运行的进程状态信息。语法格式如下：jps [options] [hostid]
+    命令行参数选项说明如下：
+    -q 不输出类名、Jar名和传入main方法的参数
+    -m 输出传入main方法的参数
+    -l 输出main类或Jar的全限名
+    -v 输出传入JVM的参数
+    # jps -m -l
+jstack主要用来查看某个Java进程内的线程堆栈信息。语法格式如下：jstack [option] pid ;jstack [option] executable core;jstack [option] [server-id@]remote-hostname-or-ip
+    命令行参数选项说明如下：-l long listings，会打印出额外的锁信息，在发生死锁时可以用jstack -l pid来观察锁持有情况-m mixed mode，
+    不仅会输出Java堆栈信息，还会输出C/C++堆栈信息（比如Native方法）
+    jstack可以定位到线程堆栈，根据堆栈信息我们可以定位到具体代码，所以它在JVM性能调优中使用得非常多。
+jmap（Memory Map）和 jhat（Java Heap Analysis Tool）：jmap导出堆内存，然后使用jhat来进行分析，jmap语法格式如下：
+jstat（JVM统计监测工具）: 看看各个区内存和GC的情况
+hprof能够展现CPU使用率，统计堆内存使用情况。
+```
 ### [【JVM系列】一步步解析java执行内幕](https://www.cnblogs.com/wangjiming/p/10455993.html)
 ### [大厂面试经：高频率JVM面试问题整理！](https://www.cnblogs.com/xwgblog/p/11842394.html)
 ### [JVM 面试考点总结](https://mp.weixin.qq.com/s?__biz=MzI3ODg2OTY1OQ==&mid=2247485506&idx=1&sn=cfa4f73ab24edb757649cc849621777e&chksm=eb512bb6dc26a2a0b1f9103aa70eb4504c60523661dfd151aace4ac25d2ab2a333e181249b10&mpshare=1&scene=23&srcid=#rd)

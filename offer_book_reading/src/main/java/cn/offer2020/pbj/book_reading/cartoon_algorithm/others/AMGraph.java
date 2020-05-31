@@ -7,7 +7,7 @@ import java.util.Stack;
  * @ClassName: AMGraph
  * @Author: pbj
  * @Date: 2020/5/29 17:08
- * @Description: TODO
+ * @Description: TODO [Java有向图的邻接矩阵结构、拓扑排序、关键路径：](https://blog.csdn.net/qq_39119562/article/details/84639877)
  */
 public class AMGraph {
     public static void main(String[] args) {

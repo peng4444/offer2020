@@ -6,91 +6,99 @@
 题目描述：
 > 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
 ```java
-//暴力求解
-public boolean find(int target, int[][] array){
-    for(int i = 0;i <array.lenth;i++){
-        for(int j = 0;j < array[0].length;j++){
-            if(array[i][j]==target){
-                return true;
+public class Main{
+    //暴力求解
+    public boolean find(int target, int[][] array){
+        for(int i = 0;i <array.lenth;i++){
+            for(int j = 0;j < array[0].length;j++){
+                if(array[i][j]==target){
+                    return true;
+                }
             }
         }
+        return false;
     }
-    return false;
 }
 ```
 从题目给的条件来看：每一行从左到右递增，每一列从上到下递增，把每一行看成有序数组，这正好符合二分查找的规律
 ```java
-//二分查找
-public boolean find1(int target, int[][] array) {
-   int row = array.length;
-   int col = array[0].length;
-   if (row == 0 || col == 0)
-     return false;
-   if (target < array[0][0] || target > array[row - 1][col - 1])
-     return false;
-   for(int i=0; i<row; i++){
-     int low=0,high=col-1,mid;
-     while(low <= high){
-       mid = low+(high - low)/2;
-       if(target == array[i][mid])
-         return true;
-       else if(target < array[i][mid])
-         high = mid -1;
-       else
-         low = mid +1;
+public class Main{
+    //二分查找
+    public boolean find1(int target, int[][] array) {
+       int row = array.length;
+       int col = array[0].length;
+       if (row == 0 || col == 0)
+         return false;
+       if (target < array[0][0] || target > array[row - 1][col - 1])
+         return false;
+       for(int i=0; i<row; i++){
+         int low=0,high=col-1,mid;
+         while(low <= high){
+           mid = low+(high - low)/2;
+           if(target == array[i][mid])
+             return true;
+           else if(target < array[i][mid])
+             high = mid -1;
+           else
+             low = mid +1;
+         }
+       }
+       return false;
      }
-   }
-   return false;
- }
+}
 ```
 这道题还有一种思路，利用每一行从左到右递增，每一列从上到下递增的规律，选取右上角或者左下角的元素a与target进行比较，
 ```java
-//左下角的点
-//当target小于元素a时，那么target必定在元素a所在列的上方,此时让元素往上走；
-//当target大于元素a时，那么target必定在元素a所在行的右边,此时让元素往右走；
-public boolean find1(int target, int[][] array) {
-   int row = array.length;
-   int col = array[0].length;
-   if (row == 0 || col == 0)
-     return false;
-   if (target < array[0][0] || target > array[row - 1][col - 1])
-     return false;
-   int x = row - 1, y = 0;
-   while (x >= 0 && y <= col - 1) {//从左下开始判定，遇小向右，遇大向上。
-     if (target == array[x][y]){
-       return true;
-     }else if (target > array[x][y]){
-       y++;
-     }else{
-       x--;
+public class Main{
+    //左下角的点
+    //当target小于元素a时，那么target必定在元素a所在列的上方,此时让元素往上走；
+    //当target大于元素a时，那么target必定在元素a所在行的右边,此时让元素往右走；
+    public boolean find1(int target, int[][] array) {
+       int row = array.length;
+       int col = array[0].length;
+       if (row == 0 || col == 0)
+         return false;
+       if (target < array[0][0] || target > array[row - 1][col - 1])
+         return false;
+       int x = row - 1, y = 0;
+       while (x >= 0 && y <= col - 1) {//从左下开始判定，遇小向右，遇大向上。
+         if (target == array[x][y]){
+           return true;
+         }else if (target > array[x][y]){
+           y++;
+         }else{
+           x--;
+         }
+       }
+       return false;
      }
-   }
-   return false;
- }
+}
 ```
 ```java
-//右上角的点
-//当target小于元素a时，那么target必定在元素a所在列的上方,此时让元素往上走；
-//当target大于元素a时，那么target必定在元素a所在行的右边,此时让元素往右走；
-public boolean find1(int target, int[][] array) {
-   int row = array.length;
-   int col = array[0].length;
-   if (row == 0 || col == 0)
-     return false;
-   if (target < array[0][0] || target > array[row - 1][col - 1])
-     return false;
-   int x = 0, y = col-1;
-   while (x <= row && y >= 0) {//从左下开始判定，遇小向右，遇大向上。
-     if (target == array[x][y]){
-       return true;
-     }else if (target > array[x][y]){
-       y--;
-     }else{
-       x++;
+public class Main{
+    //右上角的点
+    //当target小于元素a时，那么target必定在元素a所在列的上方,此时让元素往上走；
+    //当target大于元素a时，那么target必定在元素a所在行的右边,此时让元素往右走；
+    public boolean find1(int target, int[][] array) {
+       int row = array.length;
+       int col = array[0].length;
+       if (row == 0 || col == 0)
+         return false;
+       if (target < array[0][0] || target > array[row - 1][col - 1])
+         return false;
+       int x = 0, y = col-1;
+       while (x <= row && y >= 0) {//从左下开始判定，遇小向右，遇大向上。
+         if (target == array[x][y]){
+           return true;
+         }else if (target > array[x][y]){
+           y--;
+         }else{
+           x++;
+         }
+       }
+       return false;
      }
-   }
-   return false;
- }
+}
 ```
 #### 2、替换空格
 题目描述：
@@ -98,27 +106,31 @@ public boolean find1(int target, int[][] array) {
 > Happy.则经过替换之后的字符串为We%20Are%20Happy。
 解题思路：
 ```java
-//利用String自带的函数
-public String replaceSpace(StringBuffer str){
-    return str.toString().replace(" ","%20");
+public class Main{
+    //利用String自带的函数
+    public String replaceSpace(StringBuffer str){
+        return str.toString().replace(" ","%20");
+    }
 }
 ```
 利用辅助空间，创建一个字符数组用来存放字符串，然后利用for循环遍历一遍，遇到空格直接接上“%20”。
 ```java
-public String replaceSpace(StringBuffer str) {
-		String s = str.toString();
-		char[] c = s.toCharArray();
-    	StringBuilder sb = new StringBuilder();
-    	
-    	for(int i=0; i<c.length; i++){
-    		if(c[i] == ' '){
-    			sb.append("%20");
-    		}else{
-    			sb.append(c[i]);
-    		}
-    	}
-		return sb.toString();
-  }
+public class Main{
+    public String replaceSpace(StringBuffer str) {
+    		String s = str.toString();
+    		char[] c = s.toCharArray();
+        	StringBuilder sb = new StringBuilder();
+        	
+        	for(int i=0; i<c.length; i++){
+        		if(c[i] == ' '){
+        			sb.append("%20");
+        		}else{
+        			sb.append(c[i]);
+        		}
+        	}
+    		return sb.toString();
+    }
+}
 ```
 #### 3、从头到尾打印链表
 题目描述：
@@ -126,36 +138,40 @@ public String replaceSpace(StringBuffer str) {
 解题思路：
 使用栈，利用栈先进后出的特点将链表从尾到头打印
 ```java
-//代码有问题，调式无法通过
-public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
-		if(listNode == null)
-			return null;
-		Stack<Integer> stack = new Stack<Integer>();
-		ArrayList<Integer> array = new ArrayList<Integer>();
-		while(listNode != null){
-			stack.push(listNode.val);
-			listNode = listNode.next;
-		}
-		while(!stack.isEmpty()){
-			array.add(stack.pop());
-		}
-		return array;
-	}
+public class Main{
+    //代码有问题，调式无法通过
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+    		if(listNode == null)
+    			return null;
+    		Stack<Integer> stack = new Stack<Integer>();
+    		ArrayList<Integer> array = new ArrayList<Integer>();
+    		while(listNode != null){
+    			stack.push(listNode.val);
+    			listNode = listNode.next;
+    		}
+    		while(!stack.isEmpty()){
+    			array.add(stack.pop());
+    		}
+    		return array;
+    }
+}
 ```
 ```java
-//调式通过
-public ArrayList<Integer> printListFromTailToHead(ListNode listNode){
-        ArrayList list = new ArrayList();
-        Stack stack = new Stack();
-        while (listNode != null) {
-            stack.push(listNode.val);
-            listNode = listNode.next;
-        }
-        while (!stack.empty()) {
-            list.add(stack.pop());
-        }
-        return list;
-        }
+public class Main{
+    //调式通过
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode){
+            ArrayList list = new ArrayList();
+            Stack stack = new Stack();
+            while (listNode != null) {
+                stack.push(listNode.val);
+                listNode = listNode.next;
+            }
+            while (!stack.empty()) {
+                list.add(stack.pop());
+            }
+            return list;
+            }
+    }
 }
 ```
 使用递归
