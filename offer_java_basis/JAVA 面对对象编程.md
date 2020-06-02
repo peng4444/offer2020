@@ -315,12 +315,17 @@ enum是一个关键字，而Enum是一个抽象类
 @Override 准确覆写 @Deprecated 过期声明  @SuppressWarnings压制警告
 ```
 ### 31.Java8新特性
-[有点干货 | Jdk1.8新特性实战篇(41个案例)](https://www.cnblogs.com/xiaofuge/p/12963331.html)
+#### [有点干货 | Jdk1.8新特性实战篇(41个案例)](https://www.cnblogs.com/xiaofuge/p/12963331.html)
+[【Java8新特性】接口中的默认方法和静态方法，你都掌握了吗？](https://www.cnblogs.com/binghe001/p/13022207.html)
 ```markdown
 接口增强，使用default与static在接口中定义方法
-    允许在接口里面定义普通方法
-    允许在接口里面定义static方法，直接调用接口static方法使用
-    Java允许内部类访问方法参数的时候开业不加上final关键字           
+    1、允许在接口里面定义默认方法
+        在Java8中，默认方法具有“类优先”的原则。
+        若一个接口中定义了一个默认方法，而另外一个父类或接口中又定义了一个同名的方法时，遵循如下的原则。
+        1).选择父类中的方法。如果一个父类提供了具体的实现，那么接口中具有相同名称和参数的默认方法会被忽略。
+        2).接口冲突。如果一个父接口提供一个默认方法，而另一个接口也提供了一个具有相同名称和参数列表的方法（不管方法是否是默认方法）， 那么必须覆盖该方法来解决冲突。
+    2、允许在接口里面定义static方法，直接调用接口static方法使用。
+    3、Java允许内部类访问方法参数的时候可以不加上final关键字。           
 [Lambda表达式详解](https://www.cnblogs.com/haixiang/p/11029639.html)
 lambda表达式有它自己的优点：（1）简洁，（2）易并行计算。尤其适用于遍历结果，循环计算数值或者赋值的时候非常方便。
    缺点:（1）若不用并行计算，很多时候计算速度没有比传统的 for 循环快。
@@ -350,6 +355,7 @@ Java8新特性 	方法引用
             		//断言型接口 String类里面有一个equalsIgnoreCase()方法
             		Predicate<String> pre = "Hello" :: equalsIgnoreCase;
             		System.out.println(pre.test("hello"));        
+[【Java8新特性】关于Java8中的日期时间API，你需要掌握这些！！](https://www.cnblogs.com/binghe001/p/13028868.html)
 ```
 #### [【Java8新特性】不了解Optional类，简历上别说你懂Java8！！](https://www.cnblogs.com/binghe001/p/12995007.html)
 ```markdown

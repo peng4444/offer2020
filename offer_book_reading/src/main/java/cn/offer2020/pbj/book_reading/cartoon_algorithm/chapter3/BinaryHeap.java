@@ -8,6 +8,7 @@ import java.util.Arrays;
  * @Date: 2019/9/16 15:10
  * @Description: TODO 二叉堆  二叉树存在数组中
  * 堆的插入、删除的时间复杂度 O(logn)  构建操作的时间复杂度 O(n)
+ * [漫画：什么是二叉堆？（修正版）](https://mp.weixin.qq.com/s/cq2EhVtOTzTVpNpLDXfeJg)
  */
 public class BinaryHeap {
     //二叉堆 上浮

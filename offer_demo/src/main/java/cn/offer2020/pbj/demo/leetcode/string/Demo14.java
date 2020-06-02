@@ -1,12 +1,13 @@
 package cn.offer2020.pbj.demo.leetcode.string;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * @ClassName: Demo14
  * @Author: pbj
  * @Date: 2020/1/15 21:54
- * @Description: TODO 最长公共前缀
+ * @Description: TODO 14.最长公共前缀
  */
 public class Demo14 {
 
@@ -64,4 +65,24 @@ public class Demo14 {
         return strs[0];
     }
 
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        String[] strs = str.split(",");
+        if(strs==null||strs.length==0) System.out.println("");
+        Arrays.sort(strs);
+        char[] first = strs[0].toCharArray();
+        char[] last = strs[strs.length-1].toCharArray();
+        StringBuilder sb = new StringBuilder();
+        int len = first.length>last.length?last.length:first.length;
+        for(int i = 0;i<len;i++){
+            if(first[i]==last[i]){
+                sb.append(first[i]);
+            }else{
+                break;
+            }
+        }
+        System.out.println(sb.toString());
+    }
 }
