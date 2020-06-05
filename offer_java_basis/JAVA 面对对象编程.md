@@ -371,7 +371,39 @@ Optional类常用方法：
     map(Function f): 如果有值对其处理，并返回处理后的Optional，否则返回 Optional.empty()。
     flatMap(Function mapper):与 map 类似，要求返回值必须是Optional。
 ```
-
+#### [【Java8新特性】重复注解与类型注解，你真的学会了吗？](https://www.cnblogs.com/binghe001/p/13033447.html)
+```markdown
+Java 8 主要有两点改进：类型注解和重复注解。
+1.类型注解
+    1）Java8的类型注解扩展了注解使用的范围。
+    在java8之前，注解只能是在声明的地方所使用，java8开始，注解可以应用在任何地方。
+    例如：创建类实例:new @Interned MyObject();
+    类型映射:myString = (@NonNull String) str;
+    implements 语句中:class UnmodifiableList<T> implements@Readonly List<@Readonly T> { ... }
+    throw exception声明:void monitorTemperature() throws@Critical TemperatureException { ... }
+    在Java 8里面，当类型转化甚至分配新对象的时候，都可以在声明变量或者参数的时候使用注解。Java注解可以支持任意类型。
+    类型注解只是语法而不是语义，并不会影响java的编译时间，加载时间，以及运行时间，也就是说，编译成class文件的时候并不包含类型注解。
+    2）新增ElementType.TYPE_USE和ElementType.TYPE_PARAMETER（在Target上）
+        新增的两个注释的程序元素类型 ElementType.TYPE_USE 和 ElementType.TYPE_PARAMETER用来描述注解的新场合。
+        - ElementType.TYPE_PARAMETER 表示该注解能写在类型变量的声明语句中。
+        - ElementType.TYPE_USE 表示该注解能写在使用类型的任何语句中（例如：声明语句、泛型和强制转换语句中的类型）
+        例如，下面的示例。
+        @Target({ElementType.TYPE_PARAMETER, ElementType.TYPE_USE})
+        @interface MyAnnotation {}
+    3)类型注解的作用
+    类型注解被用来支持在Java的程序中做强类型检查。配合第三方插件工具Checker Framework（注：此插件so easy,这里不介绍了），
+    可以在编译的时候检测出runtime error（例如：UnsupportedOperationException；NumberFormatException；
+    NullPointerException异常等都是runtime error），以提高代码质量。这就是类型注解的作用。
+    注意：使用Checker Framework可以找到类型注解出现的地方并检查。
+2.重复注解
+    允许在同一声明类型（类，属性，或方法）上多次使用同一个注解。
+    Java8以前的版本使用注解有一个限制是相同的注解在同一位置只能使用一次，不能使用多次。
+    Java 8 引入了重复注解机制，这样相同的注解可以在同一地方使用多次。重复注解机制本身必须用 @Repeatable 注解。
+    实际上，重复注解不是一个语言上的改变，只是编译器层面的改动，技术层面仍然是一样的。
+    例如，我们可以使用如下示例来具体对比Java8之前的版本和Java8中的注解。
+Java 8对注解处理提供了两点改进：可重复的注解及可用于类型的注解。
+总体来说，比较简单，下面，我们就以实例的形式来说明Java8中的重复注解和类型注解。
+```
 ###32.Java9新特性
   
 ###33.Java10新特性

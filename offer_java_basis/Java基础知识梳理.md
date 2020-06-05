@@ -168,7 +168,7 @@ final:声明数据为常量，可以是编译时常量，也可以是在运行�
     包含final域的对象的引用和读这个final域，不能重排序；构造函数对final域的写入和这个对象的引用被赋值，不能重排序。
     使用场景：
      不可改变域
-     多线程使用场景，使用 final 关键字或者：synchronized、volatile、锁
+     多线程使用场景，使用final关键字或者：synchronized、volatile、锁
 static:静态变量：又称为类变量，也就是说这个变量属于类的，类所有的实例都共享静态变量，可以直接通过类名来访问它。静态变量在内存中只存在一份。
     实例变量：每创建一个实例就会产生一个实例变量，它与该实例同生共死。
     静态方法在类加载的时候就存在了，它不依赖于任何实例。所以静态方法必须有实现，也就是说它不能是抽象方法。
@@ -199,7 +199,8 @@ static:静态变量：又称为类变量，也就是说这个变量属于类的�
 ```
 ### 7.什么是反射？反射的应用场景？
 ```markdown
-JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为 java 语言的反射机制。
+JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；
+这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
     获取类对象的三种方式：
        通过object类的getClass()函数，由于object是根类，每一个类都有这个函数。
        每一个类（包括基本数据类型，注意这里基本数据类型不用转成包装类）都有一个class属性，静态属性，通过类名直接访问
@@ -252,10 +253,23 @@ Java创建对象有5种方式
     运用反序列化手段，调用java.io.ObjectInputStream对象的readObject()方法.
     使用Unsafe
 ```
+### 12.Java创建对象的过程
+```markdown
+1.类加载检查：虚拟机遇到一条new指令时，首先去检查这个指令能否在常量池中定位到这个类的符号引用，并且检查这个符号引用代表的类
+    是否被加载过、解析过和初始化过。如果没有，那必须先执行相应的类加载过程。
+2.分配内存：在类加载检查通过后，接下来虚拟机将为新生对象分配内存。对象所需的内存大小在类加载完成后便确认了，为对象分配空间的任务
+    等同于把一块确定大小的内存从Java堆中划分出来。分配方式有指针碰撞和空闲列表。
+    虚拟机采用两种方式保证线程安全：CAS+失败重试，TLAB。
+3.初始化零值：保证对象的实例字段在Java代码中可以不赋初始值就直接使用。
+4.设置对象头：对象的元数据信息，对象的哈希码，对象的GC分代年龄等等信息放在对象头中。
+5.执行init方法：执行new指令之后会接着执行<init>方式，把对象按照意愿进行初始化。
+```
 ### 13.深拷贝和浅拷贝区别
 ```markdown
 浅拷贝:复制了对象的引用地址，两个对象指向同一个内存地址，所以修改其中任意的值，另一个值都会随之变化。
+    对基本数据类型进行值传递，对引用数据类型进行引用传递般的拷贝。
 深拷贝:将对象及值复制过来，两个对象修改其中任意的值另一个值不会改变。
+    对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容。
 ```
 ### 14.如何实现对象克隆？
 ```markdown
@@ -408,7 +422,7 @@ Comparator是一个函数式接口。它经常用于没有天然排序的集合�
 [[Java 迭代接口：Iterator、ListIterator 和 Spliterator](https://www.cnblogs.com/liululee/p/11416038.html)]
 
 [Comparable接口的实现和使用](https://www.cnblogs.com/wl-centrinc/p/11872758.html)
-#### 4.ConcurrentHashMap 如何实现线程同步
+#### 4.ConcurrentHashMap如何实现线程同步
 ```markdown
 hashmap的线程安全版，引入segment，每一个segment都是线程安全的，相当于一个hashtable，因此ConcurrentHashMap也不允许出现 null。
 这样就把整个类锁变成了局部锁，用哪一个segment就给哪一个segment加锁。减少竞争，提高效率。
@@ -501,14 +515,14 @@ InputStream/Reader: 所有的输入流的基类，前者是字节输入流，后
 OutputStream/Writer: 所有输出流的基类，前者是字节输出流，后者是字符输出流。
 Java提供了从字节流到字符流的转换流，分别是InputStreamReader和OutputStreamWriter，但没有从字符流到字节流的转换流。
  实际上：字符流=字节流+编码表
-```|
-#### [#### 面试必备：详解Java I/O流，掌握这些就可以说精通了？](https://www.cnblogs.com/happyone/p/12663145.html)
+```
+#### [面试必备：详解JavaI/O流，掌握这些就可以说精通了？](https://www.cnblogs.com/happyone/p/12663145.html)
 #### Java I/O装饰者模式
 ```markdown
-Java I/O 使用了装饰者模式来实现。以 InputStream 为例，
-    InputStream是抽象组件；
-    FileInputStream是InputStream的子类，属于具体组件，提供了字节流的输入操作；
-    FilterInputStream属于抽象装饰者，装饰者用于装饰组件，为组件提供额外的功能。例如BufferedInputStream为FileInputStream提供缓存的功能。
+Java I/O 使用了装饰者模式来实现。以InputStream 为例，
+InputStream是抽象组件；
+FileInputStream是InputStream的子类，属于具体组件，提供了字节流的输入操作；
+FilterInputStream属于抽象装饰者，装饰者用于装饰组件，为组件提供额外的功能。例如BufferedInputStream为FileInputStream提供缓存的功能。
 ```
 #### Java的字节流，字符流和缓冲流对比探究
 >> [Java的字节流，字符流和缓冲流对比探究](https://www.cnblogs.com/misterchaos/p/12985332.html)
