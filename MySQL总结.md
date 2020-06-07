@@ -302,6 +302,7 @@ MyISAM: 不管是主键索引，还是二级索引使用的都是稀疏索引,�
 3.将随机 I/O 变为顺序 I/O（B+Tree 索引是有序的，会将相邻的数据都存储在一起）。
 ```
 #### 11.创建索引的原则
+[mysql索引设计的注意事项(大量示例,收藏再看)](https://www.cnblogs.com/wangtcc/p/mysql-suo-yin-she-ji-de-zhu-yi-shi-xiang-da-liang-.html)
 ```markdown
 索引虽好，但也不是无限制的使用，最好符合一下几个原则
 1） 最左前缀匹配原则，组合索引非常重要的原则，mysql会一直向右匹配直到遇到范围查询(>、<、between、like)就停止匹配，
@@ -442,6 +443,7 @@ SQL游标(cursor)是一个数据库对象，用于从结果集中检索某一行
     SQL执行线程 ：负责读取中继日志，解析出主服务器已经执行的数据更改并在从服务器中重放（Replay）。
 ```
 ### 读写分离
+[提高性能，MySQL 读写分离环境搭建](https://www.cnblogs.com/lenve/p/10855172.html)
 ```markdown
 读写分离是依赖于主从复制，而主从复制又是为读写分离服务的。因为主从复制要求slave不能写只能读（如果对slave执行写操作，
 那么show slave status将会呈现Slave_SQL_Running=NO，此时你需要按照前面提到的手动同步一下slave）。
@@ -642,7 +644,17 @@ MySQL的一些问题：性能优化、高可用性、强一致性、安全、备
 
 ```
 
+## MySQL工作使用
+### [项目上线后，谈一下感触比较深的一点：查询优化](https://www.cnblogs.com/youzhibing/p/11105897.html)
+```markdown
+
+```
+
 ## 未阅读
+[14 个实用的数据库设计技巧](https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247484832&idx=1&sn=2671b8dded66352415eb0aaab9065de0&chksm=f9f51e44ce829752344c6e92a54340f23ebe2ccfe19f8d2bfa46ae2ff261a9873137beee18a0&mpshare=1&scene=23&srcid=&sharer_sharetime=1568260711776&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+
+[写一手好SQL很有必要](https://www.cnblogs.com/xiaoyangjia/p/11267191.html)
+
 [MySQL备份与主备配置](https://www.cnblogs.com/jxtxzzw/p/10844462.html)
 
 [Java操作MySQL数据库 limit 实现分批分页，解决内存溢出问题](https://blog.csdn.net/Agly_Clarlie/article/details/53185750)

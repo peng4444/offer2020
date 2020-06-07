@@ -292,7 +292,7 @@ Object的clone()方法是浅拷贝，即如果类中属性有自定义引用类�
 [Java中锁的实现与内存语义](https://www.cnblogs.com/wuqinglong/p/9962142.html)
 [一句话撸完重量级锁、自旋锁、轻量级锁、偏向锁、悲观、乐观锁等各种锁](https://www.cnblogs.com/kubidemanong/p/10777928.html)
 [【BAT面试题系列】面试官：你了解乐观锁和悲观锁吗？](https://www.cnblogs.com/kismetv/p/10787228.html)
-### 2.同步、异步
+### 2.同步、异步及J.U.C
 ### 3.Java容器集合
 #### 1.Java容器集合简介
 [java集合详解](https://www.cnblogs.com/yanzezhong/p/12808089.html)
@@ -301,27 +301,27 @@ Object的clone()方法是浅拷贝，即如果类中属性有自定义引用类�
     Collection
         List（有序，可重复集合）
             ArrayList:基于动态数组实现，支持随机访问。
-            LinkedList:基于双向链表实现，只能顺序访问，但是可以快速地在链表中间插入和删除元素。还可以用作栈、队列和双向队列。
-            Vector:和 ArrayList 类似，但它是线程安全的。
+            LinkedList:基于双向链表(JDK1.6以前为循环链表，JDK1.7取消了)实现，只能顺序访问，但是可以快速地在链表中间插入和删除元素。
+            Vector:和ArrayList类似，但它是线程安全的(synchronized锁)，效率低。
         Set（无序，不可重复集合）
             HashSet:HashSet 查找的时间复杂度为 O(1)，TreeSet 则为 O(logN)。基于哈希表实现，支持快速查找，但不支持有序性操作。
                     并且失去了元素的插入顺序信息，也就是说使用 Iterator 遍历 HashSet 得到的结果是不确定的。
-            LinkedHashSet:具有 HashSet 的查找效率，且内部使用双向链表维护元素的插入顺序。
+            LinkedHashSet:具有HashSet的查找效率，且内部使用双向链表维护元素的插入顺序。
             SortedSet接口
-                TreeSet:基于红黑树实现，支持有序性操作，例如根据一个范围查找元素的操作。但是查找效率不如
+                TreeSet:基于红黑树实现，支持有序性操作，例如根据一个范围查找元素的操作。但是查找效率不如。
         Queue
             LinkedList:可以用它来实现双向队列。
             PriorityQueue:基于堆结构实现，可以用它来实现优先队列。
     Map(双列集合)
-        HashTable：和HashMap类似，但它是线程安全的，这意味着同一时刻多个线程可以同时写入HashTable并且不会导致数据不一致。
-        它是遗留类，不应该去使用它。现在可以使用ConcurrentHashMap来支持线程安全，并且ConcurrentHashMap的效率会更高，因为ConcurrentHashMap引入了分段锁。 
+        HashTable：和HashMap类似，但是线程安全的(synchronized锁)，意味着同一时刻多个线程可以同时写入HashTable并且不会导致数据不一致。
+        可以使用ConcurrentHashMap来支持线程安全，并且ConcurrentHashMap的效率会更高，因为ConcurrentHashMap引入了分段锁。 
             Poperties
-        HashMap：基于哈希表实现。
+        HashMap：（数组+链表+红黑树）当链表长度超过8时，将链表转换为红黑树，链表长度低于6，就把红黑树转回链表，以减少搜索时间。
         LinkedHashMap：继承HashMap实现Map接口，使用双向链表来维护元素的顺序，顺序为插入顺序或者最近最少使用（LRU）顺序。
         SortedMap接口
             TreeMap：基于红黑树实现。          
 集合输出 Iterator,ListIterator(双向集合输出),Enumeration,foreach,Enumeration只有在Vector接口中使用
-Map 遍历的两种方式
+Map遍历的两种方式
  keyset和entryset，前者是获得key的集合，后者是获得key-value的集合，返回的都是set视图，利用set有迭代器iterator，通过iterator.next来遍历。
  推荐使用entrySet()方法，效率较高。对于keySet其实是遍历了2次，一次是转为iterator，一次就是从HashMap中取出key所对于的value。
     而entryset只是遍历了第一次，它把key和value都放到了entry中，所以快了。    
@@ -386,6 +386,12 @@ Comparator是一个函数式接口。它经常用于没有天然排序的集合�
 适配器模式：java.util.Arrays#asList()可以把数组类型转换为List类型。
             应该注意的是asList()的参数为泛型的变长参数，不能使用基本类型数组作为参数，只能使用相应的包装类型数组。
 ```
+#### [数据结构:用实例分析ArrayList与LinkedList的读写性能](https://www.cnblogs.com/zhuhuix/p/13042761.html)
+```markdown
+List使用首选ArrayList。对于个别插入删除非常多的可以使用LinkedList。
+LinkedList，遍历建议使用Iterator迭代器，尤其是数据量较大时LinkedList避免使用get遍历。
+```
+
 #### 
 [[面试必问之ArrayList](https://www.cnblogs.com/fsmly/p/11283921.html)]
 
@@ -437,6 +443,7 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
          首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
          失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
 ```
+
 
 ### 4.Java集合容器博客
 #### [1.口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
