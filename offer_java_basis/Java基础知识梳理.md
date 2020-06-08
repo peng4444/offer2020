@@ -198,18 +198,22 @@ static:静态变量：又称为类变量，也就是说这个变量属于类的�
 2.将不需要序列化的属性前添加关键字 transient，序列化对象的时候，这个属性就不会序列化到指定的目的地中。
 ```
 ### 7.什么是反射？反射的应用场景？
+[反射那些基础-Class](https://www.cnblogs.com/homejim/p/10140928.html)
 ```markdown
 JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；
-这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。
+这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。所有反射的入口都是 java.lang.Class。
+因为Java中规定了java.lang.reflect包下的所有类的构造函数都不为public， 因此，需要获得这些类的对象都需要调用Class类中适当的的方法。
     获取类对象的三种方式：
-       通过object类的getClass()函数，由于object是根类，每一个类都有这个函数。
-       每一个类（包括基本数据类型，注意这里基本数据类型不用转成包装类）都有一个class属性，静态属性，通过类名直接访问
-       通过Class类的静态方法forName(String className) 
+       通过object类的getClass()函数，由于object是根类，每一个类都有这个函数。Object.getClass()
+       每一个类（包括基本数据类型，注意这里基本数据类型不用转成包装类）都有一个class属性，静态属性，通过类名直接访问。类.class;
+       通过Class类的静态方法forName(String className)。 Class.forName("java.lang.System");
+       通过包装类的TYPE成员。对于基本数据类型，除了以上的.class方法之外，对应包装类的TYPE成员变量来获取Class对象。Double.TYPE;
     应用：
        反射是很多框架的基础
        通过反射运行配置文件
        通过反射越过泛型检查
-反射中，Class.forName() 和 ClassLoader.loadClass()区别？
+Class里面存储了对应类的所有信息，因此，我们可以获得类相关的信息。突破私有字段的保护机制，访问并修改对象的私有字段。
+反射中，Class.forName()和ClassLoader.loadClass()区别？
  Class.forName()执行的是类加载过程的链接和初始化。需要整个类完全加载到内存中，以获取该类的信息。
  ClassLoader.loadClass()执行的只是类加载过程中的第一步，加载过程。loadClass方法是在双亲委派中调用，此时判断类由哪一个类加载器加载，因此类还未加载到内存中。
 ```
@@ -393,6 +397,12 @@ LinkedList，遍历建议使用Iterator迭代器，尤其是数据量较大时Li
 ```
 
 #### 
+[随笔分类 - Java提高篇](https://www.cnblogs.com/mfrank/category/1118474.html)
+
+[Java集合框架——大量数据处理操作练习题](https://blog.csdn.net/ZQ_313/article/details/84797467)
+
+[当前标签：集合源码](https://www.cnblogs.com/tong-yuan/tag/%E9%9B%86%E5%90%88/default.html?page=2)
+
 [[面试必问之ArrayList](https://www.cnblogs.com/fsmly/p/11283921.html)]
 
 [LinkedList集合解析及手写集合](https://www.cnblogs.com/hang-on/p/11469263.html)
@@ -443,7 +453,6 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
          首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
          失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
 ```
-
 
 ### 4.Java集合容器博客
 #### [1.口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
@@ -540,4 +549,11 @@ FilterInputStream属于抽象装饰者，装饰者用于装饰组件，为组件
 字节流通常用于处理二进制数据，实际上它可以处理任意类型的数据，但它不支持直接写入或读取Unicode码元。而字符流通常处理文本数据，它支持写入及读取Unicode码元。
 从源码可以看出来，字节流默认不使用缓冲区，而字符流内部使用了缓冲区。
 ```
+####
+[系统学习 Java IO ---- 目录，概览](https://www.cnblogs.com/czwbig/p/10007201.html)
+[Java NIO 学习笔记（七）----NIO/IO 的对比和总结](https://www.cnblogs.com/czwbig/p/10056804.html)
+[JAVA I/O系统](https://www.cnblogs.com/fengyumeng/p/9952079.html)
+[JAVA 探究NIO](https://www.cnblogs.com/fengyumeng/p/10041986.html#top)
+###
+
 ## 其他
