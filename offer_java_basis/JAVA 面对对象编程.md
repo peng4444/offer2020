@@ -303,12 +303,45 @@ Java 泛型发展史：
     1.Java 泛型最早是在 JDK5 的时候才被引入，但是泛型思想最早来自来自 C++ 模板（template）。
 ```
 ###29.枚举
+[深入理解Java枚举](https://www.cnblogs.com/ziph/p/13068923.html)
+
+[恕我直言，我怀疑你并不会用 Java 枚举](https://www.cnblogs.com/qing-gee/p/13064249.html)
 ```markdown
-enum是一个关键字，而Enum是一个抽象类
-使用enum定义枚举就相当于一个类继承了Enum这个抽象类 
-枚举之中定义的构造方法不能使用public声明，如果没有无参构造，请手工调用构造传递参数
-枚举对象必须放在首行，随后才可以定义属性，构造和普通方法。
+Java5.0引入了枚举，枚举限制变量只能是预先设定好的值。使用枚举可以减少代码中的bug，方便很多场景使用。
+enum是一个关键字，而Enum是一个抽象类,使用enum定义枚举就相当于一个类继承了Enum这个抽象类 
+枚举之中定义的构造方法不能使用public声明，如果没有无参构造，请手动调用构造传递参数，枚举对象必须放在首行，随后才可以定义属性，构造和普通方法。
 枚举的遍历 A[] a = A.values; [聊一聊Java的枚举enum](https://www.cnblogs.com/LiaHon/p/11283026.html)
+枚举类中的声明：
+    访问修辞符 enum 枚举名 {
+        枚举成员,
+        枚举成员,
+        ...
+    };
+class类中枚举的声明：
+    访问修饰符 class 类名 {
+        enum 枚举名 {
+            枚举成员,
+            枚举成员,
+            ...
+        }
+    }
+Java枚举类的使用规则：
+    类的对象是确定的有限个数。
+    当需要定义一组常量时，建议使用枚举。
+    如果枚举类中只有一个对象，则可以作为单例模式的实现方法。
+    枚举类不能被继承
+    枚举类不能被单独的new创建对象
+    枚举类中的枚举成员是用`,`隔开的，多个枚举成员之间用`_`隔开
+    如果枚举类中的只有一个或多个枚举成员，其他什么都没有，我们在用`,`隔开的同时。最后可以省略`;`结束符。
+Java枚举类的应用场景：
+    根据Java中使用枚举类的规则，有以下几种场景适合来使用枚举类，如下：
+    星期：Monday（星期一）、Tuesday（星期二）、Wednesday（星期三）、Thursday（星期四）、Firday（星期五）、Saturday（星期六）、Sunday（星期日）
+    性别：Man（男）、Woman（女）
+    季节：Spring（春天）、Summer（夏天）、Autumn（秋天）、Winter（冬天）
+    支付方式：Cash（现金）、WeChatPay（微信）、Alipay（支付宝）、BankCard（银行卡）、CreditCard（信用卡）
+    订单状态：Nonpayment（未付款）、Paid（已付款）、Fulfilled（已配货）、Delivered（已发货）、Return（退货）、Checked（已确认）
+    线程状态：Establish（创建）、Ready（就绪）、Run（运行）、Obstruct（阻塞）、Die（死亡）
+    等等……
 ```
 ###30.Annotation
 ```markdown

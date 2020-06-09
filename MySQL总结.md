@@ -96,6 +96,7 @@ next-key锁（行锁+gap锁）
  show engine innodb status; # 查看最近一次死锁日志
  -- MySQL 中提供了两种封锁粒度：行级锁以及表级锁。应该尽量只锁定需要修改的那部分数据，而不是所有的资源。
 ```
+[说一说你对MySQL中锁的了解？](https://www.cnblogs.com/notfound9/p/13062524.html)
 #### 1.1共享锁与排他锁
 ```markdown
 InnoDB 实现了标准的行级锁，包括两种：共享锁（简称 s 锁）、排它锁（简称 x 锁）。
