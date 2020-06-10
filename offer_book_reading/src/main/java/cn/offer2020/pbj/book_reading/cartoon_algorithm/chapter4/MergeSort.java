@@ -25,19 +25,18 @@ public class MergeSort {
 
     //二路归并的实现
     public static void merge(int[] arr, int lo, int mid, int hi) {
-        int[] temp = new int[hi - lo + 1];
-        int i = 0, p1 = lo, p2 = mid + 1;
-        while (p1 <= mid && p2 <= hi) {
-            temp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
-        }
-        while (p1 <= mid) {
-            temp[i++] = arr[p1++];
-        }
-        while (p2 <= hi) {
-            temp[i++] = arr[p2++];
-        }
-        for (int j = 0; j < temp.length; j++) {
-            arr[lo + j] = temp[j];
+        int[] temp = arr.clone();
+        int k = lo, i = lo, j = mid + 1;
+        while (k <= hi) {
+            if (i > mid) {
+                arr[k++] = temp[j++];
+            } else if (j > hi) {
+                arr[k++] = temp[i++];
+            } else if (temp[j] < temp[i]) {
+                arr[k++] = temp[j++];
+            } else {
+                arr[k++] = temp[i++];
+            }
         }
     }
 }

@@ -13,6 +13,9 @@ import java.util.Arrays;
  */
 public class ChanceSort {
     public int[] chanceSort(int[] array) {
+        if (null == array || array.length == 0) {
+            throw new RuntimeException("数组为null或长度为0");
+        }
         int[] arr = Arrays.copyOf(array,array.length);
         for (int i = 0; i < arr.length; i++) {
             int min = i;

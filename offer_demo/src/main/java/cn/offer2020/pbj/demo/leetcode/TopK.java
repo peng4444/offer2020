@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.maths;
+package cn.offer2020.pbj.demo.leetcode;
 
 import java.util.*;
 

@@ -7,6 +7,7 @@ import java.util.Arrays;
  * @Author: pbj
  * @Date: 2019/9/16 15:32
  * @Description: TODO  优先队列 优先队列入队和出队的时间复杂度是O(logn)
+ * [最详细版图解优先队列（堆）](https://www.cnblogs.com/9dragon/p/10739121.html)
  */
 public class PriorityQueue {
     private int[] array;
