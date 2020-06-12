@@ -7,9 +7,10 @@ import java.util.*;
  * @Author: pbj
  * @Date: 2020/4/6 10:29
  * @Description: TODO 347. 前 K 个高频元素
+ * 给定一个非空的整数数组，返回其中出现频率前k高的元素。
  */
 public class Demo347 {
-    //解法三：桶排序法
+    //桶排序法
     public List<Integer> topKFrequent(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
@@ -67,6 +68,8 @@ public class Demo347 {
         while (!pq.isEmpty()) {
             res.add(pq.remove());
         }
+        //List to 数组
+        int[] a = res.stream().mapToInt(Integer::valueOf).toArray();
         return res;
     }
 }
