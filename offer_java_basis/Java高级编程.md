@@ -71,13 +71,25 @@ sleep()和wait()的区别
             大浮点数：BigDecimal 构造方法：public BigDecimal(String str)
                                 构造方法：public BigDecimal(double val)
 ####7.日期操作类
-            日期处理类Date
-                有参构造：public Date(long date);接收long型数据 public long getTime();转换为long型
-            日期格式化 SimpleDateFormat
-             * 构造方法：public SimpleDateFormat(String patten)
-             * 将Date转换为String :public final String frmat(Date date)
-             * 将String转换为Date:public Date parse(String source) throws ParseException
-             Calender主要是进行日期计算
+[JDK8中日期类型该如何使用？](https://www.cnblogs.com/zwwhnly/p/13097475.html)
+```markdown
+日期处理类Date
+    有参构造：public Date(long date);接收long型数据 public long getTime();转换为long型
+日期格式化 SimpleDateFormat
+    构造方法：public SimpleDateFormat(String patten)
+    将Date转换为String :public final String frmat(Date date)
+    将String转换为Date:public Date parse(String source) throws ParseException
+Calender主要是进行日期计算
+JDK8：
+    1.Instant获取当前时间,获取时间戳,将long转换为Instant, 将String转换为Instant
+    2.LocalDate 获取当前日期, 获取年月日,指定日期,比较日期是否相等,获取日期是本周/本月/本年的第几天,判断是否为闰年
+    3.LocalTime 获取时分秒,
+    4.LocalDateTime 获取当前时间,获取年月日时分秒,增加天数/小时,减少天数/小时,获取时间是本周/本年的第几天
+    5.DateTimeFormatter 格式化LocalDate,格式化LocalTime,格式化LocalDateTime
+    6. 类型相互转换 Instant转Date,Date转Instant,Date转LocalDateTime,Date转LocalDate,Date转LocalTime
+        LocalDateTime转Date,LocalDate转Date,LocalTime转Date.
+《阿里巴巴Java开发规范》中也推荐使用Instant代替Date，LocalDateTime 代替 Calendar，DateTimeFormatter 代替 SimpleDateFormat。
+```           
 ####8.比较器
             Arrays类
              * 二分查找法：public static int binarySearch(数据类型[]a,数据类型 key)

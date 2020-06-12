@@ -119,7 +119,7 @@ float与double：Java不能隐式执行向下转型，因为这会使得精度�
     局部变量仅在方法的声明、构造函数或者块内可见，局部变量只能在调用这些方法、构造函数或者块的内部使用
     局部变量没有默认值，所以局部变量应该在第一次使用或者声明的时候就应该初始化完成
 ```
-### 2.String 被声明为 final，因此它不可被继承。
+### 2.String被声明为final，因此它不可被继承。
 ```markdown
 String被声明为final，因此它不可被继承。在 Java 8 中，String内部使用char数组存储数据。
 在Java9之后，String类的实现改用byte数组存储字符串，同时使用coder来标识使用了哪种编码。
@@ -139,7 +139,7 @@ value数组被声明为final，这意味着value数组初始化之后就不能�
 String 不可变；StringBuffer 和 StringBuilder 可变
 String不可变，因此是线程安全的；StringBuilder不是线程安全的；StringBuffer是线程安全的，内部使用synchronized进行同步。
 ```
-### 3.Object 的方法 clone
+### 3.Object的方法clone
 ```markdown
 clone():是Object的protected方法，它不是public，一个类不显式去重写clone()，其它类就不能直接去调用该类实例的clone()方法。
 浅拷贝:拷贝对象和原始对象的引用类型引用同一个对象。
@@ -233,6 +233,19 @@ Class里面存储了对应类的所有信息，因此，我们可以获得类相
 因为在程序运行时才确定具体的类，这样，不用修改源程序代码，就可以让引用变量绑定到各种不同的类实现上，从而导致该引用调用的具体方法随之改变，
 即不修改程序代码就可以改变程序运行时所绑定的具体代码，让程序可以选择多个运行状态，这就是多态性。
 ```
+### Java泛型
+[用了这么多年的 Java 泛型，你对它到底有多了解？](https://www.cnblogs.com/goodAndyxublog/p/12934938.html)
+```markdown
+Java 泛型实现方式：Java采用类型擦除（Type erasure generics）的方式实现泛型。
+    用大白话讲就是这个泛型只存在源码中，编译器将源码编译成字节码之时，就会把泛型『擦除』，所以字节码中并不存在泛型。
+    并不是每一个泛型参数被擦除类型后都会变成Object类，如果泛型类型为T extends String这种方式，最终泛型擦除之后将会变成String。
+类型擦除带来的缺陷：
+    1.不支持基本数据类型,但是Java是可以向上转型的。查看字节码，泛型参数被擦除之后，强制变成了Object类型。
+    2.Java类型擦除式泛型实现方式无论使用效果与运行效率全面落后于C#的具现化式泛型。
+    3.由于编译之后，泛型就被擦除，所以在代码运行期间，Java 虚拟机无法获取泛型的实际类型。
+Java 泛型发展史：
+    1.Java 泛型最早是在 JDK5 的时候才被引入，但是泛型思想最早来自来自 C++ 模板（template）。
+```
 ### 10.BIO、NIO、AIO 有什么区别？
 ```markdown
 BIO(Blocking I/O):同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。可以让每一个连接专注于自己的I/O并且编程模型简单，也不用过多考虑系统的过载、限流等问题。
@@ -281,6 +294,29 @@ Java创建对象有5种方式
 Object的clone()方法是浅拷贝，即如果类中属性有自定义引用类型，只拷贝引用，不拷贝引用指向的对象。
 对象的属性的Class也实现Cloneable接口，在克隆对象时也手动克隆属性，完成深拷贝
 结合序列化(JDK java.io.Serializable接口、JSON格式、XML格式等)，完成深拷贝
+```
+### 15.JDK8中日期类型该如何使用
+[JDK8中日期类型该如何使用？](https://www.cnblogs.com/zwwhnly/p/13097475.html)
+```markdown
+在JDK8之前，处理日期时间，我们主要使用3个类，Date、SimpleDateFormat和Calendar。
+    存在一些问题，比如SimpleDateFormat不是线程安全的，比如Date和Calendar获取到的月份是0到11，而不是现实生活中的1到12。
+JDK8推出了全新的日期时间处理类解决了这些问题，比如Instant、LocalDate、LocalTime、LocalDateTime、DateTimeFormatter，
+日期处理类Date
+    有参构造：public Date(long date);接收long型数据 public long getTime();转换为long型
+日期格式化 SimpleDateFormat
+    构造方法：public SimpleDateFormat(String patten)
+    将Date转换为String :public final String frmat(Date date)
+    将String转换为Date:public Date parse(String source) throws ParseException
+Calender主要是进行日期计算
+JDK8：
+    1.Instant获取当前时间,获取时间戳,将long转换为Instant, 将String转换为Instant
+    2.LocalDate 获取当前日期, 获取年月日,指定日期,比较日期是否相等,获取日期是本周/本月/本年的第几天,判断是否为闰年
+    3.LocalTime 获取时分秒,
+    4.LocalDateTime 获取当前时间,获取年月日时分秒,增加天数/小时,减少天数/小时,获取时间是本周/本年的第几天
+    5.DateTimeFormatter 格式化LocalDate,格式化LocalTime,格式化LocalDateTime
+    6. 类型相互转换 Instant转Date,Date转Instant,Date转LocalDateTime,Date转LocalDate,Date转LocalTime
+        LocalDateTime转Date,LocalDate转Date,LocalTime转Date.
+《阿里巴巴Java开发规范》中也推荐使用Instant代替Date，LocalDateTime 代替 Calendar，DateTimeFormatter 代替 SimpleDateFormat。
 ```
 
 ## Java高级

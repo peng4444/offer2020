@@ -73,6 +73,48 @@ next-key锁（行锁+gap锁）
 
 ```
 ### 锁
+#### 死锁死循环四要素
+```markdown
+- 互斥条件：指进程对所分配到的资源进行排它性使用，即在一段时间内某资源只由一个进程占用。
+    如果此时还有其它进程请求资源，则请求者只能等待，直至占有资源的进程用毕释放。
+- 请求和保持条件：指进程已经保持至少一个资源，但又提出了新的资源请求，而该资源已被其它进程占有，
+    此时请求进程阻塞，但又对自己已获得的其它资源保持不放。
+- 不剥夺条件：指进程已获得的资源，在未使用完之前，不能被剥夺，只能在使用完时由自己释放。
+- 环路等待条件：指在发生死锁时，必然存在一个进程——资源的环形链，即进程集合{P0，P1，P2，···，Pn}中的P0正在等待一个P1占用的资源；
+    P1正在等待P2占用的资源，……，Pn正在等待已被P0占用的资源。
+```
+#### [1.手把手教你分析Mysql死锁问题](https://www.cnblogs.com/jay-huaxiao/p/12685287.html)
+```markdown
+环境准备：
+    select @@tx_isolation;  # 查看数据库隔离级别
+    set autocommit=0;  # 自动提交关闭
+    //id是自增主键，name是非唯一索引，balance普通字段
+    表结构:
+        CREATE TABLE `account` (
+              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `name` varchar(255) DEFAULT NULL,
+              `balance` int(11) DEFAULT NULL,
+              PRIMARY KEY (`id`),
+              KEY `idx_name` (`name`) USING BTREE
+            ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+    表中的数据：(1,Eason,100),(2,Wei,100)
+    模拟并发：
+        mysql> update  account  set balance =1000 where name ='Wei'; -- 1）事务A执行更新操作，更新成功
+        mysql> update  account  set balance =1000 where name ='Eason'; -- 2）事务B执行更新操作，更新成功
+        mysql> insert into account values(null,'Jay',100); -- 3）事务A执行插入操作，陷入阻塞~
+    select * from information_schema.innodb_locks; # 查看锁情况
+        mysql> insert into account values(null,'Yan',100); -- 4）事务B执行插入操作，插入成功，同时事务A的插入由阻塞变为死锁error。
+    show engine innodb status; # 查看最近一次死锁日志
+        1）找到关键词TRANSACTION，事务38048
+        2）查看正在执行的SQL
+        3）正在等待锁释放(WAITING FOR THIS LOCK TO BE GRANTED)，...
+-- MySQL中提供了两种封锁粒度：行级锁以及表级锁。应该尽量只锁定需要修改的那部分数据，而不是所有的资源。
+加锁机制：乐观锁、悲观锁。
+兼容性：共享锁、排它锁。
+锁粒度：表锁、页锁、行锁。
+锁模式：记录锁、gap锁、next-key锁、意向锁、插入意向锁。
+```
+#### [2.说一说你对MySQL中锁的了解？](https://www.cnblogs.com/notfound9/p/13062524.html)
 ```markdown
  悲观锁: 先获取锁，再进行业务操作。即 “悲观” 的认为获取锁是非常有可能失败的，因此要先确保获取锁成功再进行业务操作。
     通常来讲在数据库上的悲观锁需要数据库本身提供支持，即通过常用的select … for update操作来实现悲观锁。
@@ -84,66 +126,57 @@ next-key锁（行锁+gap锁）
  共享锁：读锁或S锁。如果事务T对数据A加上共享锁后，则其他事务只能对 A再加共享锁，不能加排它锁。获准共享锁的事务只能读数据，不能修改数据。
  排它锁：独占锁、写锁或X锁。如果事务T对数据A加上排它锁后，则其他事务不能再对A加任何类型的锁。获得排它锁的事务即能读数据又能修改数据。
 ```
-[【原创】惊！史上最全的select加锁分析(Mysql)](https://www.cnblogs.com/rjzheng/p/9950951.html)
-
-[超全面的MySQL语句加锁分析](https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&mid=2653198050&idx=2&sn=68a6594ac35976532ad6a0eec6dc06dd&chksm=8c99e438bbee6d2e8e9bdf80a3312723c92e20afb1918ca6d29cd8ded1d670637c413704ca61&mpshare=1&scene=23&srcid=#rd)
-
-[1.手把手教你分析Mysql死锁问题](https://www.cnblogs.com/jay-huaxiao/p/12685287.html)
-```mysql
- select @@tx_isolation;  # 查看数据库隔离级别
- set autocommit=0;  # 自动提交关闭
- # select * from information_schema.innodb_locks; # 查看锁情况
- show engine innodb status; # 查看最近一次死锁日志
- -- MySQL 中提供了两种封锁粒度：行级锁以及表级锁。应该尽量只锁定需要修改的那部分数据，而不是所有的资源。
-```
-[说一说你对MySQL中锁的了解？](https://www.cnblogs.com/notfound9/p/13062524.html)
-#### 1.1共享锁与排他锁
+##### 1.1共享锁与排他锁
 ```markdown
 InnoDB 实现了标准的行级锁，包括两种：共享锁（简称 s 锁）、排它锁（简称 x 锁）。
 共享锁（S锁）：允许持锁事务读取一行。
 排他锁（X锁）：允许持锁事务更新或者删除一行。
 ```
-#### 1.2 意向锁
+##### 1.2 意向锁
 ```markdown
 意向共享锁( IS 锁)：事务想要获得一张表中某几行的共享锁
 意向排他锁( IX 锁)： 事务想要获得一张表中某几行的排他锁
 ```
-#### 1.3 记录锁（Record Locks）
+##### 1.3 记录锁（Record Locks）
 ```markdown
 记录锁是最简单的行锁，仅仅锁住一行。如：SELECT c1 FROM t WHERE c1 = 10 FOR UPDATE
 记录锁永远都是加在索引上的，即使一个表没有索引，InnoDB也会隐式的创建一个索引，并使用这个索引实施记录锁。
 会阻塞其他事务对其插入、更新、删除
 ```
-#### 1.4 间隙锁（Gap Locks）
+##### 1.4 间隙锁（Gap Locks）
 ```markdown
 间隙锁是一种加在两个索引之间的锁，或者加在第一个索引之前，或最后一个索引之后的间隙。
 使用间隙锁锁住的是一个区间，而不仅仅是这个区间中的每一条数据。
 间隙锁只阻止其他事务插入到间隙中，他们不阻止其他事务在同一个间隙上获得间隙锁，所以 gap x lock 和 gap s lock 有相同的作用。
 ```
-#### 1.5 Next-Key Locks
+##### 1.5 Next-Key Locks
 ```markdown
 Next-key锁是记录锁和间隙锁的组合，它指的是加在某条记录以及这条记录前面间隙上的锁。
 next-key lock实际上就是行锁的一种，只不过它不只是会锁住当前行记录的本身，还会锁定一个范围。
 InnoDB实现的隔离级别RR时可以避免幻读现象的，这是通过next-key lock机制实现的。
 ```
-#### 1.6插入意向锁（Insert Intention）
+##### 1.6插入意向锁（Insert Intention）
 ```markdown
 插入意向锁是在插入一行记录操作之前设置的一种间隙锁，这个锁释放了一种插入方式的信号，
 亦即多个事务在相同的索引间隙插入时如果不是插入间隙中相同的位置就不需要互相等待。
 ```
-#### 1.7 三级封锁协议
+##### 1.7 三级封锁协议
 ```markdown
 **一级封锁协议**:事务T要修改数据A时必须加X(写)锁，直到T结束才释放锁。可以解决丢失修改问题。
 **二级封锁协议**:在一级的基础上，要求读取数据A时必须加S(读)锁，读取完马上释放S(读)锁。可以解决读脏数据问题。
 **三级封锁协议**:在二级的基础上，要求读取数据A时必须加S(读)锁，直到事务结束了才能释放S(读)锁。可以解决不可重复读的问题
 ```
-#### 1.8 两段锁协议
+##### 1.8 两段锁协议
 ```markdown
 加锁和解锁分为两个阶段进行。
 可串行化调度是指，通过并发控制，使得并发执行的事务结果与某个串行执行的事务结果相同。
 事务遵循两段锁协议是保证可串行化调度的充分条件。
 MySQL的InnoDB 存储引擎采用两段锁协议，会根据隔离级别在需要的时候自动加锁，并且所有的锁都是在同一时刻被释放，这被称为隐式锁定。
 ```
+
+[【原创】惊！史上最全的select加锁分析(Mysql)](https://www.cnblogs.com/rjzheng/p/9950951.html)
+
+[超全面的MySQL语句加锁分析](https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&mid=2653198050&idx=2&sn=68a6594ac35976532ad6a0eec6dc06dd&chksm=8c99e438bbee6d2e8e9bdf80a3312723c92e20afb1918ca6d29cd8ded1d670637c413704ca61&mpshare=1&scene=23&srcid=#rd)
 ### 事务的隔离级别和加锁的关系？
 ```markdown
   读未提交
@@ -421,12 +454,35 @@ B-Tree 索引是 InnoDB 引擎的默认索引,在 InnoDB 引擎中使用 B+树�
 索引下推优化:是MySQL5.6引入的，可以在索引遍历过程中，对索引中包含的字段先做判断，直接过滤掉不满足条件的记录，减少回表次数。
 ```
 ### 存储过程——游标
+[面试官突然问我MySQL存储过程，我竟然连基础都不会！（详细）](https://www.cnblogs.com/ziph/p/13090117.html)
+```markdown
+存储过程（Stored Procedure）是在大型数据库系统中，一组为了完成特定功能的SQL语句集，它存储在数据库中，一次编译后永久有效，
+用户通过指定存储过程的名字并给出参数（如果该存储过程带有参数）来执行它。
+存储过程是数据库中的一个重要对象。在数据量特别庞大的情况下利用存储过程能达到倍速的效率提升
+当我们了了解存储过程是什么之后，就需要了解数据库中存在的这三种类型的数据库存储类型程序，如下：
+存储过程：存储过程是最常见的存储程序，存储过程是能够接受输入和输出参数并且能够在请求时被执行的程序单元。
+存储函数：存储函数和存储过程很相像，但是它的执行结果会返回一个值。最重要的是存储函数可以被用来充当标准的SQL语句，允许程序员有效的扩展SQL语言的能力。
+触发器：触发器是用来响应激活或者触发数据库行为事件的存储程序。通常，触发器用来作为数据库操作语言的响应而被调用，触发器可以被用来作为数据校验和自动反向格式化。
+注意：其他的数据库提供了别的数据存储程序，包括包和类。目前MySQL不提供这种结构。
+```
 [存储过程——游标](https://www.cnblogs.com/shanzhiming/p/12975175.html)
 ```markdown
 SQL游标(cursor)是一个数据库对象，用于从结果集中检索某一行的数据。
 游标是系统为用户开设的一个数据缓冲区，存放SQL语句的执行结果。每个游标区都有一个名字,用户可以用SQL语句逐一从游标中获取记录，
 并赋给主变量，交由主语言进一步处理。在编程中，我们使用诸如for或while之类的循环一次遍历一项，游标遵循相同的方法。
 当在SQL中，应用程序逻辑需要一次只处理一行，而不是一次处理整个结果集。可以使用游标完成此操作。
+```
+### MySQL触发器
+```markdown
+触发器（trigger）是MySQL提供给程序员和数据分析员来保证数据完整性的一种方法，它是与表事件相关的特殊的存储过程，
+它的执行不是由程序调用，也不是手工启动，而是由事件来触发，比如当对一个表进行操作（insert，delete， update）时就会激活它执行。
+简单理解为：你执行一条sql语句，这条sql语句的执行会自动去触发执行其他的sql语句。
+触发器的作用：
+    可在写入数据表前，强制检验或转换数据。
+    触发器发生错误时，异动的结果会被撤销。
+    部分数据库管理系统可以针对数据定义语言（DDL）使用触发器，称为DDL触发器。
+    可依照特定的情况，替换异动的指令 (INSTEAD OF)。
+触发器也是存储过程程序的一种，而触发器内部的执行SQL语句是可以多行操作的，所以在MySQL的存储过程程序中，要定义结束符。
 ```
 ### 主从复制
 ```markdown
@@ -552,6 +608,9 @@ ENUM在内部存储时，其实存的是整数。尽量避免使用数字作为E
 ```
 
 ## 优秀的博客文章
+[被敖丙用烂的「数据库调优」连招？真香，淦！](https://mp.weixin.qq.com/s?__biz=MzAwNDA2OTM1Ng==&mid=2453143331&idx=1&sn=e387e1b1beb4cd516ee2d67ce934115e&chksm=8cf2dda0bb8554b67c7441db899edc25f740828ed545980a64b75f13ef9946ff402cc2a36937&mpshare=1&scene=23&srcid=&sharer_sharetime=1591853606997&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+
+
 ### [3.Mysql面试题及千万级数据查询优化](https://www.cnblogs.com/lyn20141231/p/11742042.html)
 ### [4.数据库优化 - SQL优化](https://www.cnblogs.com/lyn20141231/p/11742042.html)
 ### [5.不就是SELECT COUNT语句吗，竟然能被面试官虐的体无完肤](https://www.cnblogs.com/hollischuang/p/11711778.html)
