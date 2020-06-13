@@ -146,3 +146,9 @@
 排序：75,280,324,
 TopK: 215,414,347,973,692, 使用优先队列构造堆排序
 ```
+### LeetCode 括号问题
+[【图解】记一次手撕算法面试：字节跳动的面试官把我四连击了](https://www.cnblogs.com/kubidemanong/p/11949244.html)
+>> 出场题目：[22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/)、[20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
+[921. 使括号有效的最少添加](https://leetcode-cn.com/problems/minimum-add-to-make-parentheses-valid/)
+[32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
+>> 865

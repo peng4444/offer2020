@@ -59,8 +59,8 @@ public class Demo22 {
             ans.add("");
         } else {
             for (int c = 0; c < n; ++c)
-                for (String left : generateParenthesis(c))
-                    for (String right : generateParenthesis(n - 1 - c))
+                for (String left : generateParenthesis1(c))
+                    for (String right : generateParenthesis1(n - 1 - c))
                         ans.add("(" + left + ")" + right);
         }
         return ans;
@@ -80,7 +80,7 @@ public class Demo22 {
         generateAll(new char[2 * n], 0, combinations);
         return combinations;
     }
-
+    //生成所有的可能序列
     public void generateAll(char[] current, int pos, List<String> result) {
         if (pos == current.length) {
             if (valid(current))
@@ -92,7 +92,7 @@ public class Demo22 {
             generateAll(current, pos + 1, result);
         }
     }
-
+    //判断生成括号是否有效
     public boolean valid(char[] current) {
         int balance = 0;
         for (char c : current) {
