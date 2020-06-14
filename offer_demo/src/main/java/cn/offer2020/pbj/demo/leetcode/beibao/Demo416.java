@@ -7,7 +7,7 @@ package cn.offer2020.pbj.demo.leetcode.beibao;
  * @Description: TODO 416. 分割等和子集
  */
 public class Demo416 {
-    //
+    //01 背包问题 的解法
     public boolean canPartition(int[] nums) {
         int sum = countArraySum(nums);
         if(sum%2!=0)return false;
@@ -16,7 +16,7 @@ public class Demo416 {
         dp[0] = true;
         for(int num:nums){
             for(int i = w;i>=num;i--){
-                dp[i] = dp[i]||dp[i-num];
+                dp[i] = dp[i]||dp[i-num];//使用或运算求
             }
         }
         return dp[w];

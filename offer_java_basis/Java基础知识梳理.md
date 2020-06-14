@@ -16,6 +16,12 @@
       面向过程思维方式中更多的体现的是执行者（自己做事情），面向对象中更多的体现是指挥者（指挥对象做事情）。
       面向对象思维方式将复杂的问题简单化。
 ```
+### Java有哪些特点
+```markdown
+- 并发性的： 你可以在其中执行许多语句，而不必一次执行它
+- 面向对象的：基于类和面向对象的编程语言。
+- 独立性的： 支持一次编写，到处运行的独立编程语言，即编译后的代码可以在支持 Java 的所有平台上运行。
+```
 ### 三大特性封装、继承和多态
 ```markdown
 封装:利用抽象数据类型将数据和基于数据的操作封装在一起，使其构成一个不可分割的独立实体。数据被保护在抽象数据类型的内部，尽可能地隐藏内部的细节，
@@ -56,6 +62,18 @@
         继承
         覆盖（重写）
         向上转型
+[为何说要多用组合少用继承？如何决定该用组合还是继承？](https://www.cnblogs.com/appsucc/p/13117618.html)
+尽管我们鼓励多用组合少用继承，但组合也并不是完美的，继承也并非一无是处。在实际的项目开发中，我们还是要根据具体的情况，来选择该用继承还是组合。
+如果类之间的继承结构稳定，层次比较浅，关系不复杂，我们就可以大胆地使用继承。反之，我们就尽量使用组合来替代继承。
+除此之外，还有一些设计模式、特殊的应用场景，会固定使用继承或者组合。
+```
+### 值传递和引用传递
+```markdown
+值传递是指在调用函数时将实际参数复制一份到函数中，这样的话如果函数对其传递过来的形式参数进行修改，将不会影响到实际参数。
+引用传递是指在调用函数时将对象的地址直接传递到函数中，如果在对形式参数进行修改，将影响到实际参数的值。
+简单点说，Java中的传递，是值传递，而这个值，实际上是对象的引用。
+    如果参数是基本类型，传递的是基本类型的字面量值的拷贝。
+    如果参数是引用类型，传递的是该参量所引用的对象在堆中地址值的拷贝。
 ```
 ### 类图
 ```markdown
@@ -101,7 +119,7 @@
 包之间的依赖关系都应该是稳定方向依赖的，包要依赖的包要比自己更具有稳定性。
 ```
 ## Java基础
-### 1.数据类型
+### 1.Java数据类型
 ```markdown
 byte/8
 char/16
@@ -257,10 +275,10 @@ Class里面存储了对应类的所有信息，因此，我们可以获得类相
 ```markdown
 抽象类和普通类的唯一区别就在于是否实例化。
 抽象类必须要有抽象方法吗？抽象类能使用final修饰吗？
- 抽象类中可以有普通方法，也可以有抽象方法
- 但是有抽象方法的类一定是抽象类，但是抽象类中不一定有抽象方法。
- abstract和final不共存，final不能继承
- abstract和static不共存 ，因为abstract不能修饰属性
+     抽象类中可以有普通方法，也可以有抽象方法
+     但是有抽象方法的类一定是抽象类，但是抽象类中不一定有抽象方法。
+     abstract和final不共存，final不能继承
+     abstract和static不共存 ，因为abstract不能修饰属性
 ```
 ### 9.什么是多态？
 ```markdown
@@ -358,19 +376,6 @@ JDK8：
 ```
 
 ## Java高级
-### 1.多线程和并发
-[Java并发之AQS全面详解](https://www.cnblogs.com/Ccwwlx/p/12116668.html)
-#### 1.1锁
-[乐观锁和悲观锁](https://www.cnblogs.com/teach/p/9775077.html)
-```markdown
-乐观锁:主要强调的是每次取数据的时候，都认为别的线程或事务不会修改数据，所以不会对数据进行上锁，只有在更新数据的时候才会判断是否有线程对要操作的数据进行修改；
-悲观锁:主要强调的是每次取数据的时候，都认为别的线程会修改数据，所以每次都会对数据上锁，只有获取锁的情况下才有操作数据的机会；
-```
-[锁开销优化以及 CAS 简单说明](https://www.cnblogs.com/cposture/p/10761396.html#_labelTop)
-[Java中锁的实现与内存语义](https://www.cnblogs.com/wuqinglong/p/9962142.html)
-[一句话撸完重量级锁、自旋锁、轻量级锁、偏向锁、悲观、乐观锁等各种锁](https://www.cnblogs.com/kubidemanong/p/10777928.html)
-[【BAT面试题系列】面试官：你了解乐观锁和悲观锁吗？](https://www.cnblogs.com/kismetv/p/10787228.html)
-### 2.同步、异步及J.U.C
 ### 3.Java容器集合
 #### 1.Java容器集合简介
 [java集合详解](https://www.cnblogs.com/yanzezhong/p/12808089.html)
@@ -447,7 +452,7 @@ Iterator和ListIterator有什么区别？
      peek()和element ()都将在不移除的情况下返回队头，但是peek()方法在队列为空时返回null，调用element()方法会抛出NoSuchElementException 异常。
      add()和offer()都是向队列中添加一个元素。但是如果想在一个满的队列中加入一个新元素，调用add()方法就会抛出一个unchecked异常，而调用offer()方法会返回false。
 ```
-#### 3.[Java 集合排序策略接口 Comparator](https://www.cnblogs.com/felordcn/p/12921857.html)
+#### 3.[Java集合排序策略接口Comparator](https://www.cnblogs.com/felordcn/p/12921857.html)
 ```markdown
 List<People> peoples = new ArrayList<>();
   // 中间省略
@@ -469,8 +474,22 @@ Comparator是一个函数式接口。它经常用于没有天然排序的集合�
 List使用首选ArrayList。对于个别插入删除非常多的可以使用LinkedList。
 LinkedList，遍历建议使用Iterator迭代器，尤其是数据量较大时LinkedList避免使用get遍历。
 ```
-
-#### 
+#### 4.ConcurrentHashMap如何实现线程同步
+```markdown
+hashmap的线程安全版，引入segment，每一个segment都是线程安全的，相当于一个hashtable，因此ConcurrentHashMap也不允许出现 null。
+这样就把整个类锁变成了局部锁，用哪一个segment就给哪一个segment加锁。减少竞争，提高效率。
+对于 jdk1.8 的改进：
+     取消的 segment，转而采用数组元素作为锁。把锁的粒度从多个 node 变成一个 node，进一步减少锁竞争
+     链表大于 8 的时候转化为红黑树
+实现线程同步：元素 Node，字段修饰为 final 和 volatile，采用乐观锁CAS，和分而治之的思想
+     put 操作和初始化操作：
+         volatile字段，标识位，表示当前是否有线程在初始化，volatile 字段保证了所有线程的可见。
+         CAS机制，保证只有一个线程能够初始化
+     size()/判断大小
+         首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
+         失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
+```
+#### 未阅读
 [随笔分类 - Java提高篇](https://www.cnblogs.com/mfrank/category/1118474.html)
 
 [Java集合框架——大量数据处理操作练习题](https://blog.csdn.net/ZQ_313/article/details/84797467)
@@ -512,22 +531,7 @@ LinkedList，遍历建议使用Iterator迭代器，尤其是数据量较大时Li
 [[Java 迭代接口：Iterator、ListIterator 和 Spliterator](https://www.cnblogs.com/liululee/p/11416038.html)]
 
 [Comparable接口的实现和使用](https://www.cnblogs.com/wl-centrinc/p/11872758.html)
-#### 4.ConcurrentHashMap如何实现线程同步
-```markdown
-hashmap的线程安全版，引入segment，每一个segment都是线程安全的，相当于一个hashtable，因此ConcurrentHashMap也不允许出现 null。
-这样就把整个类锁变成了局部锁，用哪一个segment就给哪一个segment加锁。减少竞争，提高效率。
-对于 jdk1.8 的改进：
-     取消的 segment，转而采用数组元素作为锁。把锁的粒度从多个 node 变成一个 node，进一步减少锁竞争
-     链表大于 8 的时候转化为红黑树
-实现线程同步：元素 Node，字段修饰为 final 和 volatile，采用乐观锁CAS，和分而治之的思想
-     put 操作和初始化操作：
-         volatile字段，标识位，表示当前是否有线程在初始化，volatile 字段保证了所有线程的可见。
-         CAS机制，保证只有一个线程能够初始化
-     size()/判断大小
-         首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
-         失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
-```
-
+[Java集合的Stack、Queue、Map的遍历](https://blog.csdn.net/m0_37204491/article/details/70208831)
 ### 4.Java集合容器博客
 #### [1.口气带你踩完五个 List 的大坑，真的是处处坑啊！](https://www.cnblogs.com/goodAndyxublog/p/12758755.html)
 ```markdown
@@ -590,6 +594,7 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
 ```
 
 ### 5.Java I/O
+![](https://img2020.cnblogs.com/blog/1515111/202006/1515111-20200612142833827-43182011.png)
 #### Java的I/O大概可以分成以下几类：
 ```markdown
 Java 的 I/O 大概可以分成以下几类：

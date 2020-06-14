@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class Demo322 {
 
     /* *
-     * 功能描述:动态规划-自下而上[通过]
+     * 功能描述:动态规划-自下而上[通过] 完全背包问题
      * 时间复杂度O(Sn)
      * @param: [coins, amount]
      * @return: int
@@ -26,7 +26,7 @@ public class Demo322 {
         Arrays.fill(dp,max);
         dp[0] = 0;
         for (int i = 0; i <= amount; i++) {
-            for (int j = 0; j < coins.length; i++) {
+            for (int j = 0; j < coins.length; j++) {
                 if (coins[j] <= i) {
                     dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
                 }

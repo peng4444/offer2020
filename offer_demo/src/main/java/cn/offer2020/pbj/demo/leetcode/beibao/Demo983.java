@@ -1,13 +1,33 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.beibao;
 
 /**
  * @ClassName: Demo983
  * @Author: pbj
  * @Date: 2020/4/26 09:30
  * @Description: TODO 983. 最低票价
- * 在一个火车旅行很受欢迎的国度，你提前一年计划了一些火车旅行。在接下来的一年里，你要旅行的日子将以一个名为 days 的数组给出。每一项是一个从 1 到 365 的整数。
+ * 在一个火车旅行很受欢迎的国度，你提前一年计划了一些火车旅行。在接下来的一年里，你要旅行的日子将以一个名为days的数组给出。每一项是一个从 1到 365 的整数。
  */
 public class Demo983 {
+
+    public int mincostTickets2(int[] days, int[] costs) {
+        int dp[] = new int[days.length];
+        dp[0] = Math.min(costs[0],Math.min(costs[1],costs[2]));
+        for(int i=1;i<days.length;i++){
+            int c1,c2,c3;
+            c1 = dp[i-1] + costs[0];
+
+            int j;
+            for(j = i-1;j>=0;j--)if(days[i]-days[j]>=7)break;
+            c2 = j>=0?dp[j] + costs[1]:costs[1];
+            for(j = i-1;j>=0;j--)if(days[i]-days[j]>=30)break;
+            c3 = j>=0?dp[j] + costs[2]:costs[2];
+
+            dp[i] = Math.min(c1,Math.min(c2,c3));
+        }
+
+        return dp[dp.length-1];
+    }
+
     public int mincostTickets(int[] days, int[] costs) {
         // 将从新年到某一天的花过的所有钱数全部记录起来。
         int[] lastAllDaysCost = new int[366];

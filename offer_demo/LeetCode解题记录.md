@@ -152,3 +152,11 @@ TopK: 215,414,347,973,692, 使用优先队列构造堆排序
 [921. 使括号有效的最少添加](https://leetcode-cn.com/problems/minimum-add-to-make-parentheses-valid/)
 [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
 >> 865
+### LeetCode 背包问题&零钱兑换
+[额，没想到，背包问题解题也有套路。。。](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247487177&idx=2&sn=e38ffa48d090aff771dad31d7bc2ae25&chksm=fa0e6148cd79e85ea0e6bd48318d739871538d65258ed5d09e5df8ee5b63034534a3ef042cf3&mpshare=1&scene=23&srcid=&sharer_sharetime=1578061919697&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+```markdown
+背包问题分：0-1背包问题，和完全背包问题。
+416. 分割等和子集
+322. 零钱兑换,518. 零钱兑换 II
+983. 最低票价
+```

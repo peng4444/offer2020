@@ -13,6 +13,7 @@
         <module>offer_java_basis</module>
         <module>offer_book_reading</module>
         <module>offer_blog</module>
+        <module>offer-interview</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
