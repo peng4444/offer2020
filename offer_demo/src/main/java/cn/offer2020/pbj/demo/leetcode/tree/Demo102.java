@@ -23,7 +23,7 @@ public class Demo102 {
     }
 
     /* *
-     * 功能描述: 二叉树广度优先搜索和二叉树深度优先搜索
+     * 功能描述: 二叉树广度优先搜索
      * @param: [root]
      * @return: java.util.List<java.util.List<java.lang.Integer>>
      * @auther: pbj

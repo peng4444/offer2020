@@ -469,10 +469,39 @@ Comparator是一个函数式接口。它经常用于没有天然排序的集合�
 适配器模式：java.util.Arrays#asList()可以把数组类型转换为List类型。
             应该注意的是asList()的参数为泛型的变长参数，不能使用基本类型数组作为参数，只能使用相应的包装类型数组。
 ```
+#### [面试：在面试中关于List（ArrayList、LinkedList）集合会怎么问呢](https://www.cnblogs.com/Ccwwlx/p/13124514.html)
+>> ArrayList(1.8):是由动态再分配的Object[]数组作为底层结构，可设置null值，是非线程安全的。
+    默认容量为10,扩容操作为当前容量*1.5倍。
+>> LinkedList是一个继承于AbstractSequentialList的双向链表。它也可以被当做堆栈、队列或双端队列进行使用，而且LinkedList也为非线程安全，
+jdk1.6使用的是一个带有header节头结点的双向循环链表，头结点不存储实际数据，在1.6之后，就变更使用两个节点first、last指向首尾节点。   
+```markdown
+区别：
+    ArrayList是实现了基于动态数组的数据结构，LinkedList是基于链表结构。
+    对于随机访问的get和set方法查询元素，ArrayList要优于LinkedList，因为LinkedList循环链表寻找元素。
+    对于新增和删除操作add和remove，LinkedList比较高效，因为ArrayList要移动数据。
+优缺点：
+    对ArrayList和LinkedList而言，在末尾增加一个元素所花的开销都是固定的。对ArrayList而言，主要是在内部数组中增加一项，指向所添加的元素，
+        偶尔可能会导致对数组重新进行分配；而对LinkedList而言，这个开销是 统一的，分配一个内部Entry对象。
+    在ArrayList集合中添加或者删除一个元素时，当前的列表移动元素后面所有的元素都会被移动。而LinkedList集合中添加或者删除一个元素的开销是固定的。
+    LinkedList集合不支持 高效的随机随机访问（RandomAccess），因为可能产生二次项的行为。
+    ArrayList的空间浪费主要体现在在list列表的结尾预留一定的容量空间，而LinkedList的空间花费则体现在它的每一个元素都需要消耗相当的空间
+应用场景:
+ArrayList使用在查询比较多，但是插入和删除比较少的情况，而LinkedList用在查询比较少而插入删除比较多的情况
+```
 #### [数据结构:用实例分析ArrayList与LinkedList的读写性能](https://www.cnblogs.com/zhuhuix/p/13042761.html)
 ```markdown
 List使用首选ArrayList。对于个别插入删除非常多的可以使用LinkedList。
 LinkedList，遍历建议使用Iterator迭代器，尤其是数据量较大时LinkedList避免使用get遍历。
+```
+#### modCount属性的作用？
+```markdown
+modCount属性代表为结构性修改（改变list的size大小、以其他方式改变他导致正在进行迭代时出现错误的结果）的次数，
+该属性被Iterator以及ListIterator的实现类所使用，且很多非线程安全使用modCount属性。初始化迭代器时会给这个modCount赋值，如果在遍历的过程中，
+一旦发现这个对象的modCount和迭代器存储的modCount不一样，Iterator或者ListIterator 将抛出ConcurrentModificationException异常，
+这是jdk在面对迭代遍历的时候为了避免不确定性而采取的fail-fast（快速失败）原则：
+在线程不安全的集合中，如果使用迭代器的过程中，发现集合被修改，会抛出ConcurrentModificationExceptions错误，这就是fail-fast机制。
+对集合进行结构性修改时，modCount都会增加，在初始化迭代器时，modCount的值会赋给expectedModCount，在迭代的过程中，
+只要modCount改变了，int expectedModCount=modCount等式就不成立了，迭代器检测到这一点，就会抛出错误：urrentModificationExceptions。
 ```
 #### 4.ConcurrentHashMap如何实现线程同步
 ```markdown

@@ -9,8 +9,8 @@
 >> [参考博客>>五分钟学算法](https://www.cnblogs.com/fivestudy/tag/LeetCode/)
 
 ## [参考书籍>>漫画算法](https://github.com/peng4444/offer2020/blob/master/offer_book_reading/src/main/java/cn/offer2020/pbj/book_reading/%E6%BC%AB%E7%94%BB%E7%AE%97%E6%B3%95.md)
+## [24张图，九大数据结构安排得明明白白！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247489089&idx=2&sn=143d1572b6edc47cb2392f823046c605&chksm=fa0e79c0cd79f0d647b7debbf2e27f02db7b5417d00d8e0ed4f77367704c11f12b5a07f2d4cc&mpshare=1&scene=23&srcid=&sharer_sharetime=1590589545952&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ```markdown
-[24张图，九大数据结构安排得明明白白！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247489089&idx=2&sn=143d1572b6edc47cb2392f823046c605&chksm=fa0e79c0cd79f0d647b7debbf2e27f02db7b5417d00d8e0ed4f77367704c11f12b5a07f2d4cc&mpshare=1&scene=23&srcid=&sharer_sharetime=1590589545952&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 常用数据结构：
     数组：242,
     链表：25,
@@ -37,6 +37,9 @@
     91,247,39，52
 排序：
     冒泡排序；链表插入排序：147，148；快速排序：215；拓扑排序：
+BFS&DFS:
+    BFS：广度优先遍历：是从起始点出发，一层一层地进行，一般用来解决最短路径问题。（用栈）
+    DFS:深度优先遍历：解决连通性问题，即给定一个起始点和一个终点，判断是否有一条路径能从起点连接到终点。（用队列）
 ```
 ### 20191228
 ```markdown
@@ -65,11 +68,11 @@
 二叉树：95,96,94,226,104,617,107,108,114,654,655,101,105
 二分查找：4,644,349,287,167,363,718,862,300,50,327,29,33,174
 广度优先搜索：815,743,107,407,542,847,490,101,773,102,690,199,301,279
+深度优先遍历：679，753,104,743,533,694,108,114,542,490,101,394,109,105
 哈希表：1,535,771,3,711,37,85,18,94,136,739,694,463,349
 回溯算法：22,46,17,37,10,351,411,51,93,78,39,784,131
 链表：2,21,206,24,25,92,23,148,237,19,143,86,203,109
 设计：225,146,588,460,155,232,208,173,379,284,432,341,244,211
-深度优先遍历：679，753,104,743,533,694,108,114,542,490,101,394,109,105
 数学：2,535,7,13,9,458,233,258,12,67,782,753,728
 数组：1,4,15,42,11,53,644,16,85,26,717,728,832
 贪心算法：406,45,765,316,135,122,767,358,621,55,321,861,763,714
@@ -160,3 +163,25 @@ TopK: 215,414,347,973,692, 使用优先队列构造堆排序
 322. 零钱兑换,518. 零钱兑换 II
 983. 最低票价
 ```
+### DFS&BFS
+>>BFS：广度优先遍历：是从起始点出发，一层一层地进行，一般用来解决最短路径问题。（用队列）
+>>DFS: 深度优先遍历：解决连通性问题，即给定一个起始点和一个终点，判断是否有一条路径能从起点连接到终点。（用栈）
+```markdown
+BFS:102.二叉树的层次遍历,1162.地图分析,
+    107.二叉树的层次遍历II,429.N叉树的层序遍历,103. 二叉树的锯齿形层次遍历，199. 二叉树的右视图。
+DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
+[BFS 的使用场景总结：层序遍历、最短路径问题](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/bfs-de-shi-yong-chang-jing-zong-jie-ceng-xu-bian-l/)
+本文讲解的只是两道非常典型的例题。LeetCode中还有许多层序遍历和最短路径的题目
+层序遍历的一些变种题目：
+    LeetCode 103. Binary Tree Zigzag Level Order Traversal 之字形层序遍历
+    LeetCode 199. Binary Tree Right Side View 找每一层的最右结点
+    LeetCode 515. Find Largest Value in Each Tree Row 计算每一层的最大值
+    LeetCode 637. Average of Levels in Binary Tree 计算每一层的平均值
+对于最短路径问题，还有两道题目也是求网格结构中的最短路径，和我们讲解的距离岛屿的最远距离非常类似：
+    LeetCode 542. 01 Matrix
+    LeetCode 994. Rotting Oranges
+还有一道在真正的图结构中求最短路径的问题：
+    LeetCode 310. Minimum Height Trees
+    LeetCode 上第 261 号问题：以图判树。
+```
+[五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)

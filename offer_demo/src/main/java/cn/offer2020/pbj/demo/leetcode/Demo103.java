@@ -40,6 +40,8 @@ public class Demo103 {
         dfs(root.left, ans, level + 1);
         dfs(root.right, ans, level + 1);
     }
+
+
     //层次遍历+标志位
     public List<List<Integer>> zigzagLevelOrder2(TreeNode root) {
         if(root == null)
@@ -73,7 +75,6 @@ public class Demo103 {
     private ArrayList<Stack<TreeNode>> stack = new ArrayList<>();  // 可惜范型不能用数组，不然两个栈的切换看起来就更简洁
 
     public List<List<Integer>> zigzagLevelOrder1(TreeNode root) {
-
         if (root == null) return res;
         stack.add(new Stack<TreeNode>());
         stack.add(new Stack<TreeNode>());

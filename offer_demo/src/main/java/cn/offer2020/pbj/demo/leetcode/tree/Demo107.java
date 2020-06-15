@@ -6,7 +6,8 @@ import java.util.*;
  * @ClassName: Demo107
  * @Author: pbj
  * @Date: 2020/5/11 09:20
- * @Description: TODO
+ * @Description: TODO 107. 二叉树的层次遍历 II
+ * 给定一个二叉树，返回其节点值自底向上的层次遍历。（即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
  */
 public class Demo107 {
 
@@ -35,6 +36,7 @@ public class Demo107 {
         if(node.left!=null) helper(node.left,level+1);
         if(node.right!=null) helper(node.right,level+1);
     }
+
     //迭代实现
     public List<List<Integer>> levelOrderBottom1(TreeNode root) {
         LinkedList<List<Integer>> result = new LinkedList<>();
