@@ -81,7 +81,6 @@ BFS&DFS:
 ```
 ### 二分查找 704,69,300
 
-
 ## cyc2018 LeetCode刷题
 ### 1.双指针 
 ```markdown
@@ -116,7 +115,9 @@ BFS&DFS:
 95. 不同的二叉搜索树 II
 ```
 ### 6.搜索 BFS，DFS
+```markdown
 
+```
 ### 7.回溯BackTracking
 ```markdown
 组合总和：39,40,216
@@ -163,7 +164,7 @@ TopK: 215,414,347,973,692, 使用优先队列构造堆排序
 322. 零钱兑换,518. 零钱兑换 II
 983. 最低票价
 ```
-### DFS&BFS
+### LeetCode DFS&BFS
 >>BFS：广度优先遍历：是从起始点出发，一层一层地进行，一般用来解决最短路径问题。（用队列）
 >>DFS: 深度优先遍历：解决连通性问题，即给定一个起始点和一个终点，判断是否有一条路径能从起点连接到终点。（用栈）
 ```markdown
@@ -173,15 +174,23 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
 [BFS 的使用场景总结：层序遍历、最短路径问题](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/bfs-de-shi-yong-chang-jing-zong-jie-ceng-xu-bian-l/)
 本文讲解的只是两道非常典型的例题。LeetCode中还有许多层序遍历和最短路径的题目
 层序遍历的一些变种题目：
-    LeetCode 103. Binary Tree Zigzag Level Order Traversal 之字形层序遍历
-    LeetCode 199. Binary Tree Right Side View 找每一层的最右结点
-    LeetCode 515. Find Largest Value in Each Tree Row 计算每一层的最大值
-    LeetCode 637. Average of Levels in Binary Tree 计算每一层的平均值
+    LeetCode103.Binary Tree Zigzag Level Order Traversal 之字形层序遍历
+    LeetCode199.Binary Tree Right Side View 找每一层的最右结点
+    LeetCode515.Find Largest Value in Each Tree Row 计算每一层的最大值
+    LeetCode637.Average of Levels in Binary Tree 计算每一层的平均值
 对于最短路径问题，还有两道题目也是求网格结构中的最短路径，和我们讲解的距离岛屿的最远距离非常类似：
-    LeetCode 542. 01 Matrix
-    LeetCode 994. Rotting Oranges
+    LeetCode542.01 Matrix
+    LeetCode994.Rotting Oranges
 还有一道在真正的图结构中求最短路径的问题：
-    LeetCode 310. Minimum Height Trees
-    LeetCode 上第 261 号问题：以图判树。
+    LeetCode310.Minimum Height Trees
+    LeetCode上第261号问题：以图判树。
 ```
+### LeetCode动态规划
+```markdown
+300. 最长上升子序列
+198. 
+62. 
+516.最长回文子序列
+```
+##  
 [五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)

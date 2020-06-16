@@ -1,23 +1,11 @@
 #MySQL学习面试总结
 >> [CyC2018大佬]()
+>> [MySQL 三万字精华总结 + 面试100 问，吊打面试官绰绰有余（收藏系列）](https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247487818&idx=2&sn=61e5c392c68bb6b1474d140e8ee6e3ba&chksm=ce405a9ef937d3888cfa608e3b3e7c329b1255f5d60d6e5bc3ddb2c754f22f24ad2c11e317ab&mpshare=1&scene=23&srcid=&sharer_sharetime=1590881519689&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 
-   [MySQL必知必会1-20章读书笔记](https://www.cnblogs.com/hwahe/p/12822943.html)
-   
-   [写一手好 SQL 很有必要](https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247485420&idx=1&sn=2dad5815b5cf5d65ac386cd115403de0&chksm=f9f51c08ce82951e7cff92cc3888104cac2e24a16f6c5f1ee701a359a5b7e16cbaa5f458aaab&mpshare=1&scene=23&srcid=&sharer_sharetime=1576124148148&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
-   
-   [1000行MySQL学习笔记](https://mp.weixin.qq.com/s?__biz=MzIxNTQ0MDQxNg==&mid=2247486626&idx=1&sn=360e0ff2e280e800a5e6defb2cc5aabf&chksm=979901eda0ee88fbaf17f81b6cbf1d870aa59bd78ea2fcf25a91e9ca157f2c77f9d6f6bb7f95&mpshare=1&scene=23&srcid=&sharer_sharetime=1575470170943&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
-   
-   [MySQL高手系列](https://www.cnblogs.com/itsoku123/category/1539183.html)
-   
-   [MySQL面试总结](https://www.cnblogs.com/canchi/p/12040744.html)
-   
-   [索引-建立框架篇](https://www.cnblogs.com/michael9/p/12144435.html)
+[TOC]
+
+
 ## MySQL基础
-[MySQL基础知识和常用命令总结](https://www.cnblogs.com/justisme/p/12797955.html)
-
-[分享自己整理的MySQL基础笔记](https://www.nowcoder.com/discuss/353707)
-
-[MySQL 三万字精华总结 + 面试100 问，吊打面试官绰绰有余（收藏系列）](https://mp.weixin.qq.com/s?__biz=Mzg2NzA4MTkxNQ==&mid=2247487818&idx=2&sn=61e5c392c68bb6b1474d140e8ee6e3ba&chksm=ce405a9ef937d3888cfa608e3b3e7c329b1255f5d60d6e5bc3ddb2c754f22f24ad2c11e317ab&mpshare=1&scene=23&srcid=&sharer_sharetime=1590881519689&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ### 数据库范式
 ```markdown
  第一范式：无重复的列,实体中的某个属性不能有多个值或者不能有重复的属性。
@@ -25,7 +13,43 @@
  第三范式：属性不依赖于其它非主属性,消除传递依赖,不包含已在其它表中已包含的非主关键字信息。|
  BCNF范式：不存在任何字段对任一候选关键字段的传递函数依赖。
 ```
-### 事务
+### mysql有哪些数据类型
+```markdown
+1、整数类型，包括TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT，分别表示1字节、2字节、3字节、4字节、8字节整数。
+任何整数类型都可以加上UNSIGNED属性，表示数据是无符号的，即非负整数。
+长度：整数类型可以被指定长度，例如：INT(11)表示长度为11的INT类型。
+长度在大多数场景是没有意义的，它不会限制值的合法范围，只会影响显示字符的个数，而且需要和UNSIGNED ZEROFILL属性配合使用才有意义。
+例子，假定类型设定为INT(5)，属性为UNSIGNED ZEROFILL，如果用户插入的数据为12的话，那么数据库实际存储数据为00012。
+2、实数类型，包括FLOAT、DOUBLE、DECIMAL。
+DECIMAL可以用于存储比BIGINT还大的整型，能存储精确的小数。而FLOAT和DOUBLE是有取值范围的，并支持使用标准的浮点进行近似计算。
+计算时FLOAT和DOUBLE相比DECIMAL效率更高一些，DECIMAL你可以理解成是用字符串进行处理。
+3、字符串类型，包括VARCHAR、CHAR、TEXT、BLOB
+VARCHAR用于存储可变长字符串，它比定长类型更节省空间。
+VARCHAR使用额外1或2个字节存储字符串长度。列长度小于255字节时，使用1字节表示，否则使用2字节表示。
+VARCHAR存储的内容超出设置的长度时，内容会被截断。
+CHAR是定长的，根据定义的字符串长度分配足够的空间。CHAR会根据需要使用空格进行填充方便比较。
+CHAR适合存储很短的字符串，或者所有值都接近同一个长度。CHAR存储的内容超出设置的长度时，内容同样会被截断。
+使用策略：
+对于经常变更的数据来说，CHAR比VARCHAR更好，因为CHAR不容易产生碎片。对于非常短的列，CHAR比VARCHAR在存储空间上更有效率。
+使用时要注意只分配需要的空间，更长的列排序时会消耗更多内存。尽量避免使用TEXT/BLOB类型，查询时会使用临时表，导致严重的性能开销。
+4、枚举类型（ENUM），把不重复的数据存储为一个预定义的集合。
+有时可以使用ENUM代替常用的字符串类型。ENUM存储非常紧凑，会把列表值压缩到一个或两个字节。
+ENUM在内部存储时，其实存的是整数。尽量避免使用数字作为ENUM枚举的常量，因为容易混乱。排序是按照内部存储的整数
+5、日期和时间类型，尽量使用timestamp，空间效率高于datetime，
+用整数保存时间戳通常不方便处理。如果需要存储微妙，可以使用bigint存储。
+```
+### mysql有关权限的表都有哪几个
+```markdown
+MySQL服务器通过权限表来控制用户对数据库的访问，权限表存放在mysql数据库里，由mysql_install_db脚本初始化。
+这些权限表分别user，db，table_priv，columns_priv和host。下面分别介绍一下这些表的结构和内容：
+    1、user权限表：记录允许连接到服务器的用户帐号信息，里面的权限是全局级的。
+    2、db权限表：记录各个帐号在各个数据库上的操作权限。
+    3、table_priv权限表：记录数据表级的操作权限。
+    4、columns_priv权限表：记录数据列级的操作权限。
+    5、host权限表：配合db权限表对给定主机上数据库级操作权限作更细致的控制。这个权限表不受GRANT和REVOKE语句的影响。
+```
+#### 
+### MySQL事务
 #### 1.事务的四大特性
 ```markdown
 事务的四大特性指的是满足ACID特性的一组操作，可以通 Commit提交一个事务，也可以使用Rollback进行回滚。
@@ -36,7 +60,8 @@
 **持久性**:一旦事务提交，则其所做的修改将会永远保存到数据库中。即使系统发生崩溃，事务执行的结果也不能丢失。
 ```
 #### 2.事务的隔离级别及各级别下的并发访问问题
-[一文彻底读懂MySQL事务的四大隔离级别](https://www.cnblogs.com/jay-huaxiao/p/12639435.html)
+[一文彻底读懂MySQL事务的四大隔离级别](https://www.cnblogs.com/jay-huaxiao/p/12639435.html)--
+[5分钟带你读懂事务隔离性与隔离级别](https://www.cnblogs.com/coder-programming/p/10693473.html)
 ```markdown
  Read uncommitted：读未提交，就是一个事务可以读取另一个未提交事务的数据。会造成脏读。
  Read committed：读提交，就是一个事务要等另一个事务提交后才能读取数据。若有事务对数据进行更新（UPDATE）操作时，
@@ -72,7 +97,7 @@ next-key锁（行锁+gap锁）
 ```markdown
 
 ```
-### 锁
+### MySQL锁
 #### 死锁死循环四要素
 ```markdown
 - 互斥条件：指进程对所分配到的资源进行排它性使用，即在一段时间内某资源只由一个进程占用。
@@ -191,7 +216,7 @@ MySQL的InnoDB 存储引擎采用两段锁协议，会根据隔离级别在需�
   串行化
      “行级锁” 做不到，需使用 “表级锁”。
 ```
-### 索引 
+### MySQL索引 
 [mysql数据库的索引](https://www.cnblogs.com/wangsen/p/10864136.html)
 >> 为什么要使用索引：快速查询数据;绝大多数需求为单条记录查询的时候，可以选择哈希索引，查询性能快，其余大部分场景使用BTree索引。
 >> 什么样的信息能够成为索引：
@@ -500,7 +525,8 @@ SQL游标(cursor)是一个数据库对象，用于从结果集中检索某一行
     SQL执行线程 ：负责读取中继日志，解析出主服务器已经执行的数据更改并在从服务器中重放（Replay）。
 ```
 ### 读写分离
-[提高性能，MySQL 读写分离环境搭建](https://www.cnblogs.com/lenve/p/10855172.html)
+[提高性能，MySQL 读写分离环境搭建](https://www.cnblogs.com/lenve/p/10855172.html)-- [基于Mycat实现读写分离](https://www.cnblogs.com/atcloud/p/10789850.html)
+-- [Mycat → 实现数据库的读写分离与高可用](https://www.cnblogs.com/youzhibing/p/9553766.html)
 ```markdown
 读写分离是依赖于主从复制，而主从复制又是为读写分离服务的。因为主从复制要求slave不能写只能读（如果对slave执行写操作，
 那么show slave status将会呈现Slave_SQL_Running=NO，此时你需要按照前面提到的手动同步一下slave）。
@@ -530,7 +556,7 @@ MySQL的日志有很多种，如二进制日志（binlog）、错误日志、查
     此外InnoDB存储引擎还提供了两种日志：redolog（重做日志）和undolog（回滚日志）。
     这里将重点针对InnoDB引擎，对重做日志、回滚日志和二进制日志这三种进行分析。
 ```
-#### redo log 重做日志
+#### redo log重做日志
 ```markdown
 重做日志（redo log）是InnoDB引擎层的日志，用来记录事务操作引起数据的变化，记录的是数据页的物理修改。
 重做日记的作用其实很好理解，我打个比方。数据库中数据的修改就好比你写的论文，万一哪天论文丢了怎么呢？以防这种不幸的发生，
@@ -542,7 +568,7 @@ InnoDB引擎对数据的更新，是先将更新记录写入redolog日志，然�
 redo log日志可分为两个部分，一是存在易失性内存中的缓存日志redolog buff，二是保存在磁盘上的redolog日志文件redolog file。
 为了确保每次记录都能够写入到磁盘中的日志中，每次将redolog buffer中的日志写入redolog file的过程中都会调用一次操作系统的fsync操作。
 ```
-#### bin log 二进制日志/归档日志
+#### bin log二进制日志/归档日志
 [什么是 binlog？](https://mp.weixin.qq.com/s?__biz=MzIxMjE5MTE1Nw==&mid=2653196018&idx=1&sn=27f2466a6b2bbdda8b73b0a04675771a&chksm=8c99fc28bbee753e68a50408221be7907f385d2b72f013ed45a450e04cda1c3b0432f535f338&mpshare=1&scene=23&srcid=111533wqfwtBrc16Gnr7vxYi#rd)
 ```markdown
 binlog是记录所有数据库表结构变更（例如CREATE、ALTER TABLE…）以及表数据修改（INSERT、UPDATE、DELETE…）的二进制日志。
@@ -570,107 +596,36 @@ MySQL的binlog有有几种录入格式？分别有什么区别？有三种格式
 如果事务执行失败或调用了rollback，导致事务需要回滚，就可以利用undo log中的信息将数据回滚到修改之前的样子。
 但是undo log不redo log不一样，它属于逻辑日志。它对SQL语句执行相关的信息进行记录。
 ```
-### mysql有关权限的表都有哪几个
+### MySQL分库分表及分区
+[MySql分库分表与分区的区别和思考](https://www.cnblogs.com/GrimMjx/p/11772033.html)
 ```markdown
-MySQL服务器通过权限表来控制用户对数据库的访问，权限表存放在mysql数据库里，由mysql_install_db脚本初始化。
-这些权限表分别user，db，table_priv，columns_priv和host。下面分别介绍一下这些表的结构和内容：
-    1、user权限表：记录允许连接到服务器的用户帐号信息，里面的权限是全局级的。
-    2、db权限表：记录各个帐号在各个数据库上的操作权限。
-    3、table_priv权限表：记录数据表级的操作权限。
-    4、columns_priv权限表：记录数据列级的操作权限。
-    5、host权限表：配合db权限表对给定主机上数据库级操作权限作更细致的控制。这个权限表不受GRANT和REVOKE语句的影响。
+当一张表随着时间和业务的发展，库里表的数据量会越来越大。数据操作也随之会越来越大。一台物理机的资源有限，
+最终能承载的数据量、数据的处理能力都会受到限制。这时候就会使用分库分表来承接超大规模的表，单机放不下的那种。
+区别于分区的是，分区一般都是放在单机里的，用的比较多的是时间范围分区，方便归档。
+只不过分库分表需要代码实现，分区则是mysql内部实现。分库分表和分区并不冲突，可以结合使用。
+既然分库分表了，那么肯定涉及到分布式事务，如何保证插入到不同库的多条记录能够要么同时成功，要么同时失败。
 ```
-#### 
-### mysql有哪些数据类型
+### MySQL备份与主备配置
+[MySQL备份与主备配置](https://www.cnblogs.com/jxtxzzw/p/10844462.html)
 ```markdown
-1、整数类型，包括TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT，分别表示1字节、2字节、3字节、4字节、8字节整数。
-任何整数类型都可以加上UNSIGNED属性，表示数据是无符号的，即非负整数。
-长度：整数类型可以被指定长度，例如：INT(11)表示长度为11的INT类型。
-长度在大多数场景是没有意义的，它不会限制值的合法范围，只会影响显示字符的个数，而且需要和UNSIGNED ZEROFILL属性配合使用才有意义。
-例子，假定类型设定为INT(5)，属性为UNSIGNED ZEROFILL，如果用户插入的数据为12的话，那么数据库实际存储数据为00012。
-2、实数类型，包括FLOAT、DOUBLE、DECIMAL。
-DECIMAL可以用于存储比BIGINT还大的整型，能存储精确的小数。而FLOAT和DOUBLE是有取值范围的，并支持使用标准的浮点进行近似计算。
-计算时FLOAT和DOUBLE相比DECIMAL效率更高一些，DECIMAL你可以理解成是用字符串进行处理。
-3、字符串类型，包括VARCHAR、CHAR、TEXT、BLOB
-VARCHAR用于存储可变长字符串，它比定长类型更节省空间。
-VARCHAR使用额外1或2个字节存储字符串长度。列长度小于255字节时，使用1字节表示，否则使用2字节表示。
-VARCHAR存储的内容超出设置的长度时，内容会被截断。
-CHAR是定长的，根据定义的字符串长度分配足够的空间。CHAR会根据需要使用空格进行填充方便比较。
-CHAR适合存储很短的字符串，或者所有值都接近同一个长度。CHAR存储的内容超出设置的长度时，内容同样会被截断。
-使用策略：
-对于经常变更的数据来说，CHAR比VARCHAR更好，因为CHAR不容易产生碎片。对于非常短的列，CHAR比VARCHAR在存储空间上更有效率。
-使用时要注意只分配需要的空间，更长的列排序时会消耗更多内存。尽量避免使用TEXT/BLOB类型，查询时会使用临时表，导致严重的性能开销。
-4、枚举类型（ENUM），把不重复的数据存储为一个预定义的集合。
-有时可以使用ENUM代替常用的字符串类型。ENUM存储非常紧凑，会把列表值压缩到一个或两个字节。
-ENUM在内部存储时，其实存的是整数。尽量避免使用数字作为ENUM枚举的常量，因为容易混乱。排序是按照内部存储的整数
-5、日期和时间类型，尽量使用timestamp，空间效率高于datetime，
-用整数保存时间戳通常不方便处理。如果需要存储微妙，可以使用bigint存储。
+数据备份类型
+    全量备份：备份整个数据库(全量备份的方法有 2 种，一种是利用数据库管理工具提供的备份恢复和导入导出功能)
+    增量备份：备份自上一次备份以来（增量或完全）以来变化的数据。(binlog用于记录用户对数据库更新的SQL语句信息)
+    差异备份：备份自上一次完全备份以来变化的数据
 ```
+### MySQL运维
+[聊聊数据库~5.SQL运维上篇](https://www.cnblogs.com/dotnetcrazy/p/10810798.html)
+[聊聊数据库~6.SQL运维中篇](https://www.cnblogs.com/dotnetcrazy/p/11029323.html)
 
 ## 优秀的博客文章
-[被敖丙用烂的「数据库调优」连招？真香，淦！](https://mp.weixin.qq.com/s?__biz=MzAwNDA2OTM1Ng==&mid=2453143331&idx=1&sn=e387e1b1beb4cd516ee2d67ce934115e&chksm=8cf2dda0bb8554b67c7441db899edc25f740828ed545980a64b75f13ef9946ff402cc2a36937&mpshare=1&scene=23&srcid=&sharer_sharetime=1591853606997&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+### 1.数据库设计
+[14 个实用的数据库设计技巧](https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247484832&idx=1&sn=2671b8dded66352415eb0aaab9065de0&chksm=f9f51e44ce829752344c6e92a54340f23ebe2ccfe19f8d2bfa46ae2ff261a9873137beee18a0&mpshare=1&scene=23&srcid=&sharer_sharetime=1568260711776&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+```markdown
 
-
-### [3.Mysql面试题及千万级数据查询优化](https://www.cnblogs.com/lyn20141231/p/11742042.html)
-### [4.数据库优化 - SQL优化](https://www.cnblogs.com/lyn20141231/p/11742042.html)
-### [5.不就是SELECT COUNT语句吗，竟然能被面试官虐的体无完肤](https://www.cnblogs.com/hollischuang/p/11711778.html)
-### [基于MySQL的SQL优化总结](https://www.cnblogs.com/itzhouq/p/mysql1.html)
-[数据库语句优化](https://www.cnblogs.com/shiguangliushi/p/10832554.html)
-[Explain 执行计划 和 SQL优化](https://www.cnblogs.com/keme/p/9882663.html)
-[SQL优化指南](https://www.cnblogs.com/fengyumeng/p/9888148.html)
-[MySQL 上亿大表优化实践](https://www.cnblogs.com/YangJiaXin/p/10828244.html#%E5%88%86%E6%9E%90)
-### [按照这些优化技巧来写SQL，连公司DBA也鼓掌称赞！](https://www.cnblogs.com/Howinfun/p/12857976.html)
-```markdown
-一、索引优化
-    1、建立普通索引
-    2、建立复合索引
-    3、最左前缀匹配原则 [面试中常被提到的最左前缀匹配原则](https://www.cnblogs.com/ljl150/p/12934071.html)
-    4、索引下推
-    5、覆盖索引
-    6、普通索引
-    7、前缀索引
-    8、干净的索引列
-二、SQL 优化
-    1、Order By优化
-    2、Join优化
-    3、Group By优化
-    4、OR 优化
-    5、IN 优化
-    6、Like 优化
-三、数据表设计优化
-    1、数据类型：应该选择更简单或者占用空间更小的类型。
-    2、避免空值：
-    3、超长字符串：
 ```
-### 如何定位并优化慢查询sql
-[MySQL慢查询日志总结](https://www.cnblogs.com/kerrycode/p/5593204.html)-- [MySQL慢查询日志释疑总结](https://www.cnblogs.com/kerrycode/p/9963764.html)
-```markdown
-具体场景具体分析，只提出大致思路：
-    - 根据慢日志定位慢查询SQL
-    - 使用explain等等工具分析SQL
-    - 修改SQL或者尽量让SQL走索引
->> show variables like "%quer%"  -- 获取慢查询的信息(慢查询日志的开启情况，慢查询日志存储地址，慢查询插入时间设置)
->> show status like '%slow_queries%' -- 查看慢查询的数量
->> set global show_query_log = on; -- 打开慢查询日志
->> set global long_query_time = 1; -- 设置慢查询开始的时间
-```
-### [一个SQL执行的很慢，我们要分两种情况讨论](https://www.cnblogs.com/kubidemanong/p/10734045.html)
-```markdown
-    1、大多数情况下很正常，偶尔很慢，则有如下原因
-        (1)、数据库在刷新脏页，例如 redo log 写满了需要同步到磁盘。
-        (2)、执行的时候，遇到锁，如表锁、行锁。
-    2、这条 SQL 语句一直执行的很慢，则有如下原因。
-        (1)、没有用上索引：例如该字段没有索引；由于对字段进行运算、函数操作导致无法用索引。
-        (2)、数据库选错了索引。
-```
-### [MySQL实战 | 01-当执行一条select语句时，MySQL到底做了啥？](https://www.cnblogs.com/hoxis/p/10006871.html)
-```markdown
-1.通过MySQL的基础架构看MySQL的命令执行流程。
-MySQL 主要分为 server 层和存储引擎层。
-    - server 层中包含连接器，查询缓存，分析器，优化器，执行器，大多数核心功能以及内置函数，存储过程，触发器，视图等。
-    - 存储引擎层主要负责最终数据的存储和提取，例如常用的存储引擎 InnoDB、MyISAM 等。
-```
-### 3.埋在MySQL数据库应用中的17个关键问题！
+[浅析实际项目中对数据库设计的一些思考](https://www.cnblogs.com/Kevin-ZhangCG/p/10270996.html)
+[数据库状态标识位flag设计](https://www.cnblogs.com/gouyg/p/mysql-flag-php.html)
+### 1.埋在MySQL数据库应用中的17个关键问题！
 [埋在MySQL数据库应用中的17个关键问题！](https://mp.weixin.qq.com/s?__biz=MzI1NDQ3MjQxNA==&mid=2247487762&idx=1&sn=dc71279f36959b62b63b48108cf8dca3&chksm=e9c5e8a3deb261b5e755d3ace7f2e4c6d69ac20e2510a2f7bd7a32adaf1413b053e3ab411aa7&mpshare=1&scene=23&srcid=1204BeiYSpXyUpL3fQ6wUW0P#rd)
 ```markdown
 MySQL的一些问题：性能优化、高可用性、强一致性、安全、备份、集群、横向扩展、纵向扩展、负载均衡、读写分离等
@@ -697,39 +652,105 @@ MySQL的一些问题：性能优化、高可用性、强一致性、安全、备
 [很用心的为你写了 9 道 MySQL 面试题](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247488127&idx=4&sn=040019b9991f9d62dcb0ded7d6cb7d1a&chksm=fa0e7dfecd79f4e8e2ab5b0e84ce7efa25589ebbb9eecf1b51d5413bc7edfc501a903c859201&mpshare=1&scene=23&srcid=&sharer_sharetime=1587272608819&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 
 [mysql insert锁机制](https://blog.csdn.net/zhanghongzheng3213/article/details/53436240)
-### [LSM设计一个数据库引擎](https://www.cnblogs.com/WeaRang/p/12939513.html)
->> 为提升数据库系统的写性能，我们发现磁盘的顺序写性能远远大于随机写性能，甚至性能高于内存的随机写。
->> 所以在很多偏向写性能的数据库系统中，以牺牲一部分读性能和增大写放大的情况下引入了 LSM 数据结构
-```markdown
 
+
+
+
+[被敖丙用烂的「数据库调优」连招？真香，淦！](https://mp.weixin.qq.com/s?__biz=MzAwNDA2OTM1Ng==&mid=2453143331&idx=1&sn=e387e1b1beb4cd516ee2d67ce934115e&chksm=8cf2dda0bb8554b67c7441db899edc25f740828ed545980a64b75f13ef9946ff402cc2a36937&mpshare=1&scene=23&srcid=&sharer_sharetime=1591853606997&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+### 2.按照这些优化技巧来写SQL，连公司DBA也鼓掌称赞！
+[按照这些优化技巧来写SQL，连公司DBA也鼓掌称赞！](https://www.cnblogs.com/Howinfun/p/12857976.html)
+```markdown
+一、索引优化
+    1、建立普通索引
+    2、建立复合索引
+    3、最左前缀匹配原则 [面试中常被提到的最左前缀匹配原则](https://www.cnblogs.com/ljl150/p/12934071.html)
+    4、索引下推
+    5、覆盖索引
+    6、普通索引
+    7、前缀索引
+    8、干净的索引列
+二、SQL 优化
+    1、Order By优化
+    2、Join优化
+    3、Group By优化
+    4、OR 优化
+    5、IN 优化
+    6、Like 优化
+三、数据表设计优化
+    1、数据类型：应该选择更简单或者占用空间更小的类型。
+    2、避免空值：
+    3、超长字符串：
 ```
+### 3.MySQL优化
+[4.数据库优化 - SQL优化](https://www.cnblogs.com/lyn20141231/p/11742042.html)
+[基于MySQL的SQL优化总结](https://www.cnblogs.com/itzhouq/p/mysql1.html)
+[数据库语句优化](https://www.cnblogs.com/shiguangliushi/p/10832554.html)
+[用 Explain 命令分析 MySQL 的 SQL 执行](https://www.cnblogs.com/remcarpediem/p/13138063.html)
+[Explain执行计划和SQL优化](https://www.cnblogs.com/keme/p/9882663.html)
+[SQL优化指南](https://www.cnblogs.com/fengyumeng/p/9888148.html)
+### 4.MySQL慢查询优化
+#### 1.如何定位并优化慢查询sql
+[MySQL慢查询日志总结](https://www.cnblogs.com/kerrycode/p/5593204.html)-- [MySQL慢查询日志释疑总结](https://www.cnblogs.com/kerrycode/p/9963764.html)
+```markdown
+具体场景具体分析，只提出大致思路：
+    - 根据慢日志定位慢查询SQL
+    - 使用explain等等工具分析SQL
+    - 使用show profile[s] 查看由问题的SQL的性能使用情况
+    - 修改SQL或者尽量让SQL走索引
+>> show variables like "%quer%"  -- 获取慢查询的信息(慢查询日志的开启情况，慢查询日志存储地址，慢查询插入时间设置)
+>> show status like '%slow_queries%' -- 查看慢查询的数量
+>> set global show_query_log = on; -- 打开慢查询日志
+>> set global long_query_time = 1; -- 设置慢查询开始的时间
+```
+#### [MySQL 性能优化之慢查询](https://www.cnblogs.com/chenyanbin/p/13128593.html)
+### 2.[一个SQL执行的很慢，我们要分两种情况讨论](https://www.cnblogs.com/kubidemanong/p/10734045.html)
+```markdown
+    1、大多数情况下很正常，偶尔很慢，则有如下原因
+        (1)、数据库在刷新脏页，例如 redo log 写满了需要同步到磁盘。
+        (2)、执行的时候，遇到锁，如表锁、行锁。
+    2、这条 SQL 语句一直执行的很慢，则有如下原因。
+        (1)、没有用上索引：例如该字段没有索引；由于对字段进行运算、函数操作导致无法用索引。
+        (2)、数据库选错了索引。
+```
+### 4.MySQL大数据量查询优化
+[3.Mysql面试题及千万级数据查询优化](https://www.cnblogs.com/lyn20141231/p/11742042.html)
+[MySQL上亿大表优化实践](https://www.cnblogs.com/YangJiaXin/p/10828244.html#%E5%88%86%E6%9E%90)
+### [写一手好SQL很有必要](https://www.cnblogs.com/xiaoyangjia/p/11267191.html)
+
+## MySQL实战
+### [MySQL实战 | 01-当执行一条select语句时，MySQL到底做了啥？](https://www.cnblogs.com/hoxis/p/10006871.html)
+```markdown
+1.通过MySQL的基础架构看MySQL的命令执行流程。
+MySQL 主要分为 server 层和存储引擎层。
+    - server 层中包含连接器，查询缓存，分析器，优化器，执行器，大多数核心功能以及内置函数，存储过程，触发器，视图等。
+    - 存储引擎层主要负责最终数据的存储和提取，例如常用的存储引擎 InnoDB、MyISAM 等。
+```
+### [MySQL服务器 IO 100%的案例分析](https://www.cnblogs.com/wangdong/p/9814988.html)
+### [MySQL全文索引简单实现搜索引擎](https://www.cnblogs.com/YangJiaXin/p/11153579.html) 
 
 ## MySQL工作使用
 ### [项目上线后，谈一下感触比较深的一点：查询优化](https://www.cnblogs.com/youzhibing/p/11105897.html)
 ```markdown
 
 ```
+### [MySQL数据库“十宗罪”【十大经典错误案例】](https://mp.weixin.qq.com/s?__biz=MzI1NDQ3MjQxNA==&mid=2247487474&idx=1&sn=d5cc8f77a4a992142d34c76e3df14e1e&chksm=e9c5f643deb27f55f15df6f96a86da660a782a4a11f2f4bd2331ad562d8d3742b14a09be264b&mpshare=1&scene=23&srcid=1106aA1lme4DMfsqEdsg48PO#rd)
+```markdown
+Top 1：Too many connections（连接数过多，导致连接不上数据库，业务无法正常进行）
+Top 2：（主从复制报错类型）
+Top 3：MySQL安装过程中的报错
+Top 4：数据库密码忘记的问题
+Top 5：truncate 删除数据，导致自动清空自增ID，前端返回报错 not found。
+Top 6：阿里云 MySQL 的配置文件中，需要注意一个参数设置就是：
+Top 7：数据库总会出现中文乱码的情况
+Top 8：使用 binlog_format=statement 这种格式，跨库操作，导致从库丢失数据，用户访问导致出现错误数据信息。
+Top 9：MySQL 数据库连接超时的报错 
+Top 10 ：can't open file (errno:24)
+```
+### [Java操作MySQL数据库 limit 实现分批分页，解决内存溢出问题](https://blog.csdn.net/Agly_Clarlie/article/details/53185750)
 
-## 未阅读
-[14 个实用的数据库设计技巧](https://mp.weixin.qq.com/s?__biz=MzUxOTc4NjEyMw==&mid=2247484832&idx=1&sn=2671b8dded66352415eb0aaab9065de0&chksm=f9f51e44ce829752344c6e92a54340f23ebe2ccfe19f8d2bfa46ae2ff261a9873137beee18a0&mpshare=1&scene=23&srcid=&sharer_sharetime=1568260711776&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
-
-[写一手好SQL很有必要](https://www.cnblogs.com/xiaoyangjia/p/11267191.html)
-
-[MySQL备份与主备配置](https://www.cnblogs.com/jxtxzzw/p/10844462.html)
-
-[Java操作MySQL数据库 limit 实现分批分页，解决内存溢出问题](https://blog.csdn.net/Agly_Clarlie/article/details/53185750)
-
-[MySQL服务器 IO 100%的案例分析](https://www.cnblogs.com/wangdong/p/9814988.html)
-
-[分库分表？如何做到永不迁移数据和避免热点？](https://www.cnblogs.com/niaobulashi/p/10979412.html)【****】
-
-[MySQL全文索引简单实现搜索引擎](https://www.cnblogs.com/YangJiaXin/p/11153579.html)  【***】
-
-[[5分钟带你读懂事务隔离性与隔离级别](https://www.cnblogs.com/coder-programming/p/10693473.html)]
-
-[[聊聊数据库~5.SQL运维上篇](https://www.cnblogs.com/dotnetcrazy/p/10810798.html)]
 ## 数据库面试题
-### [MySQL常见6个考题在实际工作中的运用](https://www.cnblogs.com/xiexj/p/12952378.html)
+### MySQL常见6个考题在实际工作中的运用
+[MySQL常见6个考题在实际工作中的运用](https://www.cnblogs.com/xiexj/p/12952378.html)
 #### 1.MyISAM和InnoDB的区别，什么时候选择MyISAM?
 ```markdown
 InnoDB是目前MySQL主流版本(5.6、5.7、8.0)默认的存储引擎，支持事务、外键、行级锁，对于并发条件下要求数据的一致性，适用于对数据准确性要求高的场景。
@@ -784,14 +805,16 @@ MVCC的特点就是在同一时刻，不同事务可以读取到不同版本的�
         2.2>一个字段区分度很小，比如性别、状态
     3>需要回表的查询结果集过大，超过了配置的范围
 ```
-###
+### [5.不就是SELECT COUNT语句吗，竟然能被面试官虐的体无完肤](https://www.cnblogs.com/hollischuang/p/11711778.html)
 
 ## MySQL的一些命令
+[1000行MySQL学习笔记](https://mp.weixin.qq.com/s?__biz=MzIxNTQ0MDQxNg==&mid=2247486626&idx=1&sn=360e0ff2e280e800a5e6defb2cc5aabf&chksm=979901eda0ee88fbaf17f81b6cbf1d870aa59bd78ea2fcf25a91e9ca157f2c77f9d6f6bb7f95&mpshare=1&scene=23&srcid=&sharer_sharetime=1575470170943&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ```mysql
 show engines;  # 查看MySQL所有的的存储引擎
 show variables like '%storage_engine%'; # 查看默认的存储引擎
 show table status like 'table_name'; #查看表的存储引擎
 ```
+[MySQL基础知识和常用命令总结](https://www.cnblogs.com/justisme/p/12797955.html)
 
 ## LeetCode MySQL题目
 ```mysql
@@ -909,6 +932,3 @@ SELECT CLASS
 	GROUP BY CLASS							#分组
 	HAVING COUNT(DISTINCT STUDENT) >= 5;          #利用 COUNT() 统计每门课 STUDENT 的个数，同时利
 ```
-
-
-
