@@ -190,7 +190,18 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
 300. 最长上升子序列
 198. 
 62. 
+63.
 516.最长回文子序列
+256.粉刷房子,265.粉刷房子II,198.打家劫舍,213.打家劫舍II,
+```
+### LeetCode 二分搜索与贪婪算法
+[一网打尽！二分查找解题模版与题型全面解析](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486128&idx=1&sn=a3b15488968660b194df938c7b7795ef&chksm=fa0e6531cd79ec273c7330ec2d8d55463243a101d31647750c4b00c9b4020723f6a7dcf2fba3&scene=21#wechat_redirect)
+[五分钟了解一下什么是「贪心算法 」](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247485458&idx=2&sn=d4bf481c32798a62e44bf3fff577a141&chksm=fa0e6793cd79ee85ca8817826af20431eb451e51b83aa55497ba3b6dbe8d4a8de5d7b048a8fa&scene=21#wechat_redirect)
+```markdown
+34.
+33.
+253.
+278.
 ```
 ##  
 [五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)

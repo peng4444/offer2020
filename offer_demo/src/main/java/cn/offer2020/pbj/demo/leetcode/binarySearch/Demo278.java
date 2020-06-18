@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.binarySearch;
  * @ClassName: Demo278
  * @Author: pbj
  * @Date: 2020/4/8 12:07
- * @Description: TODO
+ * @Description: TODO 278. 第一个错误的版本
  */
 public class Demo278 {
     boolean isBadVersion(int version) {
