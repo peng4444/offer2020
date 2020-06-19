@@ -6,7 +6,9 @@ import java.util.Arrays;
  * @ClassName: Demo4
  * @Author: pbj
  * @Date: 2020/3/27 09:42
- * @Description: TODO
+ * @Description: TODO 4. 寻找两个正序数组的中位数
+ * 给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
+ * 请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
  */
 public class Demo4 {
 
@@ -43,8 +45,7 @@ public class Demo4 {
      *      ②.B[j-1] > A[i]。此时应该把i增大。 即imin = i + 1;
      *      ③.A[i-1] > B[j]。此时应该把i减小。 即imax = i - 1;
      * */
-
-    public double findMedianSortedArrays1(int[] A, int[] B) {
+    public double findMedianSortedArrays3(int[] A, int[] B) {
         int m = A.length;
         int n = B.length;
         if (m > n) { // to ensure m<=n
@@ -87,7 +88,53 @@ public class Demo4 {
         return 0.0;
     }
 
-    //自己写的低效算法
+    //使用归并排序将两个数组排序。
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        int[] temp=new int[nums1.length+nums2.length];
+        int i=0;
+        int j=0;
+        int t=0;
+        while(i<nums1.length && j<nums2.length){
+            if(nums1[i]<=nums2[j]){
+                temp[t++]=nums1[i++];
+            }else{
+                temp[t++]=nums2[j++];
+            }
+        }
+        while(i<nums1.length){
+            temp[t++]=nums1[i++];
+        }
+        while(j<nums2.length){
+            temp[t++]=nums2[j++];
+        }
+        double b=(temp[(temp.length-1)/2]+temp[temp.length/2])*1.0/2;
+        return b;
+    }
+
+    public double findMedianSortedArrays1(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int left = (m + n + 1) / 2;
+        int right = (m + n + 2) / 2;
+        return (findKth(nums1, 0, nums2, 0, left) + findKth(nums1, 0, nums2, 0, right)) / 2.0;
+    }
+    //i: nums1的起始位置 j: nums2的起始位置
+    public int findKth(int[] nums1, int i, int[] nums2, int j, int k){
+        if( i >= nums1.length) return nums2[j + k - 1];//nums1为空数组
+        if( j >= nums2.length) return nums1[i + k - 1];//nums2为空数组
+        if(k == 1){
+            return Math.min(nums1[i], nums2[j]);
+        }
+        int midVal1 = (i + k / 2 - 1 < nums1.length) ? nums1[i + k / 2 - 1] : Integer.MAX_VALUE;
+        int midVal2 = (j + k / 2 - 1 < nums2.length) ? nums2[j + k / 2 - 1] : Integer.MAX_VALUE;
+        if(midVal1 < midVal2){
+            return findKth(nums1, i + k / 2, nums2, j , k - k / 2);
+        }else{
+            return findKth(nums1, i, nums2, j + k / 2 , k - k / 2);
+        }
+    }
+
+    //自己写的低效算法 开辟一个新数组，将两个数组放入，并且排序取中位数。
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int[] nums = new int[nums1.length+nums2.length];
         for(int i = 0;i<nums.length;i++){

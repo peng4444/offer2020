@@ -1,5 +1,8 @@
 package cn.offer2020.pbj.demo.leetcode.link;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 /**
  * @ClassName: Demo23
  * @Author: pbj
@@ -17,6 +20,7 @@ public class Demo23 {
         }
     }
 
+    //最小堆解法
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists.length==0) return null;
         if(lists.length==1) return lists[0];
@@ -33,7 +37,7 @@ public class Demo23 {
 
         return mergeTwoLists(mergeKLists(l1),mergeKLists(l2));
     }
-
+    //合并两个链表
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) return l2;
         if (l2 == null) return l1;
@@ -61,5 +65,40 @@ public class Demo23 {
             }
         }
         return lists[0];
+    }
+
+    //用容量为K的最小堆优先队列，把链表的头结点都放进去，然后出队当前优先队列中最小的，挂上链表，
+    //然后让出队的那个节点的下一个入队，再出队当前优先队列中最小的，直到优先队列为空。
+    public ListNode mergeKLists2(ListNode[] lists) {
+
+        if (lists.length == 0) {
+            return null;
+        }
+
+        ListNode dummyHead = new ListNode(0);
+        ListNode curr = dummyHead;
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode o1, ListNode o2) {
+                return o1.val - o2.val;
+            }
+        });
+
+        for (ListNode list : lists) {
+            if (list == null) {
+                continue;
+            }
+            pq.add(list);
+        }
+
+        while (!pq.isEmpty()) {
+            ListNode nextNode = pq.poll();
+            curr.next = nextNode;
+            curr = curr.next;
+            if (nextNode.next != null) {
+                pq.add(nextNode.next);
+            }
+        }
+        return dummyHead.next;
     }
 }

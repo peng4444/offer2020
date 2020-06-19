@@ -134,7 +134,7 @@ BFS&DFS:
 ### 10.数学
 
 ## LeetCode问题
-### LeetCode组合问题
+### LeetCode 组合问题
 ```markdown
 解决问题思想：回溯
 17. 电话号码的字母组合：给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
@@ -202,6 +202,12 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
 33.
 253.
 278.
+```
+### LeetCode 高频题目（一）
+```markdown
+3. 无重复字符的最长子串 
+4. 寻找两个正序数组的中位数  拓展-> 215. 数组中的第K个最大元素 拓展-> 寻找两个无序数组的中位数 拓展-> 分布式大量数据排序，快速排序可以
+23. 合并K个排序链表 
 ```
 ##  
 [五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)

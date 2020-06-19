@@ -1,4 +1,8 @@
 # Java
+
+[TOC]
+
+
 ## 面向对象思想
 [Java面向对象封装和继承](https://www.cnblogs.com/Young111/p/10016570.html)
 ### 什么是面向过程、面向对象？
@@ -118,6 +122,7 @@
 5. 稳定依赖原则
 包之间的依赖关系都应该是稳定方向依赖的，包要依赖的包要比自己更具有稳定性。
 ```
+
 ## Java基础
 ### 1.Java数据类型
 ```markdown
@@ -353,6 +358,7 @@ Object的clone()方法是浅拷贝，即如果类中属性有自定义引用类�
 ```
 ### 15.JDK8中日期类型该如何使用
 [JDK8中日期类型该如何使用？](https://www.cnblogs.com/zwwhnly/p/13097475.html)
+![](http://note.youdao.com/yws/res/4850/1B2263611B9C4821B98FFD8F77A7B6F7)
 ```markdown
 在JDK8之前，处理日期时间，我们主要使用3个类，Date、SimpleDateFormat和Calendar。
     存在一些问题，比如SimpleDateFormat不是线程安全的，比如Date和Calendar获取到的月份是0到11，而不是现实生活中的1到12。

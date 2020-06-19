@@ -17,7 +17,6 @@ public class TopK {
         if (nums == null || nums.length < k) {
             return result;
         }
-
         Queue<Integer> pq = new PriorityQueue<>();
         for (int num : nums) {
             pq.add(num);
@@ -30,7 +29,6 @@ public class TopK {
         for (int i = k - 1; i >= 0; i--) {
             result[i] = pq.poll();
         }
-
         return result;
     }
 
