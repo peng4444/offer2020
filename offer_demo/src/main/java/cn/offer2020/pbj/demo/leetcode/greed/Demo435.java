@@ -32,4 +32,32 @@ public class Demo435 {
         }
         return intervals.length-cnt;
     }
+
+    //动态规划
+    public int eraseOverlapIntervals1(int[][] intervals) {
+        if (intervals.length == 0) {
+            return 0;
+        }
+        Arrays.sort(intervals, (o1, o2) -> o1[0]-o2[0]);
+        // dp[i] 表示取[0,i]时，最大的不重叠区间
+        // dp[1]=1
+        int[] dp = new int[intervals.length];
+        Arrays.fill(dp, 1);
+        for (int i = 1; i < intervals.length; i++) {
+            // 跟i前面的区间组合
+            for (int j = 0; j < i; j++) {
+                if (intervals[j][1] <= intervals[i][0]) {
+                    // 动态规划
+                    dp[i] = Math.max(dp[i], 1 + dp[j]);
+                }
+            }
+        }
+        // 找出最大值
+        int result = 0;
+        for (int i = 0; i < dp.length; i++) {
+            result = Math.max(result, dp[i]);
+        }
+        // 答案是要去除多少个
+        return intervals.length - result;
+    }
 }

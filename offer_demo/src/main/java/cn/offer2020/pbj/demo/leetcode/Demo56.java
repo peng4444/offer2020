@@ -2,6 +2,7 @@ package cn.offer2020.pbj.demo.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
  * 给出一个区间的集合，请合并所有重叠的区间。
  */
 public class Demo56 {
+    //排序 + 双指针
     public int[][] merge(int[][] intervals) {
         List<int[]> res = new ArrayList<>();
         if (intervals.length == 0 || intervals == null) return res.toArray(new int[0][]);
@@ -34,6 +36,7 @@ public class Demo56 {
         return res.toArray(new int[0][]);
     }
 
+    //先根据区间的起始位置排序，再进行 n−1 次 两两合并。
     public int[][] merge1(int[][] intervals) {
         // 先按照区间起始位置排序
         Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]);
@@ -51,5 +54,28 @@ public class Demo56 {
             }
         }
         return Arrays.copyOf(res, idx + 1);
+    }
+
+    //贪心算法
+    public int[][] merge2(int[][] intervals) {
+        int len = intervals.length;
+        if (len < 2) {
+            return intervals;
+        }
+        //按照起点排序
+        Arrays.sort(intervals, Comparator.comparing(o -> o[0]));
+        //使用stack，只关心结果集的最后一个区间
+        List<int[]> res = new ArrayList<>();
+        res.add(intervals[0]);
+        for (int i = 1; i < len; i++) {
+            int[] curInterval = intervals[i];
+            int[] peek = res.get(res.size() - 1);
+            if (curInterval[0] > peek[1]) {
+                res.add(curInterval);
+            } else {
+                peek[1] = Math.max(curInterval[1], peek[1]);
+            }
+        }
+        return res.toArray(new int[res.size()][]);
     }
 }
