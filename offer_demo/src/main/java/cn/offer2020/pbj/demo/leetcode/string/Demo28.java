@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.string;
  * @ClassName: Demo28
  * @Author: pbj
  * @Date: 2020/5/21 11:54
- * @Description: TODO
+ * @Description: TODO 28. 实现 strStr()
  */
 public class Demo28 {
 
@@ -21,6 +21,7 @@ public class Demo28 {
         else return -1;
     }
 
+    //暴力法
     public int strStr1(String haystack, String needle) {
         int L = needle.length(), n = haystack.length();
 
