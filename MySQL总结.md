@@ -718,13 +718,19 @@ MySQL的一些问题：性能优化、高可用性、强一致性、安全、备
 ### [写一手好SQL很有必要](https://www.cnblogs.com/xiaoyangjia/p/11267191.html)
 
 ## MySQL实战
-### [MySQL实战 | 01-当执行一条select语句时，MySQL到底做了啥？](https://www.cnblogs.com/hoxis/p/10006871.html)
+### [01.当执行一条select语句时，MySQL到底做了啥？](https://www.cnblogs.com/hoxis/p/10006871.html)
 ```markdown
 1.通过MySQL的基础架构看MySQL的命令执行流程。
-MySQL 主要分为 server 层和存储引擎层。
+MySQL主要分为 server 层和存储引擎层。
     - server 层中包含连接器，查询缓存，分析器，优化器，执行器，大多数核心功能以及内置函数，存储过程，触发器，视图等。
     - 存储引擎层主要负责最终数据的存储和提取，例如常用的存储引擎 InnoDB、MyISAM 等。
 ```
+### [02.一条update SQL语句是如何执行的]()
+```markdown
+一条更新语句的执行过程和查询语句类似，更新的流程涉及两个日志：redo log（重做日志）和binlog（归档日志）。
+
+```
+
 ### [MySQL服务器 IO 100%的案例分析](https://www.cnblogs.com/wangdong/p/9814988.html)
 ### [MySQL全文索引简单实现搜索引擎](https://www.cnblogs.com/YangJiaXin/p/11153579.html) 
 

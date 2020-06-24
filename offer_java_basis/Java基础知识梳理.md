@@ -524,6 +524,7 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
          首先通过 CAS 机制，如果没有线程竞争，直接递增 count，
          失败就初始化桶，每一个桶并发的记录（同样是CAS机制，最大程度利用并发），如果桶计数频繁失败就扩容桶。
 ```
+
 #### 未阅读
 [随笔分类 - Java提高篇](https://www.cnblogs.com/mfrank/category/1118474.html)
 

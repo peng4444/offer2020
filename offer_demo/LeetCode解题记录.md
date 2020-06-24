@@ -142,6 +142,7 @@ BFS&DFS:
 ```markdown
 单调栈：42，84，496，739.
 ```
+
 ## LeetCode问题
 ### LeetCode 组合问题
 ```markdown
@@ -194,6 +195,10 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
     LeetCode310.Minimum Height Trees
     LeetCode上第261号问题：以图判树。
 ```
+[借助leetcode题目来了解BFS和DFS](https://www.cnblogs.com/yhycoder/p/12786423.html#shwtop)
+```markdown
+
+```
 ### LeetCode动态规划
 ```markdown
 300. 最长上升子序列
@@ -228,7 +233,10 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
 ### LeetCode 算法难题
 ```markdown
 10.正则表达式匹配
-
+336.
+340.
+340.至多包含 K 个不同字符的最长子串
+159. 至多包含两个不同字符的最长子串
 ```
 ##  
-[五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
+[五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd000000000)
