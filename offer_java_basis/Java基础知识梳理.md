@@ -306,6 +306,10 @@ Java 泛型发展史：
     1.Java 泛型最早是在 JDK5 的时候才被引入，但是泛型思想最早来自来自C++模板（template）。
 ```
 [如何在运行时(Runtime)获得泛型的真正类型](https://www.cnblogs.com/xiaoheike/p/9867060.html)
+[面试官：十问泛型，你能扛住吗？](https://www.cnblogs.com/viyoung/p/13175128.html)
+```markdown
+
+```
 ### 10.BIO、NIO、AIO 有什么区别？
 ```markdown
 BIO(Blocking I/O):同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。可以让每一个连接专注于自己的I/O并且编程模型简单，也不用过多考虑系统的过载、限流等问题。
@@ -526,6 +530,7 @@ hashmap的线程安全版，引入segment，每一个segment都是线程安全�
 ```
 #### HashMap知识总结
 [HashMap面试必问的数据结构相关知识总结](https://www.cnblogs.com/Young111/p/11519952.html)
+[【两万字】面试官：听说你很懂集合源码，接我二十道问题！](https://www.cnblogs.com/viyoung/p/13208296.html)
 ```markdown
 1：HashMap的数据结构？
 哈希表结构（链表散列：数组+链表）实现，结合数组和链表的优点。当链表长度超过8时，链表转换为红黑树。transient Node<K,V>[] table;

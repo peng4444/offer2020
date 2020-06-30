@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.arrays;
+package cn.offer2020.pbj.demo.leetcode.hash;
 
 import java.util.*;
 
@@ -6,7 +6,9 @@ import java.util.*;
  * @ClassName: Demo15
  * @Author: pbj
  * @Date: 2019/12/17 11:16
- * @Description: TODO 三数之和
+ * @Description: TODO 15.三数之和
+ * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？
+ * 请你找出所有满足条件且不重复的三元组。
  */
 public class Demo15 {
 
@@ -34,7 +36,6 @@ public class Demo15 {
                 }
             }
         }
-
         return new ArrayList<>(result);
     }
 
@@ -91,20 +92,63 @@ public class Demo15 {
             if (nums[i] > 0) {
                 break;
             }
-            if(i>0&&nums[i]==nums[i-1]) continue;
+            if(i>0&&nums[i]==nums[i-1]) {
+                continue;
+            }
             int L  = i+1;
             int R  = len-1;
             while (L < R) {
                 int sum = nums[i] + nums[L] + nums[R];
                 if (sum == 0) {
                     ans.add(Arrays.asList(nums[i], nums[L], nums[R]));
-                    while (L<R&& nums[L] == nums[L+1]) L++;
-                    while (L<R&& nums[R] == nums[R+1]) R--;
+                    while (L<R&& nums[L] == nums[L+1]) {
+                        L++;
+                    }
+                    while (L<R&& nums[R] == nums[R+1]) {
+                        R--;
+                    }
                     L++;
                     R--;
                 }
-                else if(sum>0) R--;
-                else if(sum<0) L++;
+                else if(sum>0) {
+                    R--;
+                } else if(sum<0) {
+                    L++;
+                }
+            }
+        }
+        return ans;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        for(int i = 0;i<nums.length-2;i++){
+            if(i==0||(i>0&&nums[i]!=nums[i-1])){
+                int l = i + 1, r = nums.length - 1, sum = 0 - nums[i];
+                while(l < r){
+                    if(nums[l]+nums[r]==sum){
+                        ans.add(Arrays.asList(nums[i],nums[l],nums[r]));
+                        while(l<r && nums[l]==nums[l+1]) {
+                            l++;
+                        }
+                        while(l<r && nums[r]==nums[r-1]) {
+                            r--;
+                        }
+                        l++;
+                        r--;
+                    }else if(nums[l]+nums[r]<sum){
+                        while(l<r && nums[l]==nums[l+1]) {
+                            l++;
+                        }
+                        l++;
+                    }else{
+                        while(l<r&&nums[r]==nums[r-1]) {
+                            r--;
+                        }
+                        r--;
+                    }
+                }
             }
         }
         return ans;

@@ -1,10 +1,10 @@
-package cn.offer2020.pbj.demo.leetcode.arrays;
+package cn.offer2020.pbj.demo.leetcode.twopoint;
 
 /**
  * @ClassName: Demo27
  * @Author: pbj
  * @Date: 2019/12/15 10:47
- * @Description: TODO 移除元素
+ * @Description: TODO 27.移除元素
  */
 public class Demo27 {
 

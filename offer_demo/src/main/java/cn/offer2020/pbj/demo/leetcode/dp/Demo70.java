@@ -9,10 +9,9 @@ package cn.offer2020.pbj.demo.leetcode.dp;
 public class Demo70 {
 
     /* *
-     * 功能描述: 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+     * 功能描述: 假设你正在爬楼梯。需要n阶你才能到达楼顶。每次你可以爬1或2个台阶。你有多少种不同的方法可以爬到楼顶呢？
      * 注意：给定 n 是一个正整数。
-     * 时间复杂度O(N)
-     * 空间复杂度变成O(N)
+     * 动态规划 时间复杂度O(N)，空间复杂度变成O(N)
      * @param: [n]
      * @return: int
      * @auther: pbj
@@ -47,7 +46,9 @@ public class Demo70 {
      * @date: 2019/12/29 17:10
      */
     public static int climbStairs1(int n) {
-        if (n <= 2) return n;
+        if (n <= 2) {
+            return n;
+        }
         int one_step_before = 2;
         int two_step_before = 1;
         int ans = 0;
