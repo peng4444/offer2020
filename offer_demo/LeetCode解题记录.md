@@ -240,3 +240,9 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
 ```
 ##  
 [五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd000000000)
+
+## LeetCode 刷题 2020实习工作招聘
+```markdown
+1.两数之和(hash)   167. 两数之和 II(双指针,二分查找) 15.三数之和 18. 四数之和 560. 和为K的子数组
+
+```

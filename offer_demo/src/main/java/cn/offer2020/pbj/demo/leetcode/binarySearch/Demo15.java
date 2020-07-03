@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.hash;
+package cn.offer2020.pbj.demo.leetcode.binarySearch;
 
 import java.util.*;
 
@@ -7,7 +7,7 @@ import java.util.*;
  * @Author: pbj
  * @Date: 2019/12/17 11:16
  * @Description: TODO 15.三数之和
- * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？
+ * 给你一个包含n个整数的数组 nums，判断nums中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？
  * 请你找出所有满足条件且不重复的三元组。
  */
 public class Demo15 {
@@ -81,46 +81,30 @@ public class Demo15 {
      * @auther: pbj
      * @date: 2019/12/17 11:36
      */
-    public List<List<Integer>> threeSum3(int[] nums, int target) {
-        if (nums.length < 3) {
-            throw new RuntimeException("number Array length No pass");
-        }
-        List<List<Integer>> ans = new ArrayList<>();
+    public List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
-        int len = nums.length;
-        for (int i = 0; i < len; i++) {
-            if (nums[i] > 0) {
-                break;
-            }
-            if(i>0&&nums[i]==nums[i-1]) {
-                continue;
-            }
-            int L  = i+1;
-            int R  = len-1;
-            while (L < R) {
-                int sum = nums[i] + nums[L] + nums[R];
-                if (sum == 0) {
-                    ans.add(Arrays.asList(nums[i], nums[L], nums[R]));
-                    while (L<R&& nums[L] == nums[L+1]) {
-                        L++;
-                    }
-                    while (L<R&& nums[R] == nums[R+1]) {
-                        R--;
-                    }
-                    L++;
-                    R--;
-                }
-                else if(sum>0) {
-                    R--;
-                } else if(sum<0) {
-                    L++;
+        List<List<Integer>> res = new ArrayList<>();
+        for(int k = 0; k < nums.length - 2; k++){
+            if(nums[k] > 0) break;
+            if(k > 0 && nums[k] == nums[k - 1]) continue;
+            int i = k + 1, j = nums.length - 1;
+            while(i < j){
+                int sum = nums[k] + nums[i] + nums[j];
+                if(sum < 0){
+                    while(i < j && nums[i] == nums[++i]);
+                } else if (sum > 0) {
+                    while(i < j && nums[j] == nums[--j]);
+                } else {
+                    res.add(new ArrayList<Integer>(Arrays.asList(nums[k], nums[i], nums[j])));
+                    while(i < j && nums[i] == nums[++i]);
+                    while(i < j && nums[j] == nums[--j]);
                 }
             }
         }
-        return ans;
+        return res;
     }
 
-    public List<List<Integer>> threeSum(int[] nums) {
+    public List<List<Integer>> threeSum3(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
         for(int i = 0;i<nums.length-2;i++){

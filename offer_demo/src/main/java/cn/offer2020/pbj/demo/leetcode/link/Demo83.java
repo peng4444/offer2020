@@ -6,7 +6,8 @@ import org.junit.Test;
  * @ClassName: Demo83
  * @Author: pbj
  * @Date: 2020/1/13 10:51
- * @Description: TODO 83.给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
+ * @Description: TODO 83.. 删除排序链表中的重复元素
+ * 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
  */
 public class Demo83 {
     public class ListNode {
@@ -26,6 +27,16 @@ public class Demo83 {
                 first = first.next;
             }
         }
+        return head;
+    }
+
+    //递归实现
+    public ListNode deleteDuplicates1(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        head.next = deleteDuplicates1(head.next);
+        if(head.val == head.next.val) head = head.next;
         return head;
     }
 

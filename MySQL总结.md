@@ -739,6 +739,7 @@ MySQL主要分为 server 层和存储引擎层。
 ```markdown
 
 ```
+[SQL运行内幕：从执行原理看调优的本质](https://www.cnblogs.com/arthinking/p/13205303.html)
 ### [MySQL数据库“十宗罪”【十大经典错误案例】](https://mp.weixin.qq.com/s?__biz=MzI1NDQ3MjQxNA==&mid=2247487474&idx=1&sn=d5cc8f77a4a992142d34c76e3df14e1e&chksm=e9c5f643deb27f55f15df6f96a86da660a782a4a11f2f4bd2331ad562d8d3742b14a09be264b&mpshare=1&scene=23&srcid=1106aA1lme4DMfsqEdsg48PO#rd)
 ```markdown
 Top 1：Too many connections（连接数过多，导致连接不上数据库，业务无法正常进行）

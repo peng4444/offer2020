@@ -33,6 +33,7 @@ public class Demo1 {
             }
         }
         throw new IllegalArgumentException("No two sum solution");
+        //        return new int[]{};
     }
 
     /* *
@@ -54,6 +55,7 @@ public class Demo1 {
             map.put(nums[i], i);
         }
         throw new IllegalArgumentException("No two sum solution");
+        //        return new int[]{};
     }
     /* *
      * 功能描述: 暴力法很简单，遍历每个元素 xx，并查找是否存在一个值与 target - xtarget−x 相等的目标元素。
@@ -72,6 +74,7 @@ public class Demo1 {
             }
         }
         throw new IllegalArgumentException("No two sum solution");
+//        return new int[]{};
     }
 
     public static void main(String[] args) {

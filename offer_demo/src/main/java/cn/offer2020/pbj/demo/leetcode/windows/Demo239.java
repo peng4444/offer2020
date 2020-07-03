@@ -1,6 +1,7 @@
 package cn.offer2020.pbj.demo.leetcode.windows;
 
 import java.util.ArrayDeque;
+import java.util.LinkedList;
 
 /**
  * @ClassName: Demo239
@@ -11,6 +12,31 @@ import java.util.ArrayDeque;
  * 返回滑动窗口中的最大值。
  */
 public class Demo239 {
+
+    //思路： 遍历数组 L R 为滑窗左右边界 只增不减
+    //        双向队列保存当前窗口中最大的值的数组下标 双向队列中的数从大到小排序，
+    //        新进来的数如果大于等于队列中的数 则将这些数弹出 再添加
+    //        当R-L+1=k 时 滑窗大小确定 每次R前进一步L也前进一步 保证此时滑窗中最大值的
+    //        数组下标在[L，R]中，并将当前最大值记录
+    public int[] maxSlidingWindow0(int[] nums, int k) {
+        if(nums==null||nums.length<2) return nums;
+        LinkedList<Integer> list = new LinkedList<>();
+        int[] res = new int[nums.length-k+1];
+        for(int i = 0;i<nums.length;i++){
+            while(!list.isEmpty()&&nums[list.peekLast()]<=nums[i]){
+                list.pollLast();
+            }
+            list.addLast(i);
+            if(list.peek()<=i-k){
+                list.poll();
+            }
+            if(i-k+1>=0){
+                res[i-k+1] = nums[list.peek()];
+            }
+        }
+        return res;
+    }
+
     /* *
      * 功能描述: 动态规划
      * @param: [nums, k]

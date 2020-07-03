@@ -384,7 +384,12 @@ JDK8：
         LocalDateTime转Date,LocalDate转Date,LocalTime转Date.
 《阿里巴巴Java开发规范》中也推荐使用Instant代替Date，LocalDateTime 代替 Calendar，DateTimeFormatter 代替 SimpleDateFormat。
 ```
-### 16.
+### 16.Java工具类——数学相关的类
+[Java工具类——数学相关的类](https://www.cnblogs.com/yychuyu/p/13221290.html)
+```markdown
+
+```
+### 17.
 ## Java高级
 ### 3.Java容器集合
 #### 1.Java容器集合简介

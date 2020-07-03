@@ -6,7 +6,7 @@ import java.util.HashSet;
  * @ClassName: Demo142
  * @Author: pbj
  * @Date: 2020/3/13 16:12
- * @Description: TODO 判断环形链表2
+ * @Description: TODO 142.判断环形链表2
  */
 public class Demo142 {
 

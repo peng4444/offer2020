@@ -1,7 +1,13 @@
 package cn.offer2020.pbj.demo.leetcode.queue_stack;
 
 import java.util.Stack;
-
+/**
+* @Description: 84. 柱状图中最大的矩形
+* @Param: 
+* @return: 
+* @Author: pengbingjiang
+* @Date: 2020/7/1 12:10
+*/
 public class Demo84 {
     //单调栈求解
     public int largestRectangleArea(int[] heights) {
@@ -21,7 +27,40 @@ public class Demo84 {
         return max;
     }
 
-    //暴力求解
+    //暴力求解3
+    public int largestRectangleArea3(int[] heights) {
+        int len = heights.length;
+        int max = 0;
+        for(int i = 0;i<len;i++){
+            int min = heights[i];
+            for(int j = i;j<heights.length;j++){
+                if(min>heights[j]) min = heights[j];
+                int temp = min*(j-i+1);
+                if(temp>max) max = temp;
+            }
+        }
+        return max;
+    }
+
+    //暴力求解1
+    public int largestRectangleArea2(int[] heights) {
+        int len = heights.length;
+        int ans = 0;
+        // 枚举左边界
+        for(int i = 0;i<len;i++){
+            int minHeight = Integer.MAX_VALUE;
+            // 枚举右边界
+            for(int j = i;j<heights.length;j++){
+                // 确定高度
+                minHeight = Math.min(minHeight, heights[j]);
+                // 计算面积
+                ans = Math.max(ans, (j - i + 1) * minHeight);
+            }
+        }
+        return ans;
+    }
+
+    //暴力求解2
     public int largestRectangleArea1(int[] heights) {
         int area = 0, n = heights.length;
         // 遍历每个柱子，以当前柱子的高度作为矩形的高 h，

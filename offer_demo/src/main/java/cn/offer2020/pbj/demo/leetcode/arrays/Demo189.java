@@ -4,7 +4,8 @@ package cn.offer2020.pbj.demo.leetcode.arrays;
  * @ClassName: Demo189
  * @Author: pbj
  * @Date: 2020/1/6 10:59
- * @Description: TODO 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+ * @Description: TODO 189. 旋转数组
+ * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
  */
 public class Demo189 {
 
@@ -78,6 +79,25 @@ public class Demo189 {
             for (int i = 0; i < k; i++) {
                 swap(nums, start + i, nums.length - k + i);
             }
+        }
+    }
+
+    public void rotate1(int[] nums, int k) {
+        int len  = nums.length;
+        k = k % len;
+        int count = 0;         // 记录交换位置的次数，n个同学一共需要换n次
+        for(int start = 0; count < len; start++) {
+            int cur = start;       // 从0位置开始换位子
+            int pre = nums[cur];
+            do{
+                int next = (cur + k) % len;
+                int temp = nums[next];    // 来到角落...
+                nums[next] = pre;
+                pre = temp;
+                cur = next;
+                count++;
+            }while(start != cur)  ;     // 循环暂停，回到起始位置，角落无人
+
         }
     }
 

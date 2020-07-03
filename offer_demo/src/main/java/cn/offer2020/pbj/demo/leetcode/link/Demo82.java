@@ -4,7 +4,8 @@ package cn.offer2020.pbj.demo.leetcode.link;
  * @ClassName: Demo82
  * @Author: pbj
  * @Date: 2020/4/1 13:01
- * @Description: TODO
+ * @Description: TODO 82. 删除排序链表中的重复元素 II
+ * 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。
  */
 public class Demo82 {
 
