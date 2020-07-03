@@ -34,7 +34,7 @@ public class Demo11 {
         }
         return maxArea;
     }
-
+    //还是最快的
     public int maxArea3(int[] height){
         int max = 0;
         for (int i = 0, j = height.length - 1; i < j;) {

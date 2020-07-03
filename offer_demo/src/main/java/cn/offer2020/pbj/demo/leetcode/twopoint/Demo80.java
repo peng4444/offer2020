@@ -19,6 +19,19 @@ public class Demo80 {
         return i;
     }
 
+    public int removeDuplicates3(int[] nums) {
+        if (nums.length <= 2) {
+            return nums.length;
+        }
+        int index = 2;
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] != nums[index - 2]) {
+                nums[index++] = nums[i];
+            }
+        }
+        return index;
+    }
+
     //方法二：覆盖多余的重复项
     public int removeDuplicates2(int[] nums) {
         int j = 1,count = 1;

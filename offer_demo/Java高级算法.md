@@ -26,4 +26,4 @@ kd树（k-dimensional树的简称），是一种分割k维数据空间的数据�
 ```
 [面试中很值得聊的二叉树遍历方法——Morris遍历](https://www.cnblogs.com/xdcat/p/12971855.html)
 
-[ union-find算法](https://www.cnblogs.com/afei-24/p/13150340.html)
+[union-find算法](https://www.cnblogs.com/afei-24/p/13150340.html)

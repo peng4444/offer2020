@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.link;
  * @ClassName: Demo19
  * @Author: pbj
  * @Date: 2020/1/13 10:22
- * @Description: TODO  删除链表的倒数第N个节点
+ * @Description: TODO  19.删除链表的倒数第N个节点
  * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。给定的 n 保证是有效的。
  */
 public class Demo19 {
@@ -66,5 +66,22 @@ public class Demo19 {
         }
         second.next = second.next.next;
         return dummy.next;
+    }
+    //一次遍历算法 使用快慢指针
+    //fast先往前走n,在fast和slow同时往后面走，当fast到末尾，slow正好到倒数第n个位置
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
+        ListNode pre = new ListNode(0);
+        pre.next = head;
+        ListNode fast = pre, slow = pre;
+        while (n != 0) {
+            fast = fast.next;
+            n--;
+        }
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return pre.next;
     }
 }
