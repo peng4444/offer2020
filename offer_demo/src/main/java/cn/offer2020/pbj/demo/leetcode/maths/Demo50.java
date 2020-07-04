@@ -4,9 +4,20 @@ package cn.offer2020.pbj.demo.leetcode.maths;
  * @ClassName: Demo50
  * @Author: pbj
  * @Date: 2019/12/20 10:33
- * @Description: TODO Pow(x, n)
+ * @Description: TODO 50.Pow(x, n)
  */
 public class Demo50 {
+
+    public double myPow5(double x, int n) {
+        double ans = 1.0;
+        for (int i = n; i != 0; i /= 2) {
+            if(i%2!=0){
+                ans *=x;
+            }
+            x*=x;
+        }
+        return n<0?1/ans:ans;
+    }
 
     /* *
      * 功能描述: 快速幂算法（循环）

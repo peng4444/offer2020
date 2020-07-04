@@ -25,8 +25,9 @@ public class Demo82 {
         ListNode pre = dummyHead;
         while(cur!=null ){
             //循环找出重复元素的所有节点。
-            while(cur.next!=null && cur.val == cur.next.val)
+            while(cur.next!=null && cur.val == cur.next.val) {
                 cur = cur.next;
+            }
             // 有重复元素， 去重。
             if(pre.next!= cur){
                 cur= cur.next;

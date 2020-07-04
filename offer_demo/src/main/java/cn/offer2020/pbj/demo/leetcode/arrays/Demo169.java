@@ -8,7 +8,8 @@ import java.util.Map;
  * @ClassName: Demo167
  * @Author: pbj
  * @Date: 2019/12/20 11:26
- * @Description: TODO 多数元素
+ * @Description: TODO 169.多数元素
+ * 给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
  */
 public class Demo169 {
 
@@ -20,16 +21,20 @@ public class Demo169 {
      * @date: 2019/12/20 13:35
      */
     public int majorityElement5(int[] nums) {
-        int count = 0;
-        int ret = 0;
-        for (int num : nums) {
+        int candidate = nums[0], count = 1;
+        for (int i = 1; i < nums.length; ++i) {
             if (count == 0) {
-                ret = num;
+                candidate = nums[i];
+                count = 1;
+            } else if (nums[i] == candidate) {
+                count++;
+            } else{
+                count--;
             }
-            count += (num == ret) ? 1 : -1;
         }
-        return ret;
+        return candidate;
     }
+
 
     public int majorityElement4(int[] nums) {
         //位运算法,统计每个数字每一位0，1出现的次数，如果某一位1出现的次数多则该位为1，0同理；
@@ -72,26 +77,19 @@ public class Demo169 {
      * @date: 2019/12/20 13:24
      */
     public int majorityElement2(int[] nums) {
-        Map<Integer, Integer> count = countNums(nums);
-        Map.Entry<Integer,Integer> entry = null;
-        for (Map.Entry<Integer, Integer> entry1 : count.entrySet()) {
-            if (entry == null || entry1.getValue() > entry.getValue()) {
-                entry = entry1;
+        int size = nums.length;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i = 0;i<size;i++){
+            if(map.containsKey(nums[i])){
+                map.put(nums[i],map.get(nums[i])+1);
+            }else{
+                map.put(nums[i],1);
+            }
+            if(map.get(nums[i])>size/2){
+                return nums[i];
             }
         }
-        return entry.getValue();
-    }
-
-    public Map<Integer, Integer> countNums(int[] nums) {
-        Map<Integer, Integer> counts = new HashMap<>();
-        for (int num : nums) {
-            if (!counts.containsKey(num)) {
-                counts.put(num, 1);
-            } else {
-                counts.put(num, counts.get(num) + 1);
-            }
-        }
-        return counts;
+        return -1;
     }
 
     /* *

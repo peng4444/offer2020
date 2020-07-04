@@ -51,24 +51,28 @@ public class Demo46 {
         }
     }
 
-    List<List<Integer>> ans = new LinkedList<>();
+    //上面的优化+剪枝
     public List<List<Integer>> permute1(int[] nums) {
-        LinkedList<Integer> list = new LinkedList<Integer>();
-        help(nums,list);
-        return ans;
+
+        List<List<Integer>> res = new ArrayList<>();
+        int[] visited = new int[nums.length];
+        backtrack(res, nums, new ArrayList<Integer>(), visited);
+        return res;
+
     }
-    public void help(int[] num,LinkedList<Integer> list){
-        if(list.size()==num.length){
-            ans.add(new LinkedList(list));
+
+    private void backtrack(List<List<Integer>> res, int[] nums, ArrayList<Integer> tmp, int[] visited) {
+        if (tmp.size() == nums.length) {
+            res.add(new ArrayList<>(tmp));
             return;
         }
-        for(int i = 0; i<num.length;i++){
-            if(list.contains(num[i])){
-                continue;
-            }
-            list.add(num[i]);
-            help(num,list);
-            list.removeLast();
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i] == 1) continue;
+            visited[i] = 1;
+            tmp.add(nums[i]);
+            backtrack(res, nums, tmp, visited);
+            visited[i] = 0;
+            tmp.remove(tmp.size() - 1);
         }
     }
 }
