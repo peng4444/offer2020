@@ -47,8 +47,9 @@ public class Demo137 {
             sumArray += n;
             set.add((long)n);
         }
-        for(Long s : set) sumSet += s;
+        for(Long s : set) {
+            sumSet += s;
+        }
         return (int)((3 * sumSet - sumArray) / 2);
     }
-
 }

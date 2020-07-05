@@ -1,5 +1,8 @@
 package cn.offer2020.pbj.demo.leetcode.bit;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @ClassName: Demo268
  * @Author: pbj
@@ -18,11 +21,15 @@ public class Demo268 {
         // return nums.length;
 
         //解法二 哈希表
-        // Set<Integer> set = new HashSet<>();
-        // for(int i = 0; i < nums.length; i++) set.add(nums[i]);
-        // for(int i = 0; i <= nums.length; i++)
-        //     if(!set.contains(i)) return i;
-        // return -1;
+//        Set<Integer> set = new HashSet<>();
+//        for(int i = 0; i <nums.length; i++){
+//            set.add(nums[i]);
+//        }
+//        int index ;
+//        for(index = 0;index<nums.length;index++){
+//            if(!set.contains(index)) return index;
+//        }
+//        return index;
 
         //解法三 位运算
         // int res = nums.length;
