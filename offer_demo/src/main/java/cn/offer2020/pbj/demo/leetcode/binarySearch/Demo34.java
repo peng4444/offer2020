@@ -17,6 +17,7 @@ public class Demo34 {
             return new int[]{first,Math.max(first,last)};
         }
     }
+    //寻找左边界的二分搜索
     public int binarySearch(int[] nums, int target) {
         int low = 0,high = nums.length;
         while(low<high){

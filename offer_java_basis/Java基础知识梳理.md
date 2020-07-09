@@ -292,7 +292,7 @@ Class里面存储了对应类的所有信息，因此，我们可以获得类相
 因为在程序运行时才确定具体的类，这样，不用修改源程序代码，就可以让引用变量绑定到各种不同的类实现上，从而导致该引用调用的具体方法随之改变，
 即不修改程序代码就可以改变程序运行时所绑定的具体代码，让程序可以选择多个运行状态，这就是多态性。
 ```
-### Java泛型
+### 10.Java泛型
 [用了这么多年的 Java 泛型，你对它到底有多了解？](https://www.cnblogs.com/goodAndyxublog/p/12934938.html)
 ```markdown
 Java 泛型实现方式：Java采用类型擦除（Type erasure generics）的方式实现泛型。
@@ -309,17 +309,6 @@ Java 泛型发展史：
 [面试官：十问泛型，你能扛住吗？](https://www.cnblogs.com/viyoung/p/13175128.html)
 ```markdown
 
-```
-### 10.BIO、NIO、AIO 有什么区别？
-```markdown
-BIO(Blocking I/O):同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。可以让每一个连接专注于自己的I/O并且编程模型简单，也不用过多考虑系统的过载、限流等问题。
-NIO(NewI/O):NIO是一种同步非阻塞的I/O模型，在Java1.4中引入了NIO框架，对应java.nio包，提供了Channel,Selector,Buffer等抽象。它支持面向缓冲的，基于
-通道的I/O操作方法。NIO提供了与传统BIO模型中的Socket和ServerSocket相对应的SocketChannel和ServerSocketChannel两种不同的套接字通道实现，两种通道都
-支持阻塞和非阻塞两种模式。阻塞模式使用就像传统中的支持一样，比较简单，但是性能和可靠性都不好；非阻塞模式正好与之相反。对于低负载、低并发的应用程序，可以
-使用同步阻塞I/O来提升开发速率和更好的维护性；对于高负载、高并发的（网络）应用，应使用NIO的非阻塞模式来开发
-AIO (Asynchronous I/O): AIO也就是NIO2。在Java7中引入了NIO的改进版NIO2, 它是异步非阻塞的IO模型。异步IO是基于事件和回调机制实现的，也就是应用操作
-之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。AIO是异步IO的缩写，虽然NIO在网络操作中，提供了非阻塞的方法，
-但是NIO的IO行为还是同步的。对于NIO来说，我们的业务线程是在IO操作准备好时，得到通知，接着就由这个线程自行进行IO操作,IO操作本身是同步的。
 ```
 ### 11.类的实例化顺序
 ```markdown
@@ -752,10 +741,29 @@ JDK1.8中使用CAS+synchronized+Node+红黑树。锁粒度：Node（首结点）
 ```
 
 ### 5.Java I/O
-![](https://img2020.cnblogs.com/blog/1515111/202006/1515111-20200612142833827-43182011.png)
-#### Java的I/O大概可以分成以下几类：
+#### 1.BIO、NIO、AIO有什么区别？
 ```markdown
-Java 的 I/O 大概可以分成以下几类：
+BIO(Blocking I/O):同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。
+    可以让每一个连接专注于自己的I/O并且编程模型简单，也不用过多考虑系统的过载、限流等问题。
+NIO(NewI/O):NIO是一种同步非阻塞的I/O模型，在Java1.4中引入了NIO框架，对应java.nio包，提供了Channel,Selector,Buffer等抽象。
+    当用户线程发起一个 read 操作后，并不需要等待，而是马上就得到了一个结果。
+    它支持面向缓冲的，基于通道的I/O操作方法。NIO提供了与传统BIO模型中的Socket和ServerSocket相对应的
+    SocketChannel和ServerSocketChannel两种不同的套接字通道实现，两种通道都支持阻塞和非阻塞两种模式。
+    阻塞模式使用就像传统中的支持一样，比较简单，但是性能和可靠性都不好；非阻塞模式正好与之相反。
+    对于低负载、低并发的应用程序，可以使用同步阻塞I/O来提升开发速率和更好的维护性；
+    对于高负载、高并发的（网络）应用，应使用NIO的非阻塞模式来开发。
+AIO (Asynchronous I/O): AIO也就是NIO2。在Java7中引入了NIO的改进版NIO2, 是异步非阻塞的IO模型。
+    异步IO是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。
+    AIO是异步IO的缩写，虽然NIO在网络操作中，提供了非阻塞的方法，但是NIO的IO行为还是同步的。
+    对于NIO来说，我们的业务线程是在IO操作准备好时，得到通知，接着就由这个线程自行进行IO操作,IO操作本身是同步的。
+多路复用IO模型：多路复用IO模型是目前使用得比较多的模型。Java NIO实际上就是多路复用IO。
+    在多路复用IO模型中，会有一个线程不断去轮询多个socket的状态，只有当socket真正有读写事件时，才真正调用实际的IO读写操作。
+
+```
+#### Java的I/O大概可以分成以下几类：
+![](https://img2020.cnblogs.com/blog/1515111/202006/1515111-20200612142833827-43182011.png)
+```markdown 
+Java的I/O大概可以分成以下几类：
     磁盘操作：File
     字节操作：字节输入流:InputStream和字节输出流:OutputStream;字节缓冲区类：BufferedInputStream和BufferedOutputStream
     字符操作：字符输入流:Reader和字符输出流:Writer;字符缓冲区类BufferedReader和BufferedWriter。
@@ -767,9 +775,8 @@ Java 的 I/O 大概可以分成以下几类：
 InputStream/Reader: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。
 OutputStream/Writer: 所有输出流的基类，前者是字节输出流，后者是字符输出流。
 Java提供了从字节流到字符流的转换流，分别是InputStreamReader和OutputStreamWriter，但没有从字符流到字节流的转换流。
- 实际上：字符流=字节流+编码表
+实际上：字符流=字节流+编码表
 ```
-#### [面试必备：详解JavaI/O流，掌握这些就可以说精通了？](https://www.cnblogs.com/happyone/p/12663145.html)
 #### Java I/O装饰者模式
 ```markdown
 Java I/O 使用了装饰者模式来实现。以InputStream 为例，
@@ -786,6 +793,7 @@ FilterInputStream属于抽象装饰者，装饰者用于装饰组件，为组件
 字节流通常用于处理二进制数据，实际上它可以处理任意类型的数据，但它不支持直接写入或读取Unicode码元。而字符流通常处理文本数据，它支持写入及读取Unicode码元。
 从源码可以看出来，字节流默认不使用缓冲区，而字符流内部使用了缓冲区。
 ```
+#### [面试必备：详解JavaI/O流，掌握这些就可以说精通了？](https://www.cnblogs.com/happyone/p/12663145.html)
 ####
 [系统学习 Java IO ---- 目录，概览](https://www.cnblogs.com/czwbig/p/10007201.html)
 [Java NIO 学习笔记（七）----NIO/IO 的对比和总结](https://www.cnblogs.com/czwbig/p/10056804.html)

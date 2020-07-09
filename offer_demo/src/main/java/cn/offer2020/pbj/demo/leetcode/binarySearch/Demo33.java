@@ -64,7 +64,6 @@ public class Demo33 {
                     start = mid + 1;
                 } else {  //否则，去后半部分找
                     end = mid - 1;
-
                 }
             }
         }

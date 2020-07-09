@@ -12,11 +12,11 @@ public class Demo278 {
     }
     //二分查找
     public int firstBadVersion(int n) {
-        int low =  1,high = n;
-        while(low<high){
+        int low =  0,high = n;
+        while(low<=high){
             int mid= low + (high-low)/2;
             if(isBadVersion(mid)){
-                high = mid;
+                high = mid - 1;
             }else{
                 low = mid + 1;
             }

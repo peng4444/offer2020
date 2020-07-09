@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.arrays;
+package cn.offer2020.pbj.demo.leetcode.queue_stack;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -9,7 +9,9 @@ import java.util.Queue;
  * @ClassName: Demo378
  * @Author: pbj
  * @Date: 2020/3/7 14:10
- * @Description: TODO 有序矩阵中第K小的元素
+ * @Description: TODO 378.有序矩阵中第K小的元素
+ * 给定一个 n x n 矩阵，其中每行和每列元素均按升序排序，找到矩阵中第 k 小的元素。
+ * 请注意，它是排序后的第 k 小元素，而不是第 k 个不同的元素。
  */
 public class Demo378 {
 
@@ -26,7 +28,7 @@ public class Demo378 {
         Arrays.sort(array);
         return array[k-1];
     }
-    //超时
+    //二分查找 超时
     public int kthSmallest(int[][] matrix, int k) {
         int m = matrix.length,n = matrix[0].length;
         int lo = matrix[0][0],hi = matrix[m-1][n-1];
