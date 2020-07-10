@@ -7,6 +7,16 @@ package cn.offer2020.pbj.demo.leetcode.dp;
  * @Description: TODO 62. 不同路径
  */
 public class Demo62 {
+    //排列组合
+    public int uniquePaths2(int m, int n) {
+        //只跟第几行第几列有关，从m+n-2步中抽出m-1步
+        long ans=1;
+        for(int i=0;i<Math.min(m-1,n-1);i++){
+            ans*=m+n-2-i;
+            ans/=i+1;
+        }
+        return (int)ans;
+    }
 
     public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];

@@ -4,7 +4,8 @@ package cn.offer2020.pbj.demo.leetcode.dp;
  * @ClassName: Demo70
  * @Author: pbj
  * @Date: 2019/11/16 22:17
- * @Description: TODO  LeetCode 70 爬楼梯 动态规划(https://www.cnblogs.com/fivestudy/p/11855853.html)
+ * @Description: TODO  LeetCode 70 爬楼梯
+ * 动态规划(https://www.cnblogs.com/fivestudy/p/11855853.html)
  */
 public class Demo70 {
 
