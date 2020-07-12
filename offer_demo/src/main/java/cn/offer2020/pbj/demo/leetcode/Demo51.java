@@ -7,7 +7,7 @@ import java.util.List;
  * @ClassName: Demo51
  * @Author: pbj
  * @Date: 2019/12/25 21:41
- * @Description: TODO N皇后
+ * @Description: TODO 51.N皇后
  * n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击.
  * 给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。
  */

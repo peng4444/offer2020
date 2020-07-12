@@ -9,7 +9,7 @@ import java.util.List;
  * @ClassName: Demo56
  * @Author: pbj
  * @Date: 2020/5/8 16:18
- * @Description: TODO 56. 合并区间
+ * @Description: TODO 56.合并区间
  * 给出一个区间的集合，请合并所有重叠的区间。
  */
 public class Demo56 {

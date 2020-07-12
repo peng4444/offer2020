@@ -7,10 +7,9 @@ import java.util.List;
  * @ClassName: Demo22
  * @Author: pbj
  * @Date: 2019/12/22 19:37
- * @Description: TODO  括号生成
+ * @Description: TODO  22.括号生成
  */
 public class Demo22 {
-
     /* *
      * 功能描述: 回溯法
      * 只有在我们知道序列仍然保持有效时才添加 '(' or ')'，而不是像 方法一 那样每次添加。

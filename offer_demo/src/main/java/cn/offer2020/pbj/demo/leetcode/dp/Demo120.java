@@ -7,7 +7,7 @@ import java.util.List;
  * @ClassName: Demo120
  * @Author: pbj
  * @Date: 2019/11/18 11:28
- * @Description: TODO 三角形最小路径和
+ * @Description: TODO 120.三角形最小路径和
  */
 public class  Demo120 {
 
@@ -52,29 +52,4 @@ public class  Demo120 {
         }
         return minlen[0];
     }
-
-    public static void main(String[] args) {
-        List<Integer> row1 = new ArrayList<>();
-        row1.add(2);
-        List<Integer> row2 = new ArrayList<>();
-        row2.add(3);
-        row2.add(4);
-        List<Integer> row3 = new ArrayList<>();
-        row3.add(6);
-        row3.add(5);
-        row3.add(7);
-        List<Integer> row4 = new ArrayList<>();
-        row4.add(4);
-        row4.add(1);
-        row4.add(8);
-        row4.add(3);
-        List<List<Integer>> traingle = new ArrayList<>();
-        traingle.add(row1);
-        traingle.add(row2);
-        traingle.add(row3);
-        traingle.add(row4);
-        System.out.println(miniNumTotal(traingle));
-    }
-
-
 }

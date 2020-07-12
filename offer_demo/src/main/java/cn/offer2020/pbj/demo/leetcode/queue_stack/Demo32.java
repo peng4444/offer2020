@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.queue_stack;
 
 import java.util.Stack;
 
@@ -10,6 +10,7 @@ import java.util.Stack;
  * 给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
  */
 public class Demo32 {
+    //dp
     public int longestValidParentheses(String s) {
         int n = s.length();
         if(n<2)return 0;
@@ -27,7 +28,7 @@ public class Demo32 {
         }
         return res;
     }
-
+    //stack
     public int longestValidParentheses1(String s) {
         int maxans = 0;
         Stack<Integer> stack = new Stack<>();
@@ -46,7 +47,7 @@ public class Demo32 {
         }
         return maxans;
     }
-
+    //正向逆向结合
     public int longestValidParentheses2(String s) {
         if(s == null || s.length() < 1)
             return 0;
