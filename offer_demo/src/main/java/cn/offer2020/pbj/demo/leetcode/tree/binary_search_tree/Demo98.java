@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.tree;
+package cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree;
 
 import java.util.LinkedList;
 import java.util.Stack;
@@ -10,7 +10,6 @@ import java.util.Stack;
  * @Description: TODO 98.验证二叉搜索树
  */
 public class Demo98 {
-
     //定义一个二叉树
     public class TreeNode{
         int val;

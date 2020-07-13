@@ -1,15 +1,12 @@
 package cn.offer2020.pbj.demo.leetcode.tree;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName: Demo144
  * @Author: pbj
  * @Date: 2019/9/3 20:58
- * @Description: TODO   二叉树后序遍历
+ * @Description: TODO  145.二叉树后序遍历
  */
 public class Demo145 {
     //定义一个二叉树
@@ -52,6 +49,20 @@ public class Demo145 {
      * @auther: pbj
      * @date: 2019/12/18 16:41
      */
+    public List<Integer> postorderTraversal1(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if(root == null)
+            return res;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            if(node.left != null) stack.push(node.left);//和传统先序遍历不一样，先将左结点入栈
+            if(node.right != null) stack.push(node.right);//后将右结点入栈
+            res.add(0,node.val);                        //逆序添加结点值
+        }
+        return res;
+    }
 
     /* *
      * 功能描述: 队列实现
@@ -60,31 +71,23 @@ public class Demo145 {
      * @auther: pbj
      * @date: 2019/12/18 16:41
      */
-    public List<Integer> postOrderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        Deque<Guide> path = new ArrayDeque<>();
-        path.addFirst(new Guide(0,root));
-
-        while (!path.isEmpty()) {
-            Guide current = path.removeFirst();
-            if (current.node == null) {
-                continue;
-            } else if (current.ope == 1) {
-                result.add(current.node.val);
-            } else {
-                path.addFirst(new Guide(1,current.node));
-                path.addFirst(new Guide(0, current.node.right));
-                path.addFirst(new Guide((0), current.node.left));
+    public List<Integer> postorderTraversal2(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        if (root == null) return list;
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                list.add(cur.val);
+                stack.push(cur);
+                cur = cur.right;
+            }
+            if (!stack.isEmpty()) {
+                cur = stack.pop();
+                cur = cur.left;
             }
         }
-        return result;
-    }
-    private class Guide {
-        int ope;//0:visit 1:print
-        TreeNode node;
-        public Guide(int ope, TreeNode node) {
-            this.ope = ope;
-            this.node = node;
-        }
+        Collections.reverse(list);
+        return list;
     }
 }

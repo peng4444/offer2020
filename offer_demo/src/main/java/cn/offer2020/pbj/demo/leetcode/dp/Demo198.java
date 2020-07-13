@@ -54,6 +54,7 @@ public class Demo198 {
         }
         return dp[dp.length-1];
     }
+
     public int rob21(int[] nums) {
         if(nums.length==0) return 0;
         if(nums.length==1) return nums[0];

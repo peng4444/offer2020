@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.tree;
+package cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -29,7 +29,11 @@ public class Demo95 {
         }
         return generateTrees(1, n);
     }
-
+    /*思路：
+    1. 就是把L,R看成是二叉搜索树中序遍历的左右边界
+    2.枚举每个点为root，递归两边。返回的集合中都是合法的左子树或者右子树
+    3.root和集合中的左右子树分别拼接一下即可
+    */
     public List<TreeNode> generateTrees(int start, int end) {
         List<TreeNode> res = new LinkedList<>();
         if (start > end) {

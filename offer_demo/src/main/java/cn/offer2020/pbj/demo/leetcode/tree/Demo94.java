@@ -6,7 +6,7 @@ import java.util.*;
  * @ClassName: Demo94
  * @Author: pbj
  * @Date: 2019/9/3 20:58
- * @Description: TODO  二叉树中序遍历
+ * @Description: TODO  94.二叉树中序遍历
  */
 public class Demo94 {
 
@@ -70,31 +70,22 @@ public class Demo94 {
 
     }
 
-    public List<Integer> inOrderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList();
-        Deque<Guide> path = new ArrayDeque();
-        path.addFirst(new Guide(0,root));
-
-        while (!path.isEmpty()) {
-            Guide current = path.removeFirst();
-            if (current.node == null) {
-                continue;
-            } else if (current.ope == 1) {
-                result.add(current.node.val);
-            } else {
-                path.addFirst(new Guide(0, current.node.right));
-                path.addFirst(new Guide(1,current.node));
-                path.addFirst(new Guide((0), current.node.left));
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if(root == null) {
+            return res;
+        }
+        ArrayDeque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode cur = root;
+        while(cur != null || !stack.isEmpty()) {
+            while(cur != null) {
+                stack.push(cur);
+                cur = cur.left;
             }
+            cur = stack.pop();
+            res.add(cur.val);
+            cur = cur.right;
         }
-        return result;
-    }
-    private class Guide {
-        int ope;//0:visit 1:print
-        TreeNode node;
-        public Guide(int ope, TreeNode node) {
-            this.ope = ope;
-            this.node = node;
-        }
+        return res;
     }
 }

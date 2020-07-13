@@ -1,11 +1,11 @@
-package cn.offer2020.pbj.demo.leetcode.arrays;
+package cn.offer2020.pbj.demo.leetcode.dp;
 
 /**
  * @ClassName: Demo53
  * @Author: pbj
  * @Date: 2019/11/18 11:58
- * @Description: TODO  最大子序和
- * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+ * @Description: TODO  53.最大子序和
+ * 给定一个整数数组nums，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
  */
 public class Demo53 {
 
@@ -47,9 +47,6 @@ public class Demo53 {
         }
         return maxSum;
     }
-
-
-
 
     public static int crossSum(int[] nums, int left, int right, int p) {
         if (left == right) return nums[left];

@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.tree;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ import java.util.*;
  * @ClassName: Demo103
  * @Author: pbj
  * @Date: 2020/4/20 17:07
- * @Description: TODO 103. 二叉树的锯齿形层次遍历
+ * @Description: TODO 103.二叉树的锯齿形层次遍历
  * 给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
  */
 public class Demo103 {

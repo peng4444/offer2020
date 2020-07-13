@@ -1,15 +1,12 @@
 package cn.offer2020.pbj.demo.leetcode.tree;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName: Demo144
  * @Author: pbj
  * @Date: 2019/9/3 20:58
- * @Description: TODO   二叉树前序遍历
+ * @Description: TODO   144.二叉树前序遍历
  */
 public class Demo144 {
     //定义一个二叉树
@@ -52,6 +49,25 @@ public class Demo144 {
      * @auther: pbj
      * @date: 2019/12/18 16:40
      */
+    public List<Integer> preorderTraversal1(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if (root == null) {
+            return res;
+        }
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.add(Integer.valueOf(node.val));
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+        return res;
+    }
 
     /* *
      * 功能描述: 队列实现
@@ -60,31 +76,26 @@ public class Demo144 {
      * @auther: pbj
      * @date: 2019/12/18 16:40
      */
-    public List<Integer> preOrderTraversal2(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        Deque<Guide> path = new ArrayDeque<>();
-        path.addFirst(new Guide(0,root));
-
-        while (!path.isEmpty()) {
-            Guide current = path.removeFirst();
-            if (current.node == null) {
-                continue;
-            } else if (current.ope == 1) {
-                result.add(current.node.val);
-            } else {
-                path.addFirst(new Guide(0, current.node.right));
-                path.addFirst(new Guide((0), current.node.left));
-                path.addFirst(new Guide(1,current.node));
+    public List<Integer> preorderTraversal2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        // 判断非空
+        if(null == root){
+            return res;
+        }
+        // 使用双端队列
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.add(root);
+        while(!stack.isEmpty()){
+            TreeNode node = stack.removeLast();
+            res.add(node.val);
+            // 要先加右孩子、再加左孩子
+            if(null != node.right){
+                stack.add(node.right);
+            }
+            if(null != node.left){
+                stack.add(node.left);
             }
         }
-        return result;
-    }
-    private class Guide {
-        int ope;//0:visit 1:print
-        TreeNode node;
-        public Guide(int ope, TreeNode node) {
-            this.ope = ope;
-            this.node = node;
-        }
+        return res;
     }
 }
