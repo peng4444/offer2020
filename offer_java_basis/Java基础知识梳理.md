@@ -260,12 +260,12 @@ static:静态变量：又称为类变量，也就是说这个变量属于类的�
 [反射那些基础-Class](https://www.cnblogs.com/homejim/p/10140928.html)
 ```markdown
 JAVA反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；
-这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。所有反射的入口都是 java.lang.Class。
-因为Java中规定了java.lang.reflect包下的所有类的构造函数都不为public， 因此，需要获得这些类的对象都需要调用Class类中适当的的方法。
+    这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。所有反射的入口都是java.lang.Class。
+因为Java中规定了java.lang.reflect包下的所有类的构造函数都不为public，因此，需要获得这些类的对象都需要调用Class类中适当的的方法。
     获取类对象的三种方式：
        通过object类的getClass()函数，由于object是根类，每一个类都有这个函数。Object.getClass()
        每一个类（包括基本数据类型，注意这里基本数据类型不用转成包装类）都有一个class属性，静态属性，通过类名直接访问。类.class;
-       通过Class类的静态方法forName(String className)。 Class.forName("java.lang.System");
+       通过Class类的静态方法forName(String className)。Class.forName("java.lang.System");
        通过包装类的TYPE成员。对于基本数据类型，除了以上的.class方法之外，对应包装类的TYPE成员变量来获取Class对象。Double.TYPE;
     应用：
        反射是很多框架的基础
@@ -317,10 +317,10 @@ Java 泛型发展史：
 ### 12.Java创建对象有几种方式
 ```markdown
 Java创建对象有5种方式
-    用new语句创建对象。
+    用new语句创建对象。（要求该Class对象对应的类有默认的空构造器）
     使用反射，使用Class.newInstance()创建对象/调用类对象的构造方法——Constructor
     调用对象的clone()方法。
-    运用反序列化手段，调用java.io.ObjectInputStream对象的readObject()方法.
+    运用反序列化手段，调用java.io.ObjectInputStream对象的readObject()方法。
     使用Unsafe
 ```
 ### 12.Java创建对象的过程

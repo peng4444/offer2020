@@ -18,17 +18,16 @@ public class  Demo120 {
      * @auther: pbj
      * @date: 2019/11/18 11:54
      */
-    public static Integer miniNumTotal(List<List<Integer>> traingle) {
-        int n = traingle.size();
-        int[][] dp = new int[n][n];
-        List<Integer> lastRow = traingle.get(n - 1);
-        for (int i = 0; i < n; i++) {
-            dp[n - 1][i] = lastRow.get(i);
+    public int minimumTotal1(List<List<Integer>> triangle) {
+        if (triangle == null || triangle.size() == 0){
+            return 0;
         }
-        for (int i = n - 2; i >= 0; i--) {
-            List<Integer> row = traingle.get(i);
-            for (int j = 0; j < i + 1; j++) {
-                dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + row.get(j);
+        // 加1可以不用初始化最后一层
+        int[][] dp = new int[triangle.size()+1][triangle.size()+1];
+        for (int i = triangle.size()-1; i>=0; i--){
+            List<Integer> curTr = triangle.get(i);
+            for(int j = 0 ; j< curTr.size(); j++){
+                dp[i][j] = Math.min(dp[i+1][j], dp[i+1][j+1]) + curTr.get(j);
             }
         }
         return dp[0][0];

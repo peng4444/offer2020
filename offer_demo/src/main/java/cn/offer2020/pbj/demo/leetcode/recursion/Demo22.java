@@ -28,16 +28,43 @@ public class Demo22 {
     }
 
     public void generateOneByOne(String subList, List<String> result, int left, int right) {
-        if (left == 0 && right == 0) {
+        if (left == 0 && right == 0) {// 左右括号都不剩余了，递归终止
             result.add(subList);
             return;
         }
-        if (left > 0) {
+        if (left > 0) {// 如果左括号还剩余的话，可以拼接左括号
             generateOneByOne(subList + "(", result, left - 1, right);
         }
-        if (right > left) {
+        if (right > left) {// 如果右括号剩余多于左括号剩余的话，可以拼接右括号
             generateOneByOne(subList + ")", result, left, right - 1);
         }
+    }
+
+    // 把结果集保存在动态规划的数组里
+    public List<String> generateParenthesis3(int n) {
+        if (n == 0) {
+            return new ArrayList<>();
+        }
+        // 这里 dp 数组我们把它变成列表的样子，方便调用而已
+        List<List<String>> dp = new ArrayList<>(n);
+        List<String> dp0 = new ArrayList<>();
+        dp0.add("");
+        dp.add(dp0);
+        for (int i = 1; i <= n; i++) {
+            List<String> cur = new ArrayList<>();
+            for (int j = 0; j < i; j++) {
+                List<String> str1 = dp.get(j);
+                List<String> str2 = dp.get(i - 1 - j);
+                for (String s1 : str1) {
+                    for (String s2 : str2) {
+                        // 枚举右括号的位置
+                        cur.add("(" + s1 + ")" + s2);
+                    }
+                }
+            }
+            dp.add(cur);
+        }
+        return dp.get(n);
     }
 
     /* *

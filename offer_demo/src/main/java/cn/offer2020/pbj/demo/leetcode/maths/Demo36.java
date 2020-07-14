@@ -8,7 +8,9 @@ import java.util.Set;
  * @ClassName: Demo36
  * @Author: pbj
  * @Date: 2019/12/25 22:23
- * @Description: TODO 判断有效的数独
+ * @Description: TODO 36.判断有效的数独
+ * 思想:使用line,column,和子区域来分别保存元素,如果元素有重复的就返回false,否则返回true即可. 在这里巧用了一下集合.
+ * 判断某个元素是否在集合中时间复杂度是O(1),如果使用列表的话就是O(n)了. 其中划分子区域的技巧很巧妙,使用的是 pos = (i//3)*3 + j//3.
  */
 public class Demo36 {
 
@@ -27,12 +29,38 @@ public class Demo36 {
         return true;
     }
 
+    public boolean isValidSudoku2(char[][] board) {
+        // 记录某行，某位数字是否已经被摆放
+        boolean[][] row = new boolean[9][9];
+        // 记录某列，某位数字是否已经被摆放
+        boolean[][] col = new boolean[9][9];
+        // 记录某 3x3 宫格内，某位数字是否已经被摆放
+        boolean[][] block = new boolean[9][9];
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] != '.') {
+                    int num = board[i][j] - '1';
+                    int blockIndex = i / 3 * 3 + j / 3;
+                    if (row[i][num] || col[j][num] || block[blockIndex][num]) {
+                        return false;
+                    } else {
+                        row[i][num] = true;
+                        col[j][num] = true;
+                        block[blockIndex][num] = true;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     /* *
      * 功能描述: 主要两个要点：
-1、只遍历一次如何储存数据；
-2、判断是在一个3*3的框中的方法。
-1、使用了2进制的9个位数，如果是第一个数是1，那么统计标志就是0000000010(二进制 1左移1位)，如果第二个数是3那么统计标识变为0000001010(二进制 1左移3位再加上原来的)，每次判断有没有重复就右移相应位数之后整除2即可。
-2、同官方解法int boxNum = i / 3 * 3 + j / 3;如果是0,1,2行的话整除3就是0，然后再加上列数整除3，这样就把整个9*9分为了编号0-8的9个3*3的区域。
+    1、只遍历一次如何储存数据；
+    2、判断是在一个3*3的框中的方法。
+    1、使用了2进制的9个位数，如果是第一个数是1，那么统计标志就是0000000010(二进制 1左移1位)，如果第二个数是3那么统计标识变为0000001010(二进制 1左移3位再加上原来的)，每次判断有没有重复就右移相应位数之后整除2即可。
+    2、同官方解法int boxNum = i / 3 * 3 + j / 3;如果是0,1,2行的话整除3就是0，然后再加上列数整除3，这样就把整个9*9分为了编号0-8的9个3*3的区域。
      * @param: [board]
      * @return: boolean
      * @auther: pbj

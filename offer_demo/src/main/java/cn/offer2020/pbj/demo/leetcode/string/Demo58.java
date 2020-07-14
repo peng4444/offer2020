@@ -1,10 +1,10 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.string;
 
 /**
  * @ClassName: Demo58
  * @Author: pbj
  * @Date: 2020/5/11 08:43
- * @Description: TODO 58. 最后一个单词的长度
+ * @Description: TODO 58.最后一个单词的长度
  * 给定一个仅包含大小写字母和空格 ' ' 的字符串 s，返回其最后一个单词的长度。如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。
  * 如果不存在最后一个单词，请返回 0 。
  */

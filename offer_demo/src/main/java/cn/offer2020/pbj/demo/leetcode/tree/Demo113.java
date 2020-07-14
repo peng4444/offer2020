@@ -20,9 +20,9 @@ public class Demo113 {
             val = x;
         }
     }
-    private List<List<Integer>> ans = new ArrayList<>();
 
-    //1
+    //dfs
+    private List<List<Integer>> ans = new ArrayList<>();
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         if (root == null) {
             return ans;
@@ -46,7 +46,6 @@ public class Demo113 {
 
     //2
     ArrayList<Integer> inner = new ArrayList<>();
-
     public List<List<Integer>> pathSum2(TreeNode root, int sum) {
         if (root == null) {
             return ans;

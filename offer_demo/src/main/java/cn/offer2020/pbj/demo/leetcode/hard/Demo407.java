@@ -1,5 +1,7 @@
 package cn.offer2020.pbj.demo.leetcode.hard;
 
+import javafx.scene.control.Cell;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -7,38 +9,38 @@ import java.util.PriorityQueue;
 //给你一个 m x n 的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。
 public class Demo407 {
     public int trapRainWater(int[][] heightMap) {
-        if(heightMap==null||heightMap.length==0||heightMap[0].length==0) return 0;
+        if (heightMap == null || heightMap.length == 0 || heightMap[0].length == 0) return 0;
         int m = heightMap.length;
         int n = heightMap[0].length;
-        PriorityQueue<Cell> queue = new PriorityQueue(new Comparator<Cell>(){
-            public int compare(Cell a,Cell b){
+        PriorityQueue<Cell> queue = new PriorityQueue(new Comparator<Cell>() {
+            public int compare(Cell a, Cell b) {
                 return a.height - b.height;
             }
         });
         boolean[][] visited = new boolean[m][n];
-        for(int i = 0;i<m;i++){
+        for (int i = 0; i < m; i++) {
             visited[i][0] = true;
-            visited[i][n-1] = true;
-            queue.offer(new Cell(i,0,heightMap[i][0]));
-            queue.offer(new Cell(i,n-1,heightMap[i][n-1]));
+            visited[i][n - 1] = true;
+            queue.offer(new Cell(i, 0, heightMap[i][0]));
+            queue.offer(new Cell(i, n - 1, heightMap[i][n - 1]));
         }
-        for(int j = 0;j<n;j++){
+        for (int j = 0; j < n; j++) {
             visited[0][j] = true;
-            visited[m-1][j] = true;
-            queue.offer(new Cell(0,j,heightMap[0][j]));
-            queue.offer(new Cell(m-1,j,heightMap[m-1][j]));
+            visited[m - 1][j] = true;
+            queue.offer(new Cell(0, j, heightMap[0][j]));
+            queue.offer(new Cell(m - 1, j, heightMap[m - 1][j]));
         }
-        int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
         int total = 0;
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Cell cell = queue.poll();
-            for(int[] dir:dirs){
+            for (int[] dir : dirs) {
                 int row = cell.row + dir[0];
                 int col = cell.col + dir[1];
-                if(row>=0&&row<m&&col>=0&&col<n&&!visited[row][col]){
+                if (row >= 0 && row < m && col >= 0 && col < n && !visited[row][col]) {
                     visited[row][col] = true;
-                    total += Math.max(0,cell.height-heightMap[row][col]);
-                    queue.offer(new Cell(row,col,Math.max(heightMap[row][col],cell.height)));
+                    total += Math.max(0, cell.height - heightMap[row][col]);
+                    queue.offer(new Cell(row, col, Math.max(heightMap[row][col], cell.height)));
                 }
             }
         }
@@ -86,15 +88,17 @@ public class Demo407 {
         }
         return res;
     }
-}
-class Cell{
-    int row;
-    int col;
-    int height;
 
-    public Cell(int row,int col,int height){
-        this.row = row;
-        this.col = col;
-        this.height = height;
+    class Cell {
+        int row;
+        int col;
+        int height;
+
+        public Cell(int row, int col, int height) {
+            this.row = row;
+            this.col = col;
+            this.height = height;
+        }
     }
+
 }

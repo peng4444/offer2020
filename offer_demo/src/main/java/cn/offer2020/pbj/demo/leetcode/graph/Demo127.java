@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode.bfs_dfs;
+package cn.offer2020.pbj.demo.leetcode.graph;
 
 import javafx.util.Pair;
 
@@ -207,7 +207,6 @@ public class Demo127 {
         return count == 1;
     }
 
-
     //优化visited标记
     public int ladderLength1(String beginWord, String endWord, List<String> wordList) {
         if (!wordList.contains(endWord)) {
@@ -314,7 +313,7 @@ public class Demo127 {
         }
         return count == 1;
     }
-
+    //图
     public static int ladderLength0(String beginWord, String endWord, List<String> wordList) {
         if (!wordList.contains(endWord)) {
             return 0;
@@ -333,25 +332,20 @@ public class Demo127 {
         // 广度优先遍历队列
         Queue<Pair<String, Integer>> queue = new LinkedList<>();
         HashMap<String, Boolean> hasVistedList = new HashMap<>();
-
         queue.add(new Pair<>(beginWord, 1));
-
         hasVistedList.put(beginWord, true);
 
-        // 广度优先遍历，逐个取出队列中元素进行操作
+        //广度优先遍历，逐个取出队列中元素进行操作
         while (!queue.isEmpty()) {
-
             Pair<String, Integer> node = queue.remove();
             String currWord = node.getKey();
             int level = node.getValue();
             for (int i = 0; i < len; i++) {
                 String currComboWord = currWord.substring(0, i) + "*" + currWord.substring(i + 1, len);
                 ArrayList<String> currComboWordList = allComboDict.getOrDefault(currComboWord, new ArrayList<>());
-
                 for (String word : currComboWordList) {
                     if (word.equals(endWord))
                         return level + 1;
-
                     if (!hasVistedList.containsKey(word)){
                         queue.add(new Pair<>(word, level + 1));
                         hasVistedList.put(word, true);

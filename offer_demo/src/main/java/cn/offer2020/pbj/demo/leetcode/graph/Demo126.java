@@ -6,9 +6,8 @@ import java.util.*;
  * @ClassName: Demo126
  * @Author: pbj
  * @Date: 2020/5/31 09:17
- * @Description: TODO 126. 单词接龙 II
+ * @Description: TODO 126.单词接龙 II
  * 给定两个单词（beginWord 和 endWord）和一个字典 wordList，找出所有从 beginWord 到 endWord 的最短转换序列。转换需遵循如下规则：
- *
  * 每次转换只能改变一个字母。
  * 转换过程中的中间单词必须是字典中的单词。
  */
