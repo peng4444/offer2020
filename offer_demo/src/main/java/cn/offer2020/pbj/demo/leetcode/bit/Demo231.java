@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.bit;
  * @ClassName: Demo231
  * @Author: pbj
  * @Date: 2019/12/28 20:59
- * @Description: TODO 2的幂判断
+ * @Description: TODO 231.2的幂判断
  */
 public class Demo231 {
     /* *

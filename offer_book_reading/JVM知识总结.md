@@ -22,7 +22,7 @@ JVM(Java Virtual Machine)Java虚拟机，包括一套字节码指令集、一组
     JVM是运行在操作系统之上的，它与硬件没有直接的交互。
 Java文件必须先通过javac的编译器，将代码编译成class文件，然后通过JVM把class文件解释成各个平台可以识别的机器码，最终实现跨平台运行代码。
     Java文件->Java编译器->Class文件->JVM->机器码
-JDK：全称为JavaDevelopmentKit，汉语为java开发工具包，即所有有关java的东西都包含在里面，比如运行环境JRE、java的核心代码、JVM等等。
+JDK：全称为JavaDevelopmentKit，java开发工具包，即所有有关java的东西都包含在里面，比如运行环境JRE、java的核心代码、JVM等等。
 JRE：全称为JavaRuntimeEnvironment，java运行环境，即想要运行java文件必须先有java的环境才行，jre就是提供了这么一个环境。
 JVM：上面已经提到了JVM，它是java最核心的部分。JDK>JRE>JVM
 ```
@@ -89,7 +89,7 @@ JVM：上面已经提到了JVM，它是java最核心的部分。JDK>JRE>JVM
 　　　　Constructor<Student> constructor = Student.class.getConstructor(Integer.class);
 　　　　Student stu3 = constructor.newInstance(123);
 （3）使用Clone方法创建对象（实现Cloneable接口）
-　　无论何时调用一个对象的clone方法，JVM都会创建一个新的、一样的对象，特别需要说明的是，用clone方法创建对象的过程中并不会调用任何构造函数。
+　　无论何时调用一个对象的clone方法，JVM都会创建一个新的、一样的对象，需说明的是，用clone方法创建对象的过程中并不会调用任何构造函数。
 （4）使用(反)序列化机制创建对象（实现Serializable接口）
 　　当我们反序列化一个对象时，JVM会给我们创建一个单独的对象，在此过程中，JVM并不会调用任何构造函数。
 ```
@@ -110,7 +110,7 @@ JVM：上面已经提到了JVM，它是java最核心的部分。JDK>JRE>JVM
 ```markdown
 1.父类静态代码块,2.父类静态变量,3.子类静态代码块,3.子类静态变量,4.父类成员变量赋值,
 5.父类构造方式开始执行,6.子类成员变量赋值,7.子类构造方式开始执行
-需要注意的地方是静态变量和静态代码块谁在前面谁先执行。
+    需要注意的地方是静态变量和静态代码块谁在前面谁先执行。
 ```
 ### 3.JVM虚拟机何时结束生命周期
 ```markdown
@@ -118,7 +118,7 @@ JVM：上面已经提到了JVM，它是java最核心的部分。JDK>JRE>JVM
 2.程序在执行过程中遇到了异常或错误而异常终止；
 3.由于操作系统出现错误而导致Java虚拟机进程；
 4.某线程调用Runtime类或System类的exit方法，或Runtime类的halt方法，并且Java安全管理器也允许这次exit或halt操作。
-5.除此之外，JNI( Java Native Interface) 规范描述了用JNI Invocation API来加载或卸载Java虛拟机时，Java虛拟机的退出情况。
+5.除此之外，JNI(Java Native Interface) 规范描述了用JNI Invocation API来加载或卸载Java虛拟机时，Java虛拟机的退出情况。
 ```
 ### 4.JVM是如果确定对象是垃圾对象的呢？JVM判断对象是否存活算法：
 ```markdown
@@ -147,7 +147,6 @@ JVM判断对象是否存活算法?
 ```
 ### 5.JVM垃圾回收算法
 [Java垃圾收集算法](https://www.cnblogs.com/rainple/p/10793500.html)
-
 [JVM垃圾回收算法详解](https://www.cnblogs.com/xwgblog/p/11703104.html)
 ```markdown
 在JVM内存模型中会将堆内存划分新生代、老年代两个区域，两块区域的主要区别在于新生代存放存活时间较短的对象，
@@ -281,8 +280,8 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
     1.System.gc()或者Runtime.gc()被显式调用时:建议虚拟机执行Full GC，但是虚拟机不一定真正去执行。不建议使用这种方式，而是让虚拟机管理内存。
     2.老年代空间不足:老年代空间不足的常见场景为的大对象直接进入老年代、长期存活的对象进入老年代等。
     3.空间分配担保失败:使用复制算法的Minor GC需要老年代的内存空间作担保，如果担保失败会执行一次Full GC。
-    4.JDK 1.7 及以前的永久代空间不足:
-        在JDK 1.7及以前，HotSpot虚拟机中的方法区是用永久代实现的，永久代中存放的为一些Class的信息、常量、静态变量等数据。
+    4.JDK1.7 及以前的永久代空间不足:
+        在JDK1.7及以前，HotSpot虚拟机中的方法区是用永久代实现的，永久代中存放的为一些Class的信息、常量、静态变量等数据。
     5.Concurrent Mode Failure:执行CMS GC的过程中同时有对象要放入老年代，而此时老年代空间不足（可能是GC过程中浮动垃圾过多导致暂时
         性的空间不足），便会报Concurrent Mode Failure错误，并触发Full GC。
     6.Metaspace（元空间）在空间不足时会进行扩容，当扩容到了-XX:MetaspaceSize 参数的指定值时，也会触发FGC。
@@ -328,25 +327,27 @@ loadClass和forName的区别
     2) 使用java.lang.reflect包的方法对类进行反射调用的时候，如果类没有进行过初始化，则需要先触发其初始化。
     3) 当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化。
     4) 当虚拟机启动时，用户需要指定一个要执行的主类（包含main()方法的那个类），虚拟机会先初始化这个主类。
-    5) 当使用jdk1.7动态语言支持时，如果一个java.lang.invoke.MethodHandle实例最后的解析结果REF_getstatic,REF_putstatic,REF_invokeStatic的方法句柄，
-        并且这个方法句柄所对应的类没有进行初始化，则需要先出触发其初始化。
+    5) 当使用jdk1.7动态语言支持时，如果一个java.lang.invoke.MethodHandle实例最后的解析结果REF_getstatic,REF_putstatic,
+        REF_invokeStatic的方法句柄，并且这个方法句柄所对应的类没有进行初始化，则需要先出触发其初始化。
 2. 被动引用
     1.通过子类引用父类的静态字段，不会导致子类初始化。
-        System.out.println(SubClass.value); // value 字段在 SuperClass 中定义
+        System.out.println(SubClass.value); // value字段在 SuperClass 中定义
     2.通过数组定义来引用类，不会触发此类的初始化。该过程会对数组类进行初始化，数组类是一个由虚拟机自动
       生成的、直接继承自 Object 的子类，其中包含了数组的属性和方法。SuperClass[] sca = new SuperClass[10];
     3.常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量的类的初始化。
-        System.out.println(ConstClass.HELLOWORLD);
+        System.out.println(ConstClass.HELLOWORLD)。
 ```
 #### 3.类加载器分类
 ```markdown
 JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoader）和自定义类加载器（User-Defined ClassLoader）。
 从Java虚拟机的角度来讲，只存在以下两种不同的类加载器：
     启动类加载器（Bootstrap ClassLoader），使用C++实现，是虚拟机自身的一部分；
-        所有其它类的加载器，使用Java实现，独立于虚拟机，继承自抽象类 java.lang.ClassLoader。
+        所有其它类的加载器，使用Java实现，独立于虚拟机，继承自抽象类java.lang.ClassLoader。
+        加载jre/lib包下面的jar文件，比如说常见的rt.jar（包含了Java标准库下的所有类文件，比如说java.lang包下的类，
+        java.net包下的类，java.util包下的类，java.io包下的类，java.sql包下的类）。
 从Java开发人员的角度看，类加载器可以划分得更细致一些：
     启动类加载器（Bootstrap ClassLoader）
-        这个类加载器使用 C/C++ 编写，嵌套在JVM内部
+        这个类加载器使用C/C++编写，嵌套在JVM内部
         它用来加载Java核心类库(JAVA_HOME/jre/lib/rt.jar、resources.jar、sun.boot.class.path路径下的内容)，用于提供Java自身需要的类
         并不继承ClassLoader，没有父加载器
         加载扩展类和应用程序类加载器，并指定为它们的父加载器
@@ -385,11 +386,11 @@ JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoade
     2、保护程序安全，防止核心API被随意篡改
 ```
 #### 5.自定义类加载器实现
+[自定义ClassLoader](https://www.cnblogs.com/heartlake/p/12980009.html)
 ```markdown
 自定义类加载器必须继承classloader。需要实现里面的findClass方法。
 我们可以传入路径，通过二进制输出流，将路径内容读取为二进制数组。通过调用defineClass方法定义class。
 ```
-[自定义ClassLoader](https://www.cnblogs.com/heartlake/p/12980009.html)
 #### 6.获取ClassLoader的途径
 ```markdown
 方式	                                 代码
@@ -405,8 +406,7 @@ JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoade
 栈帧随着方法调用而创建，随着方法结束而销毁——无论方法是正常完成还是异常完成（抛出了在方法内未被捕获的异常）都算作方法结束
 栈帧是用于支持虚拟机进行方法调用和方法执行背后的数据结构。栈帧存储了方法的局部变量表、操作数栈、动态连接和方法返回地址信息。
     局部变量表
-        是一组变量值的存储空间，用于存放方法参数和方法内部定义的局部变量。
-        局部变量表的容量以变量槽(Variable Slot)为最小单位。
+        是一组变量值的存储空间，用于存放方法参数和方法内部定义的局部变量。局部变量表的容量以变量槽(Variable Slot)为最小单位。
     操作数栈
         操作数栈，也称操作栈，是一个后入先出栈。
         当一个方法刚刚开始执行的时候, 该方法的操作数栈也是空的。在方法的执行过程中会有各种字节码指令往操作数栈中写入和提取内容, 也就是出栈与入栈操作。
