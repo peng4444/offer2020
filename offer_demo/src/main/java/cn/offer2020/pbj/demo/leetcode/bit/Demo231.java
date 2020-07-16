@@ -5,6 +5,7 @@ package cn.offer2020.pbj.demo.leetcode.bit;
  * @Author: pbj
  * @Date: 2019/12/28 20:59
  * @Description: TODO 231.2的幂判断
+ * 给定一个整数，编写一个函数来判断它是否是 2 的幂次方。
  */
 public class Demo231 {
     /* *
@@ -31,6 +32,13 @@ public class Demo231 {
         System.out.println(isPowerOfTwo(2));
         System.out.println(Integer.MIN_VALUE);
         System.out.println(Integer.MAX_VALUE);
+    }
+
+    public boolean isPowerOfTwo2(int n) {
+        if(n==0) return false;
+        if(n==1) return true;
+        if(n%2!=0) return false;
+        return isPowerOfTwo2(n / 2);
     }
 
     /* *

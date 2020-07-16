@@ -39,4 +39,27 @@ public class MergeSort {
             }
         }
     }
+
+    public void mergeSort1(int[] num, int left, int right) {
+        if (right <= left) {
+            return;
+        }
+        int mid = left + (right - left) /2;
+        mergeSort1(num, left, mid);
+        mergeSort1(num, mid + 1, right);
+        merge1(num, left, mid, right);
+    }
+
+    public static void merge1(int[] num, int left, int mid, int right) {
+        int[] temp = new int[right-left+1];//中间数组
+        int i = left,j = mid + 1,k = 0;
+        while (i <= mid && j <= right) {
+            temp[k++] = num[i] <= num[j] ? num[i++] : num[j++];
+        }
+        while (i<=mid) temp[k++] = num[i++];
+        while (j<=mid) temp[k++] = num[j++];
+        for (int p = 0; p < temp.length; p++) {
+            num[left + p] = temp[p];
+        }
+    }
 }

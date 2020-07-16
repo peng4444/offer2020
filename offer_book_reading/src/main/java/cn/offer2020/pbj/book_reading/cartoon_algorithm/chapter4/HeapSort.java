@@ -9,7 +9,11 @@ import java.util.Arrays;
  * @Description: TODO 堆排序  时间复杂度是O(nlogn) 不稳定排序
  */
 public class HeapSort {
-    /*** “下沉”调整* @param array 待调整的堆* @param parentInde要“下沉”的父节点* @param length 堆的有效大小*/
+    /*** “下沉”调整
+     * @param array 待调整的堆
+     * @param parentIndex “下沉”的父节点
+     * @param length 堆的有效大小
+     */
     public static void downAdjust(int[] array, int parentIndex, int length) {
         // temp 保存父节点值，用于最后的赋值
         int temp = array[parentIndex];

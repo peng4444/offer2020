@@ -1,6 +1,8 @@
 package cn.offer2020.pbj.demo.leetcode.string;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -83,5 +85,23 @@ public class Demo242 {
                 return false;
         }
         return true;
+    }
+
+    public boolean isAnagram4(String s, String t) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        for (char ch : t.toCharArray()) {
+            Integer count = map.get(ch);
+            if (count == null) {
+                return false;
+            } else if (count > 1) {
+                map.put(ch, count - 1);
+            } else {
+                map.remove(ch);
+            }
+        }
+        return map.isEmpty();
     }
 }

@@ -129,7 +129,7 @@ public class LRUCache {
     }
 }
 //题目要求实现 LRU 缓存机制，需要在 O(1)时间内完成如下操作：
-//有一种叫做有序字典的数据结构，综合了哈希表和链表，在 Java 中为 LinkedHashMap。
+//有一种叫做有序字典的数据结构，综合了哈希表和链表，在Java中为LinkedHashMap。
 class LRUCache1 extends LinkedHashMap<Integer, Integer> {
     private int capacity;
 

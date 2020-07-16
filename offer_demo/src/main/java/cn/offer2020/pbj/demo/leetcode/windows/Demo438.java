@@ -1,6 +1,7 @@
 package cn.offer2020.pbj.demo.leetcode.windows;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,5 +46,42 @@ public class Demo438 {
             }
         }
         return ret;
+    }
+
+    public List<Integer> findAnagrams1(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+        char [] sChar = s.toCharArray();
+        char [] pChar = p.toCharArray();
+        int [] curAToZ = new int[26];
+        int [] aToZ = new int[26];
+        for (char c : pChar) {
+            aToZ[c - 'a']++;
+        }
+        for (int i = 0; i < sChar.length; i++) {
+            if (i >= pChar.length) {
+                curAToZ[sChar[i-pChar.length] - 'a']--;
+            }
+            curAToZ[sChar[i] - 'a']++;
+            if (Arrays.equals(curAToZ, aToZ)) {
+                result.add(i - pChar.length + 1);
+            }
+        }
+        return result;
+    }
+
+    //超时
+    public List<Integer> findAnagrams2(String s, String p) {
+        int len = p.length();
+        List<Integer> ans = new ArrayList<>();
+        for(int i = 0;i<s.length()-len+1;i++){
+            char[] ss = s.substring(i,i+len).toCharArray();
+            char[] sp = p.toCharArray();
+            Arrays.sort(ss);
+            Arrays.sort(sp);
+            if(Arrays.equals(ss,sp)){
+                ans.add(i);
+            }
+        }
+        return ans;
     }
 }

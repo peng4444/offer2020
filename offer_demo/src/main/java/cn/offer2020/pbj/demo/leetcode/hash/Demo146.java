@@ -8,7 +8,7 @@ import java.util.Map;
  * @pClassName: Demo146
  * @author: pengbingjiang
  * @create: 2020/7/1 19:39
- * @description: TODO 146. LRU缓存机制
+ * @description: TODO 146.LRU缓存机制
  */
 public class Demo146 {
 

@@ -25,4 +25,20 @@ public class InsertSort {
         }
         return num;
     }
+
+    public int[] insertSort2(int[] num) {
+        if (null == num || num.length == 0) {
+            throw new RuntimeException("数组为null或长度为0");
+        }
+        for (int i = 1, j, current; i < num.length; i++) {
+            current = num[i];
+            j = i -1;
+            while (j >= 0 && num[j] > current) {
+                num[j+1] = num[j];
+                j--;
+            }
+            num[j + 1] = current;
+        }
+        return num;
+    }
 }

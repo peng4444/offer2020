@@ -9,7 +9,7 @@ import java.util.Set;
  * @ClassName: Demo3
  * @Author: pbj
  * @Date: 2020/3/16 10:17
- * @Description: TODO  3. 无重复字符的最长子串
+ * @Description: TODO  3.无重复字符的最长子串
  * 给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。
  */
 public class Demo3 {
