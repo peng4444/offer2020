@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.string;
  * @ClassName: Demo541
  * @Author: pbj
  * @Date: 2020/3/25 18:05
- * @Description: TODO 翻转字符串
+ * @Description: TODO 541.翻转字符串II
  */
 public class Demo541 {
     public String reverseStr(String s, int k) {

@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.string;
  * @ClassName: Demo186
  * @Author: pbj
  * @Date: 2020/3/25 15:27
- * @Description: TODO 翻转字符串里的单词||
+ * @Description: TODO 186.翻转字符串里的单词II
  */
 public class Demo186 {
     public void reverseWords(char[] s) {

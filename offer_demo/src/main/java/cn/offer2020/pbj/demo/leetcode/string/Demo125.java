@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.string;
  * @ClassName: Demo125
  * @Author: pbj
  * @Date: 2020/4/5 16:53
- * @Description: TODO 125. 验证回文串
+ * @Description: TODO 125.验证回文串
  * 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
  */
 public class Demo125 {

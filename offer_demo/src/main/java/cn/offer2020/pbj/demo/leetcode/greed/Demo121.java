@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.greed;
  * @ClassName: Demo121
  * @Author: pbj
  * @Date: 2019/12/29 20:39
- * @Description: TODO 买卖股票的最佳时机 I
+ * @Description: TODO 121.买卖股票的最佳时机I
  */
 public class Demo121 {
     /* *
@@ -63,6 +63,4 @@ public class Demo121 {
             return maxprofit;
         }
     }
-
-
 }

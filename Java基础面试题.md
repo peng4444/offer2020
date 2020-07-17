@@ -5,7 +5,7 @@
 
 
 ## 一、Java基础
-### 1.Java中==与equals区别比较
+### 1.Java中==与equals区别比较【1+】
 ```markdown
 [听说你还搞不定java中的==和equals？](https://www.cnblogs.com/yichunguo/p/12383853.html)
 ==的作用是判断两个对象的值是否相等，即判断两个对象是不是同一个对象。
@@ -37,18 +37,18 @@ public class test1 {
 #### 1.1 所有整型包装类对象之间值的比较，全部使用equals方法比较。【阿里巴巴Java开发手册】
 ```markdown
 在-128至127之间的赋值,Integer对象是在IntegerCache.cache产生，会复用已有对象，这个区间内的Integer值可以直接使用==进行判断，
-但是这个区间之外的所有数据，都会在堆上产生，并不会复用已有对象，这是一个大坑，推荐使用equals方法进行判断。
+    但是这个区间之外的所有数据，都会在堆上产生，并不会复用已有对象，这是一个大坑，推荐使用equals方法进行判断。
 ```
 #### 1.2 浮点数之间的等值判断，基本数据类型不能用==来比较，包装数据类型不能用equals来判断。
-### 2.equals()和hashCode()
+### 2.equals()和hashCode()【1+】
 ```markdown
 [HashCode()与equals()深入理解](https://www.cnblogs.com/moershiwei/p/12643626.html)
 [听说你还搞不定java中的==和equals？](https://www.cnblogs.com/yichunguo/p/12383853.html)
 HashCode()的作用是确定该对象在哈希表中的索引位置。
-1、如果两个对象equals为true ，他们的hashcode一定相等。
-2、如果两个对象equals为false，他们的hashcode有可能相等。
-3、如果两个对象hashcode相等，equals不一定为true。
-4、如果两个对象hashcode不相等，equals一定为false。
+    1、如果两个对象equals为true ，他们的hashcode一定相等。
+    2、如果两个对象equals为false，他们的hashcode有可能相等。
+    3、如果两个对象hashcode相等，equals不一定为true。
+    4、如果两个对象hashcode不相等，equals一定为false。
 ```
 ### 3.重载和重写的区别
 ```markdown
@@ -365,6 +365,7 @@ Java中的静态代理要求代理主题 (ProxySubject)和真实主题(RealSubje
 ### 16.生产者消费者模式
 [生产者消费者模型在项目中的实际应用](https://www.cnblogs.com/0813lichenyu/p/11599421.html)
 ### 17.jdk1.8新增的变化
+[关于Java8的精心总结](https://www.cnblogs.com/yychuyu/p/13332293.html)
 ```markdown
 新特性：
     接口增强，使用default与static在接口中定义方法
