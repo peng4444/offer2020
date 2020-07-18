@@ -1,5 +1,11 @@
 package cn.offer2020.pbj.demo.leetcode.dp;
-
+/**
+ * @pClassName: Demo97
+ * @author: pengbingjiang
+ * @create: 2020/7/18 09:00
+ * @description: TODO 10.正则表达式匹配
+ * 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+ */
 public class Demo10 {
 
     //动态规划-自底向上
@@ -22,7 +28,6 @@ public class Demo10 {
         }
         return dp[m][n];
     }
-
 
     //递归实现
     public boolean isMatch1(String s, String p) {
@@ -47,6 +52,7 @@ public class Demo10 {
         if(s==null||p==null) return false;
         return isMatch2( s, 0, p, 0);
     }
+
     boolean isMatch2(String s,int i,String p,int j){
         int m = s.length();
         int n = p.length();

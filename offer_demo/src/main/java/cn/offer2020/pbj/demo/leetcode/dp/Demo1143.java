@@ -1,10 +1,13 @@
 package cn.offer2020.pbj.demo.leetcode.dp;
 
+import org.junit.Test;
+
 /**
  * @ClassName: Demo1143
  * @Author: pbj
  * @Date: 2020/3/15 14:45
- * @Description: TODO 1143. 最长公共子序列
+ * @Description: TODO 1143.最长公共子序列
+ * 给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。,可以删除
  */
 public class Demo1143 {
     //DP压缩空间版O(1)
@@ -36,6 +39,38 @@ public class Demo1143 {
             }
         }
         return dp[m][n];
+    }
+    //给定两个字符串s1和s2，返回这两个字符串的最长公共子序列的长度。
+    public int longestCommonSubString(String s1, String s2) {
+        if (s1 == null || s2 == null || s1.length() == 0 || s2.length() == 0) {
+            return 0;
+        }
+        int m = s1.length(), n = s2.length();
+        int[][] dp = new int[m + 1][n + 1];
+        for(int i = 1;i<=m;i++){
+            for (int j = 1; j <= n; j++) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        int ans = 0;
+        for(int i = 1; i<=m;i++){
+            for(int j = 1;j<=n;j++){
+                ans = Math.max(ans, dp[i][j]);
+            }
+        }
+        return ans;
+    }
+
+    @Test
+    public void test() {
+        String s1 = "abcdfg";
+        String s2 = "acdfb";
+        int ans = longestCommonSubString(s1, s2);
+        System.out.println("最长公共子串长度："+ans);
     }
 
     public int longestCommonSubsequence(String text1, String text2) {

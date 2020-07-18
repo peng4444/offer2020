@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.hard;
  * @pClassName: Demo5
  * @author: pengbingjiang
  * @create: 2020/6/24 08:56
- * @description: TODO 5. 最长回文子串
+ * @description: TODO 5.最长回文子串
  * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
  */
 public class Demo5 {
@@ -146,5 +146,20 @@ public class Demo5 {
         }
         // 4. 返回值
         return s.substring(begin, begin + maxLen);
+    }
+    //二维数组dp
+    public String longestPalindrome3(String s) {
+        int n = s.length();
+        String ans = "";
+        boolean[][] dp = new boolean[n][n];
+        for(int i = n-1;i>=0;i--){
+            for(int j = i;j<n;j++){
+                dp[i][j] = s.charAt(i) == s.charAt(j) && (j-i<2 || dp[i+1][j-1]);
+                if(dp[i][j] && j-i+1>ans.length()){
+                    ans = s.substring(i,j+1);
+                }
+            }
+        }
+        return ans;
     }
 }
