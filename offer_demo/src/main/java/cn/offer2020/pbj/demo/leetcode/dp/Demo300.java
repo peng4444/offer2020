@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @ClassName: Demo300
  * @Author: pbj
  * @Date: 2019/12/31 16:40
- * @Description: TODO 300最长上升子序列 给定一个无序的整数数组，找到其中最长上升子序列的长度。
+ * @Description: TODO 300.最长上升子序列 给定一个无序的整数数组，找到其中最长上升子序列的长度。
  * 输入: [10,9,2,5,3,7,101,18]
  * 输出: 4
  * 解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。
@@ -26,6 +26,7 @@ public class Demo300 {
             return 0;
         }
         int res = 1;
+        //将dp数组定义为：以nums[i]结尾的最长上升子序列的长度
         int[] dp = new int[nums.length + 1];
         for (int i = 0; i < nums.length; i++) {
             dp[i] = 1;
@@ -48,22 +49,6 @@ public class Demo300 {
      * @auther: pbj
      * @date: 2019/12/31 17:13
      */
-    public int lengthOfLIS2(int[] nums) {
-        int[] dp = new int[nums.length];
-        int len = 0;
-        for (int num : nums) {
-            int i = Arrays.binarySearch(dp, 0, len, num);
-            if (i < 0) {
-                i = -(i + 1);
-            }
-            dp[i] = num;
-            if (i == len) {
-                len++;
-            }
-        }
-        return len;
-    }
-
     public int lengthOfLIS1(int[] nums) {
         /**
          dp[i]: 所有长度为i+1的递增子序列中, 最小的那个序列尾数.

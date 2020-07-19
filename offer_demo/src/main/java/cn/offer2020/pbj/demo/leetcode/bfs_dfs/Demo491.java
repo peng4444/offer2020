@@ -9,7 +9,8 @@ import java.util.Set;
  * @ClassName: Demo491
  * @Author: pbj
  * @Date: 2020/4/12 15:19
- * @Description: TODO
+ * @Description: TODO 491.递增子序列
+ * 给定一个整型数组, 你的任务是找到所有该数组的递增子序列，递增子序列的长度至少是2。
  */
 public class Demo491 {
     public List<List<Integer>> findSubsequences(int[] nums) {

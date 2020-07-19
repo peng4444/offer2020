@@ -289,7 +289,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
 ### 8.类的生命周期、初始化时机和加载机制
 >>[JVM之类加载器、加载过程及双亲委派机制](https://www.cnblogs.com/songjilong/p/12834729.html)
 >>[探秘类加载器和类加载机制](https://www.cnblogs.com/jasongan/p/10151681.html)
-#### 1.类的生命周期和类加载过程
+#### 1.类的生命周期
 [JVM类生命周期概述：加载时机与加载过程](https://blog.csdn.net/justloveyou_/article/details/72466105)
 ![类的生命周期图](https://user-gold-cdn.xitu.io/2020/4/30/171c843fe9b784cb?w=1364&h=707&f=png&s=67514)
 ```markdown
@@ -338,6 +338,7 @@ loadClass和forName的区别
         System.out.println(ConstClass.HELLOWORLD)。
 ```
 #### 3.类加载器分类
+![双亲委派模型](https://user-gold-cdn.xitu.io/2020/4/30/171c84d6f56e220d?w=880&h=857&f=png&s=70024)
 ```markdown
 JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoader）和自定义类加载器（User-Defined ClassLoader）。
 从Java虚拟机的角度来讲，只存在以下两种不同的类加载器：
@@ -369,13 +370,13 @@ JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoade
         在Java的日常应用程序开发中，类的加载几乎是由上述3种类加载器相互配合执行的，在必要时，我们还可以自定义类加载器，来定制类的加载方式。
 ```
 #### 4.双亲委派模型
-![双亲委派模型](https://user-gold-cdn.xitu.io/2020/4/30/171c84d6f56e220d?w=880&h=857&f=png&s=70024)
 ![](https://images.cnblogs.com/cnblogs_com/zhangweicheng/1583123/o_200715151957%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B.jpg)
 ```markdown
 双亲委派模型构成:
     当一个类加载器接收到一个类加载的任务时，不会立即展开加载，而是将加载任务委托给它的父类加载器去执行，
     每一层的类都采用相同的方式，直至委托给最顶层的启动类加载器为止。
     如果父类加载器无法加载委托给它的类（它的搜索范围中没有找到所需要加载的类），便将类的加载任务退回给下一级类加载器去执行加载。
+    具体的委派逻辑实现在java.lang.ClassLoader类的loadClass()方法中。
 双亲委派模型工作过程是:
     1.先判断该类是否被加载过，如果未被加载就调用父类的loadClass()方法，如果父类为null，则使用启动类加载器作为加载器。
     2.如果父类加载失败，抛出ClassNotFoundException异常，则调用自己的findClass进行加载。
@@ -399,6 +400,16 @@ JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoade
 获取当前线程上下文的 ClassLoader	   Thread.currentThread().getContextClassLoader()
 获取系统的 ClassLoader	            ClassLoader.getSystemClassLoader()
 获取调用者的 ClassLoader	          DriverManager.getCallerClassLoader()
+```
+#### 7.类加载过程
+[类的双亲委派机制](https://www.cnblogs.com/mazhimazhi/p/13338549.html)
+![类的加载流程](https://img2020.cnblogs.com/blog/1236123/202007/1236123-20200708072417366-1683596874.png)
+```markdown
+JVM调用java.lang.ClassLoader类的loadClass()方法开始类加载流程，
+AppClassLoader类加载器过调用findLoadedClass()方法查找此类是否已经被加载过了，如果没有，则需要优先调用父类加载器去加载。
+除了用C++实现的引导类加载器需要通过调用findBootstrapClassOrNull()方法外，其它用Java实现的类加载器都有parent字段，
+因为这些类都继承了ClassLoader这个基类（这个类中有对parent字段的定义），如实现了扩展类加载器的ExtClassLoader类和实现了应用类加载器/系统类加载器的AppClassLoader类的继承关系。
+当父类无法实现加载请求时，也就是class为null时，当前类加载器调用findClass()方法尝试自己完成加载请求。
 ```
 ### 9.栈帧概念及结构图
 ![栈帧概念结构图](https://user-gold-cdn.xitu.io/2020/5/1/171d0288ac431ad3?w=709&h=814&f=png&s=64282)
@@ -505,14 +516,22 @@ i++:不是原子性操作，虽然读取i和i=i+1都是原子性操作，两个�
 程序通过判断引用队列里面是不是有这个对象来判断，对象是否已经被回收了。
 软引用，弱引用和虚引用用来解决OOM问题，用来保存图片的路径。主要用于缓存。
 ```
-### 3.对OOM的认识
+### 3.[JAVA各种OOM代码样例及解决方法](https://www.cnblogs.com/huangqingshi/p/13336648.html)
 ```markdown
 Java.lang.StackOverflowError 栈内存溢出
+    死循环递归调用:运行之后出现的错误如下，程序每次递归的时候，程序会把数据结果压入栈，包括里边的指针等，这个时候就需要帧栈大一些才能承受住更多的递归调用。
 Java.lang.OutOfMemoryError.Java heap space 堆内存溢出
+    堆内对象不能进行回收了，堆内存持续增大，这样达到了堆内存的最大值，数据满了，堆内存就溢出。
 Java.lang.OutOfMemoryError.GC overhead limit exceeded GC超出警戒，回收时间过长
+    JDK1.6之后新增了一个错误类型，如果堆内存太小的时候会报这个错误。
+    如果98%的GC的时候回收不到2%的时候会报这个错误，也就是最小最大内存出现了问题的时候会报这个错误。
 Java.lang.OutOfMemoryError.Direct buffer memory 直接内存溢出
+    直接内存，即堆外内存。NIO为了提高性能，避免在Java Heap和native Heap中切换，所以使用直接内存，默认情况下，直接内存的大小和对内存大小一致。
+    堆外内存不受JVM的限制，但是受制于机器整体内存的大小限制。
 Java.lang.OutOfMemoryError.unable to create new native thread 不能再创建更多的本地线程
+    无限的创建线程，直到没法再创建线程。
 Java.lang.OutOfMemoryError.Metaspace 元空间内存溢出
+    元数据区域也成为方法区，存储着类的相关信息，常量池，方法描述符，字段描述符，运行时产生大量的类就会造成这个区域的溢出。
 ```
 ### 4.又抓了一个导致频繁GC的鬼--数组动态扩容
 [又抓了一个导致频繁GC的鬼--数组动态扩容](https://www.cnblogs.com/perfma/p/12981030.html)

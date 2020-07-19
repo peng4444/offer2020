@@ -6,40 +6,38 @@ import java.util.Arrays;
  * @ClassName: Demo673
  * @Author: pbj
  * @Date: 2020/4/12 15:25
- * @Description: TODO
+ * @Description: TODO 673.最长递增子序列的个数
  */
 public class Demo673 {
     //dp
-    class Solution {
-        public int findNumberOfLIS(int[] nums) {
-            int N = nums.length;
-            if (N <= 1) return N;
-            int[] lengths = new int[N]; //lengths[i] = length of longest ending in nums[i]
-            int[] counts = new int[N]; //count[i] = number of longest ending in nums[i]
-            Arrays.fill(counts, 1);
-
-            for (int j = 0; j < N; ++j) {
-                for (int i = 0; i < j; ++i) if (nums[i] < nums[j]) {
-                    if (lengths[i] >= lengths[j]) {
-                        lengths[j] = lengths[i] + 1;
-                        counts[j] = counts[i];
-                    } else if (lengths[i] + 1 == lengths[j]) {
-                        counts[j] += counts[i];
+    public int findNumberOfLIS(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        // dp[i]表示以nums[i]结尾的最长递增子序列的长度
+        int[] dp = new int[n];
+        // counter[i]表示以nums[i]结尾的最长递增子序列的个数
+        int[] counter = new int[n];
+        Arrays.fill(dp, 1);
+        Arrays.fill(counter, 1);
+        int len = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    if (dp[j] + 1 > dp[i]) { // 所有以i结尾的子序列中出现了counter[j]个更长的序列
+                        counter[i] = counter[j];
+                        dp[i] = dp[j] + 1;
+                    } else if (dp[j] + 1 == dp[i]) { // 出现了长度相同的序列，累加数量
+                        counter[i] += counter[j];
                     }
                 }
             }
-
-            int longest = 0, ans = 0;
-            for (int length: lengths) {
-                longest = Math.max(longest, length);
-            }
-            for (int i = 0; i < N; ++i) {
-                if (lengths[i] == longest) {
-                    ans += counts[i];
-                }
-            }
-            return ans;
+            len = Math.max(len, dp[i]);
         }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (dp[i] == len) ans += counter[i];
+        }
+        return ans;
     }
 
     //线段树

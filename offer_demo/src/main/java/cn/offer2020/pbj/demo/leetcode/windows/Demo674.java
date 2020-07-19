@@ -20,7 +20,7 @@ public class Demo674 {
         }
     }
 
-    //
+    //dp
     public int findLengthOfLCIS(int[] nums) {
         if(nums.length<2) return nums.length;
         int[] dp = new int[nums.length+1];
@@ -50,5 +50,4 @@ public class Demo674 {
         res = Math.max(res, len - start);
         return res;
     }
-
 }

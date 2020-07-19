@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @ClassName: Demo646
  * @Author: pbj
  * @Date: 2020/4/12 10:47
- * @Description: TODO 646. 最长数对链
+ * @Description: TODO 646.最长数对链
  */
 public class Demo646 {
     //贪心
@@ -26,6 +26,7 @@ public class Demo646 {
         if(pairs==null||pairs.length==0) return 0;
         Arrays.sort(pairs,(a, b)->(a[0]-b[0]));
         int n = pairs.length;
+        //设dp[i]表示以pairs[i][j]结尾的最长链的长度
         int[] dp = new int[n];
         Arrays.fill(dp,1);
         for(int i = 1;i<n;i++){

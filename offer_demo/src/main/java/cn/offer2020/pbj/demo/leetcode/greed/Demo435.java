@@ -7,7 +7,7 @@ import java.util.Comparator;
  * @ClassName: Demo435
  * @Author: pbj
  * @Date: 2020/4/6 22:03
- * @Description: TODO 435. 无重叠区间
+ * @Description: TODO 435.无重叠区间
  */
 public class Demo435 {
 
@@ -18,10 +18,10 @@ public class Demo435 {
         Arrays.sort(intervals, new Comparator<int[]>(){
             @Override
             public int compare(int[] o1,int[] o2){
-                return o1[1]-o2[1];
+                return o1[1]-o2[1];//升序排列
             }
         });
-        int cnt =1;
+        int cnt =1;//最多能组成的不重叠区间个数
         int end = intervals[0][1];
         for(int i = 1;i<intervals.length;i++){
             if(intervals[i][0]<end){
