@@ -8,7 +8,7 @@ import java.util.List;
  * @ClassName: Demo95
  * @Author: pbj
  * @Date: 2020/3/12 16:00
- * @Description: TODO 95. 不同的二叉搜索树
+ * @Description: TODO 95.不同的二叉搜索树
  */
 public class Demo95 {
 

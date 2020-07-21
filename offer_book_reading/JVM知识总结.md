@@ -315,6 +315,7 @@ Full GC：回收老年代和新生代，老年代对象其存活时间长，因�
         其中解析过程在某些情况下可以在初始化阶段之后再开始，这是为了支持Java的动态绑定。
     5. 初始化
         初始化阶段才真正开始执行类中定义的Java程序代码。初始化阶段是虚拟机执行类构造器<clinit>()方法的过程。
+        此方法不需定义，是 javac 编译器自动收集类中的所有类变量的赋值动作和静态代码块中的语句合并而来。
         在准备阶段，类变量已经赋过一次系统要求的初始值，而在初始化阶段，根据程序员通过程序制定的主观计划去初始化类变量和其它资源。 
 loadClass和forName的区别
     Class.forName得到的class是已经初始化完成的
@@ -368,9 +369,45 @@ JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoade
         通过ClassLoader.getSystemClassLoader()方法可以获取到该类加载器
     用户自定义类加载器（User-Defined ClassLoader）
         在Java的日常应用程序开发中，类的加载几乎是由上述3种类加载器相互配合执行的，在必要时，我们还可以自定义类加载器，来定制类的加载方式。
+        为什么要自定义类加载器？
+            * 隔离加载类
+            * 修改类加载的方式
+            * 扩展加载源
+            * 防止源码泄漏
+        用户自定义类加载器实现步骤：
+            1.开发人员可以通过继承抽象类java.lang.ClassLoader类的方式，实现自己的类加载器，以满足一些特殊的需求
+            2.在JDK1.2之前，在自定义类加载器时，总会去继承ClassLoader类并重写loadClass()方法，从而实现自定义的类加载类，
+                但是在JDK1.2之后已不再建议用户去覆盖loadclass()方法，而是建议把自定义的类加载逻辑写在findclass()方法中。
+            3.在编写自定义类加载器时，如果没有太过于复杂的需求，可以直接继承URIClassLoader类，
+                这样就可以避免自己去编写findclass()方法及其获取字节码流的方式，使自定义类加载器编写更加简洁。
 ```
-#### 4.双亲委派模型
-![](https://images.cnblogs.com/cnblogs_com/zhangweicheng/1583123/o_200715151957%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B.jpg)
+```java
+public class ClassLoaderTest {
+    public static void main(String[] args) {
+        // 获取系统类加载器
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+        System.out.println(systemClassLoader);
+
+        // 获取其上层的：扩展类加载器
+        ClassLoader extClassLoader = systemClassLoader.getParent();
+        System.out.println(extClassLoader);
+
+        // 试图获取 根加载器
+        ClassLoader bootstrapClassLoader = extClassLoader.getParent();
+        System.out.println(bootstrapClassLoader);
+
+        // 获取自定义加载器
+        ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
+        System.out.println(classLoader);
+        
+        // 获取String类型的加载器
+        ClassLoader classLoader1 = String.class.getClassLoader();
+        System.out.println(classLoader1);
+    }
+}
+```
+#### 4.双亲委派机制
+![](https://img2020.cnblogs.com/blog/1542615/202007/1542615-20200713210038282-7502795.png)
 ```markdown
 双亲委派模型构成:
     当一个类加载器接收到一个类加载的任务时，不会立即展开加载，而是将加载任务委托给它的父类加载器去执行，
@@ -396,14 +433,27 @@ JVM支持两种类型的类加载器：引导类加载器（Bootstrap ClassLoade
 #### 6.获取ClassLoader的途径
 ```markdown
 方式	                                 代码
-获取当前类的ClassLoader	             clazz.getClassLoader()
-获取当前线程上下文的 ClassLoader	   Thread.currentThread().getContextClassLoader()
-获取系统的 ClassLoader	            ClassLoader.getSystemClassLoader()
-获取调用者的 ClassLoader	          DriverManager.getCallerClassLoader()
+1.获取当前类的ClassLoader	             clazz.getClassLoader()
+2.获取当前线程上下文的 ClassLoader	   Thread.currentThread().getContextClassLoader()
+3.获取系统的 ClassLoader	            ClassLoader.getSystemClassLoader()
+4.获取调用者的 ClassLoader	          DriverManager.getCallerClassLoader()
+//查看根加载器所能加载的目录
+public class ClassLoaderTest1 {
+    public static void main(String[] args) {
+        System.out.println("*********启动类加载器************");
+        // 获取BootstrapClassLoader 能够加载的API的路径
+        URL[] urls = sun.misc.Launcher.getBootstrapClassPath().getURLs();
+        for (URL url : urls) {
+            System.out.println(url.toExternalForm());
+        }
+        // 从上面路径中，随意选择一个类，来看看他的类加载器是什么：得到的是null，说明是  根加载器
+        ClassLoader classLoader = Provider.class.getClassLoader();
+    }
+}
 ```
 #### 7.类加载过程
 [类的双亲委派机制](https://www.cnblogs.com/mazhimazhi/p/13338549.html)
-![类的加载流程](https://img2020.cnblogs.com/blog/1236123/202007/1236123-20200708072417366-1683596874.png)
+![类的加载流程](https://img2020.cnblogs.com/blog/1542615/202007/1542615-20200713205920681-1954888968.png)
 ```markdown
 JVM调用java.lang.ClassLoader类的loadClass()方法开始类加载流程，
 AppClassLoader类加载器过调用findLoadedClass()方法查找此类是否已经被加载过了，如果没有，则需要优先调用父类加载器去加载。
@@ -517,11 +567,31 @@ i++:不是原子性操作，虽然读取i和i=i+1都是原子性操作，两个�
 软引用，弱引用和虚引用用来解决OOM问题，用来保存图片的路径。主要用于缓存。
 ```
 ### 3.[JAVA各种OOM代码样例及解决方法](https://www.cnblogs.com/huangqingshi/p/13336648.html)
+[教你写 Bug，常见的 OOM 异常分析](https://mp.weixin.qq.com/s?__biz=MzU4Mjk0MjkxNA==&mid=2247486426&idx=2&sn=5151e216d6d1729bb23bf60475f97a9f&chksm=fdb1e277cac66b6197a0ab0dcb9ebead5eb5c1301708b7f71c9340d9361c3947ec196ab51323&mpshare=1&scene=23&srcid=07205vxhJya4d279DVUe2ME7&sharer_sharetime=1595210131720&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ```markdown
-Java.lang.StackOverflowError 栈内存溢出
+Java.lang.StackOverflowError 栈内存溢出(StackOFE.java)
+原因分析:
     死循环递归调用:运行之后出现的错误如下，程序每次递归的时候，程序会把数据结果压入栈，包括里边的指针等，这个时候就需要帧栈大一些才能承受住更多的递归调用。
+    执行了大量方法，导致线程栈空间耗尽
+    方法内声明了海量的局部变量
+    native 代码有栈上分配的逻辑，并且要求的内存还不小，比如java.net.SocketInputStream.read0会在栈上要求分配一个 64KB的缓存（64位Linux）
+解决方案:
+    修复引发无限递归调用的异常代码，通过程序抛出的异常堆栈，找出不断重复的代码行，按图索骥，修复无限递归Bug
+    排查是否存在类之间的循环依赖（当两个对象相互引用，在调用toString方法时也会产生这个异常）
+    通过JVM启动参数-Xss增加线程栈内存空间，某些正常使用场景需要执行大量方法或包含大量局部变量，这时可以适当地提高线程栈空间限制
 Java.lang.OutOfMemoryError.Java heap space 堆内存溢出
-    堆内对象不能进行回收了，堆内存持续增大，这样达到了堆内存的最大值，数据满了，堆内存就溢出。
+    Java堆用于存储对象实例，我们只要不断的创建对象，并且保证GC Roots到对象之间有可达路径来避免GC清除这些对象，
+    那随着对象数量的增加，总容量触及堆的最大容量限制后就会产生内存溢出异常。
+原因分析:
+     请求创建一个超大对象，通常是一个大数组
+     超出预期的访问量/数据量，通常是上游系统请求流量飙升，常见于各类促销/秒杀活动，可以结合业务流量指标排查是否有尖状峰值
+     过度使用终结器（Finalizer），该对象没有立即被GC
+     内存泄漏（Memory Leak），大量对象引用没有释放，JVM无法对其自动回收，常见于使用了File等资源没有回收  
+解决方案:
+     针对大部分情况，通常只需要通过-Xmx参数调高JVM堆内存空间即可。如果仍然没有解决，可以参考以下情况做进一步处理：
+        如果是超大对象，可以检查其合理性，比如是否一次性查询了数据库全部结果，而没有做结果数限制
+        如果是业务峰值压力，可以考虑添加机器资源，或者做限流降级。
+        如果是内存泄漏，需要找到持有的对象，修改代码设计，比如关闭没有释放的连接
 Java.lang.OutOfMemoryError.GC overhead limit exceeded GC超出警戒，回收时间过长
     JDK1.6之后新增了一个错误类型，如果堆内存太小的时候会报这个错误。
     如果98%的GC的时候回收不到2%的时候会报这个错误，也就是最小最大内存出现了问题的时候会报这个错误。
@@ -530,8 +600,21 @@ Java.lang.OutOfMemoryError.Direct buffer memory 直接内存溢出
     堆外内存不受JVM的限制，但是受制于机器整体内存的大小限制。
 Java.lang.OutOfMemoryError.unable to create new native thread 不能再创建更多的本地线程
     无限的创建线程，直到没法再创建线程。
+java.lang.OutOfMemoryError-->Metaspace
 Java.lang.OutOfMemoryError.Metaspace 元空间内存溢出
     元数据区域也成为方法区，存储着类的相关信息，常量池，方法描述符，字段描述符，运行时产生大量的类就会造成这个区域的溢出。
+java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+    JVM限制了数组的最大长度，该错误表示程序请求创建的数组超过最大长度限制。
+    JVM在为数组分配内存前，会检查要分配的数据结构在系统中是否可寻址，通常为Integer.MAX_VALUE-2。
+    此类问题比较罕见，通常需要检查代码，确认业务是否需要创建如此大的数组，是否可以拆分为多个块，分批执行。
+java.lang.OutOfMemoryError: Out of swap space
+    启动Java应用程序会分配有限的内存。此限制是通过-Xmx和其他类似的启动参数指定的。
+    在JVM请求的总内存大于可用物理内存的情况下，操作系统开始将内容从内存换出到硬盘驱动器。
+    该错误表示所有可用的虚拟内存已被耗尽。虚拟内存（Virtual Memory）由物理内存（Physical Memory）和交换空间（Swap Space）两部分组成。
+java.lang.OutOfMemoryError：Kill process or sacrifice child
+    操作系统是建立在流程概念之上的。这些进程由几个内核作业负责，其中一个名为“ Out of memory Killer”，它会在可用内存极低的情况下“杀死”（kill）某些进程。
+    OOM Killer 会对所有进程进行打分，然后将评分较低的进程“杀死”，具体的评分规则可以参考 Surviving the Linux OOM Killer。
+    不同于其他的OOM错误， Kill processorsacrifice child错误不是由JVM层面触发的，而是由操作系统层面触发的。
 ```
 ### 4.又抓了一个导致频繁GC的鬼--数组动态扩容
 [又抓了一个导致频繁GC的鬼--数组动态扩容](https://www.cnblogs.com/perfma/p/12981030.html)

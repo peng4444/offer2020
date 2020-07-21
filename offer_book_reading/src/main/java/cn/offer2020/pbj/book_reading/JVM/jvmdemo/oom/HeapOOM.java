@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HeapOOM {
     static class OOMObject {
+
     }
 
     public static void main(String[] args) throws InterruptedException {
