@@ -68,15 +68,6 @@ public class Demo53 {
         return leftSubsum + rightSubsum;
     }
 
-    public int helper(int[] nums, int left, int right) {
-        if (left == right) return nums[left];
-        int p = (left + right) / 2;
-        int leftSum = helper(nums, left, p);
-        int rightSum = helper(nums, p + 1, right);
-        int crossSum = crossSum(nums, left, right, p);
-        return Math.max(Math.max(leftSum, rightSum), crossSum);
-    }
-
     /* *
      * 功能描述: 分治法
      * @param: [nums]
@@ -88,8 +79,34 @@ public class Demo53 {
         return helper(nums, 0, nums.length - 1);
     }
 
+    public int helper(int[] nums, int left, int right) {
+        if (left == right) return nums[left];
+        int p = (left + right) / 2;
+        int leftSum = helper(nums, left, p);
+        int rightSum = helper(nums, p + 1, right);
+        int crossSum = crossSum(nums, left, right, p);
+        return Math.max(Math.max(leftSum, rightSum), crossSum);
+    }
     public static void main(String args[]) {
         int[] nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
         System.out.println(maxSubArray(nums));
+    }
+
+    //暴力法 两层循环用于穷举所有可能的子数组，一层循环用于计算某个子数组的和
+    public int maxSubArray0(int[] nums) {
+        int n = nums.length;
+        int res = Integer.MIN_VALUE;
+        // 穷举各种可能的子数组 nums[i..j]
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                // 计算子数组 nums[i..j] 的和
+                int sum = 0;
+                for (int k = i; k <= j; k++) {
+                    sum += nums[k];
+                }
+                res = Math.max(res, sum);
+            }
+        }
+        return res;
     }
 }
