@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @ClassName: Demo91
  * @Author: pbj
  * @Date: 2020/4/11 11:34
- * @Description: TODO 91. 解码方法
+ * @Description: TODO 91.解码方法
  */
 public class Demo91 {
 
@@ -43,7 +43,6 @@ public class Demo91 {
      * 不好意思，这阶楼梯太宽，走两步容易扯着步子，只能一个一个走
      * dp[i] = dp[i-1];
      */
-    @Test
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();

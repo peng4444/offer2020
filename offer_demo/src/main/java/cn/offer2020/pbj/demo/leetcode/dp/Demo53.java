@@ -6,6 +6,7 @@ package cn.offer2020.pbj.demo.leetcode.dp;
  * @Date: 2019/11/18 11:58
  * @Description: TODO  53.最大子序和
  * 给定一个整数数组nums，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+ * [LeetCode一题多解|53.最大子数组和：五种解法完全手册](https://mp.weixin.qq.com/s?__biz=MzA5ODk3ODA4OQ==&mid=2648167638&idx=1&sn=d6e504ab46757b1a35a5c8c7734d6f27&chksm=88aa2490bfddad86277a3958d623d146967036c0f59fef52bd20c80e31b0392d36024bbf68fb&mpshare=1&scene=23&srcid=0719HoKG9QngwsA8RClPUFra&sharer_sharetime=1595126396244&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
  */
 public class Demo53 {
 
@@ -39,13 +40,17 @@ public class Demo53 {
      * @date: 2019/12/29 19:41
      */
     public int maxSubArray2(int[] nums) {
-        int n = nums.length;
-        int currSum = nums[0], maxSum = nums[0];
-        for (int i = 1; i < n; ++i) {
-            currSum = Math.max(nums[i], currSum + nums[i]);
-            maxSum = Math.max(maxSum, currSum);
+        int sum = 0; // 计算当前的部分子数组和
+        int res = Integer.MIN_VALUE;
+        for (int n : nums) {
+            // 如果部分和小于零，直接舍弃，从零开始重新累加
+            if (sum < 0) {
+                sum = 0;
+            }
+            sum += n; // 加上当前元素
+            res = Math.max(res, sum);
         }
-        return maxSum;
+        return res;
     }
 
     public static int crossSum(int[] nums, int left, int right, int p) {
@@ -78,7 +83,7 @@ public class Demo53 {
     public int maxSubArray1(int[] nums) {
         return helper(nums, 0, nums.length - 1);
     }
-
+    //// 计算 nums[lo..hi] 的最大子数组和
     public int helper(int[] nums, int left, int right) {
         if (left == right) return nums[left];
         int p = (left + right) / 2;
@@ -87,11 +92,20 @@ public class Demo53 {
         int crossSum = crossSum(nums, left, right, p);
         return Math.max(Math.max(leftSum, rightSum), crossSum);
     }
-    public static void main(String args[]) {
-        int[] nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        System.out.println(maxSubArray(nums));
-    }
 
+    //暴力法改进
+    public int maxSubArray3(int[] nums) {
+        int n = nums.length;
+        int res = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += nums[j];
+                res = Math.max(res, sum);
+            }
+        }
+        return res;
+    }
     //暴力法 两层循环用于穷举所有可能的子数组，一层循环用于计算某个子数组的和
     public int maxSubArray0(int[] nums) {
         int n = nums.length;

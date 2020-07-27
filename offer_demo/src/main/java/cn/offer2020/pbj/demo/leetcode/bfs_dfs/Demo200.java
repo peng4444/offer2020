@@ -4,52 +4,46 @@ package cn.offer2020.pbj.demo.leetcode.bfs_dfs;
  * @ClassName: Demo200
  * @Author: pbj
  * @Date: 2020/1/1 15:47
- * @Description: TODO 岛屿数量
+ * @Description: TODO 200.岛屿数量
  */
 public class Demo200 {
 
     /* *
      * 功能描述: 利用深度优先搜索
-     * 线性扫描整个二维网格，如果一个结点包含 1，则以其为根结点启动深度优先搜索。
-     * 在深度优先搜索过程中，每个访问过的结点被标记为 0。计数启动深度优先搜索的根结点的数量，即为岛屿的数量。
+     *思路：遍历岛这个二维数组，如果当前数为1，则进入感染函数并将岛个数+1
+        感染函数：其实就是一个递归标注的过程，它会将所有相连的1都标注成2。为什么要标注？这样就避免了遍历过程中的重复计数的情况，一个岛所有的1都变成了2后，遍历的时候就不会重复遍历了。建议没想明白的同学画个图看看。
      * 时间复杂度O(M*N)
      * @param: [grid]
      * @return: int
      * @auther: pbj
      * @date: 2020/1/1 20:16
      */
-    public int numIsIands(char[][] grid) {
-        if (grid == null || grid.length == 0) {
-            return 0;
-        }
-        int nr = grid.length;
-        int nc = grid[0].length;
-        int num_islands = 0;
-        for (int r = 0; r < nr; r++) {
-            for (int c = 0; c < nc; c++) {
-                ++num_islands;
-                dfs(grid, r, c);
+    public int numIslands0(char[][] grid) {
+        int islandNum = 0;
+        for(int i = 0; i < grid.length; i++){
+            for(int j = 0; j < grid[0].length; j++){
+                if(grid[i][j] == '1'){
+                    infect(grid, i, j);
+                    islandNum++;
+                }
             }
         }
-        return num_islands;
+        return islandNum;
     }
-
-    void dfs(char[][] grid, int r, int c) {
-        int nr = grid.length;
-        int nc = grid[0].length;
-        if (r < 0 || c < 0 || r >= nr || c >= nc || grid[r][c] == '0') {
+    //感染函数
+    public void infect(char[][] grid, int i, int j){
+        if(i < 0 || i >= grid.length ||
+                j < 0 || j >= grid[0].length || grid[i][j] != '1'){
             return;
         }
-        grid[r][c] = '0';
-        dfs(grid, r - 1, c);
-        dfs(grid, r + 1, c);
-        dfs(grid, r, c - 1);
-        dfs(grid, r, c + 1);
+        grid[i][j] = '2';
+        infect(grid, i + 1, j);
+        infect(grid, i - 1, j);
+        infect(grid, i, j + 1);
+        infect(grid, i, j - 1);
     }
 
     // 广度优先搜索
-
-
     class UnionFind {
         int count; // # of connected components
         int[] parent;

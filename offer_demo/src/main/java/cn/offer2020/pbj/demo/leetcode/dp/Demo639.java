@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo.leetcode;
+package cn.offer2020.pbj.demo.leetcode.dp;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @ClassName: Demo639
  * @Author: pbj
  * @Date: 2020/5/29 14:52
- * @Description: TODO 639. 解码方法 2
+ * @Description: TODO 639.解码方法 2
  * 一条包含字母 A-Z 的消息通过以下的方式进行了编码：
  *除了上述的条件以外，现在加密字符串可以包含字符 '*'了，字符'*'可以被当做1到9当中的任意一个数字。
  * 给定一条包含数字和字符'*'的加密信息，请确定解码方法的总数。
@@ -16,8 +16,8 @@ public class Demo639 {
     /* *
      * 功能描述:
      *   dp[i]表示[0...i]中的解码数
-  dp[i] = dp[i - 1] * [第i个单独解码的个数] + dp[i - 2] * [第i-1 和第i一起解码的个数]
-  包含有这样的00 / 30 / 40 ...无法解码
+        dp[i] = dp[i - 1] * [第i个单独解码的个数] + dp[i - 2] * [第i-1 和第i一起解码的个数]
+        包含有这样的00 / 30 / 40 ...无法解码
      * @param: [args]
      * @return: void
      * @auther: pbj

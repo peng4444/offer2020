@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.greed;
  * @ClassName: Demo392
  * @Author: pbj
  * @Date: 2020/4/7 15:59
- * @Description: TODO 392. 判断子序列
+ * @Description: TODO 392.判断子序列
  */
 public class Demo392 {
     //双指针
@@ -14,10 +14,8 @@ public class Demo392 {
         while (i < m && j < n) {
             if (s.charAt(i) == t.charAt(j)) {
                 i++;
-                j++;
-            }else {
-                j++;
             }
+            j++;
         }
         return i==m;
     }
