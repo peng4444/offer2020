@@ -292,8 +292,238 @@ Lock 实现锁的底层原理？
 
 ## 手写
 ```markdown
-手写单例模式
+
 手写消费者生产者模式
 堆排序的原理及时间复杂度，是否稳定，最坏及最坏场景。
 手写快速排序、插入排序、冒泡排序，并分析时间复杂度和空间复杂度，它们的稳定性。
+```
+### 手写单例模式
+>> 一个类的构造函数私有化，然后在类中定义一个私有静态变量，通过一个静态函数get获得私有变量实例即可实现单例。
+    如果想要懒加载，可以用上双重检验锁在get函数中。
+>> 手写单例模式 1.写一个单例模式，
+   4.线程安全的单例模式：双重检查写法
+   4.用volatile+synchronized写一个单例模式，用双重校验锁方法，说出两个if判断语句的作用
+   写个单例保证线程安全(虽然写出了，但被问住了，告诉我代码不能死记硬背)
+   为什么还要再判断一次是否为空
+   怎样保证这个单例在序列化和反序列中还是这个单例枚举
+```markdown
+class Singleton{
+    public static volatile Singleton uniqueInstance;
+    public static Singleton getUniqueInstance(){
+        if(uniqueInstance==null){
+            synchronized(Singleton.class){
+                if(uniqueInstance==null){
+                    uniqueInstance=new Singleton();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
+    public static void main(String args[]){
+        for(int i=0;i<50;i++){
+            new Thread(new Runnable(){
+                public void run(){
+                    System.out.println(Thread.currentThread().getName()+":"+Singleton.getUniqueInstance().hashCode());
+                }
+            }).start();
+        }
+    }
+}
+```
+### 手写生产者消费者模型
+#### 用ArrayBlockingQueue实现的生产者消费者模型
+```markdown
+public class ArrayBlockingQueueDemo {
+    private ArrayBlockingQueue blockingQueue = new ArrayBlockingQueue(3, true);
+ 
+    public static void main(String[] args) {
+        ArrayBlockingQueueDemo test = new ArrayBlockingQueueDemo();
+        Consumer c1 = test.new Consumer();//内部非静态类实例化方式
+        Producer p1 = test.new Producer();
+        ExecutorService service = Executors.newCachedThreadPool();
+        service.execute(p1);
+        service.execute(c1);
+        //new Thread(p1).start();
+        //new Thread(c1).start();
+    }
+ 
+    class Consumer extends Thread {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    System.out.println("消费" + blockingQueue.take());
+                    if (blockingQueue.size() == 0) {
+                        System.out.println("队列为空，阻塞");
+                    }
+                }
+            } catch (InterruptedException e1) {
+                System.out.println("消费者等待时被打断");
+                e1.printStackTrace();
+            }
+        }
+    }
+ 
+    class Producer extends Thread {
+        private int element = 0;
+ 
+        @Override
+        public void run() {
+            try {
+                while (element < 20) {
+                    System.out.println("生产" + element);
+                    blockingQueue.put(element++);
+                }
+                if (blockingQueue.size() == 20) {
+                    System.out.println("队列满，阻塞");
+                }
+            } catch (InterruptedException e) {
+                System.out.println("生产者等空闲时被打断");
+                e.printStackTrace();
+            }
+            System.out.println("终止生产");
+        }
+    }
+}
+```
+#### 用ReentrantLock写生产者消费者模型
+>> 手写一个生产者消费者模式，用的ReentrantLock，为什么判断当前count是否满足生产或者消费时用while
+```markdown
+public class ProducerAndConsumer {
+    private int number = 0;
+    private final int MAX = 10;
+    private final int MIN = 0;
+    private Lock lock = new ReentrantLock();
+    private Condition condition = lock.newCondition();
+ 
+    public static void main(String args[]) {
+        ProducerAndConsumer test = new ProducerAndConsumer();
+        Consumer c1 = test.new Consumer();
+        Producer p1 = test.new Producer();
+        ExecutorService service = Executors.newCachedThreadPool();
+        for (int i = 0; i < 10; i++) {
+            service.execute(p1);
+        }
+        for (int i = 0; i < 5; i++) {
+            service.execute(c1);
+        }
+    }
+ 
+    class Producer extends Thread {
+        public void run() {
+            try {
+                lock.lock();
+                while (number >= MAX) {//不用if是因为可能有错误唤醒的线程，while可以进行多次判断
+                    System.err.println("产品已满");
+                    condition.await();
+                }
+                number++;
+                System.out.println("生产了一个产品，现在有：" + number + "个产品");
+                condition.signalAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+ 
+    class Consumer extends Thread {
+        public void run() {
+            try {
+                lock.lock();
+                while (number <= MIN) {
+                    condition.await();
+                }
+                number--;
+                System.out.println("消费了一个，现在有" + number);
+                condition.signalAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+}
+```
+### LRU
+```markdown
+import java.util.LinkedHashMap;
+ 
+public class LRUCache extends LinkedHashMap {
+ 
+    //首先设定最大缓存空间 MAX_ENTRIES 为 3；
+    private static final int MAX_ENTRIES = 3;
+ 
+    //之后使用LinkedHashMap的构造函数将 accessOrder设置为 true，开启 LRU顺序；
+    public LRUCache() {
+        super(MAX_ENTRIES, 0.75f, true);
+    }
+ 
+    //最后覆盖removeEldestEntry(）方法实现，在节点多于 MAX_ENTRIES 就会将最近最少使用的数据移除。
+    //因为这个函数默认返回false，不重写的话缓存爆了的时候无法删除最近最久未使用的节点
+    @Override
+    protected boolean removeEldestEntry(java.util.Map.Entry eldest) {
+        //在容量超过最大允许节点数的时候返回true，使得在afterNodeInsertion函数中能执行removeNode()
+        return size() > MAX_ENTRIES;
+    }
+ 
+    public static void main(String[] args) {
+        LRUCache cache = new LRUCache();
+        cache.put(1, 1);
+        cache.put(2, 2);
+        cache.put(3, 3);
+        cache.get(1);
+        cache.put(4, 4);
+        System.out.println(cache.keySet());
+    }
+}
+```
+### 快速排序
+```markdown
+作者：酥悠沫
+链接：https://www.nowcoder.com/discuss/429362?type=2&channel=0&source_id=2
+来源：牛客网
+
+public class QuickSort {
+    private  void quickSortC(int[] a, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int p = partition(a, l, r);
+        quickSortC(a, l, p - 1);
+        quickSortC(a, p + 1, r);
+    }
+    //空间浪费比较多的分区函数可以将小于分界点存一段，大于分界点存一段，再合并
+    public  int partition(int[] a, int l, int r) {
+        int pivot = a[r];
+        int i = l;
+        for (int j = l; j < r; j++) {
+            if (a[j] < pivot) {
+                swap(a, i, j);
+                i = i + 1;
+            }
+        }
+        swap(a, i, r);
+        return i;
+    }
+    public static void swap(int[] a,int l,int r){
+        int temp=a[l];
+        a[l]=a[r];
+        a[r]=temp;
+    }
+    public static void main(String[] args) {
+        int a[]={9,8,6,1,2,5,3,7,10,4};
+        QuickSort quickSort=new QuickSort();
+        for(int a1:a){
+            System.out.print(a1+" ");
+        }
+        System.out.println();
+        quickSort.quickSortC(a,0,9);
+        for(int a1:a){
+            System.out.print(a1+" ");
+        }
+    }
+}
 ```

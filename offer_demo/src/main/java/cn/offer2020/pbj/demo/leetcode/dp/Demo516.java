@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.dp;
  * @ClassName: Demo516
  * @Author: pbj
  * @Date: 2020/6/16 20:25
- * @Description: TODO  516. 最长回文子序列
+ * @Description: TODO  516.最长回文子序列
  * 给定一个字符串 s ，找到其中最长的回文子序列，并返回该序列的长度。可以假设 s 的最大长度为 1000 。
  */
 public class Demo516 {
