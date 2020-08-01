@@ -527,3 +527,30 @@ public class QuickSort {
     }
 }
 ```
+### 等概率无重复的从n个数中选取m个数
+[等概率无重复的从n个数中选取m个数](https://blog.csdn.net/yusiguyuan/article/details/42607681)
+```markdown
+问题描述：程序的输入包含两个整数m和n，其中m<n。
+输出是0~n-1范围内的m个随机整数，要求：每个数选择出现的概率相等，且按序输出。    
+int gen(int m,int n){
+    int i, select = m,remaining = n;
+    for(i=0;i<n;i++) {
+        if(rand() % remaining <select) {
+            printf("%d\n",i);
+            select--;
+        }
+        remaining--;
+    }
+    return 0;
+}
+//优化
+int genknuth(int m,int n){
+    int i;
+    for(i=0;i<n;i++)
+        if(rand()%(n -i) < m) {
+            printf("%d\n",i);
+            m--;
+        }
+    return 0;
+
+```

@@ -1,4 +1,4 @@
-package cn.offer2020.pbj.demo;
+package cn.offer2020.pbj.demo.leetcode.ainputoutput;
 
 import java.util.HashSet;
 import java.util.Scanner;

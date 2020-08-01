@@ -8,7 +8,7 @@
 [布隆过滤器，你也可以处理十几亿的大数据](https://www.cnblogs.com/lazyegg/p/12857374.html)
 
 [布隆过滤器(Bloom Filter)](https://www.cnblogs.com/cbkj-xd/p/12863619.html)
-
+[【数据结构与算法】背包问题总结梳理](https://www.cnblogs.com/buptleida/p/13411787.html)
 [图论——环测定与矩阵算法](https://www.cnblogs.com/learnhow/p/12904677.html)
 
 [一文带你学会国产加密算法SM4的java实现方案](https://www.cnblogs.com/jichi/p/12907453.html)
