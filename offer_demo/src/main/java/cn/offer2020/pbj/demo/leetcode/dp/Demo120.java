@@ -51,4 +51,33 @@ public class  Demo120 {
         }
         return minlen[0];
     }
+
+    //递归
+    public int minimumTotal2(List<List<Integer>> triangle) {
+        return  dfs(triangle, 0, 0);
+    }
+
+    private int dfs(List<List<Integer>> triangle, int i, int j) {
+        if (i == triangle.size()) {
+            return 0;
+        }
+        return Math.min(dfs(triangle, i + 1, j), dfs(triangle, i + 1, j + 1)) + triangle.get(i).get(j);
+    }
+
+    //递归+记忆化
+    Integer[][] memo;
+    public int minimumTotal3(List<List<Integer>> triangle) {
+        memo = new Integer[triangle.size()][triangle.size()];
+        return  dfs1(triangle, 0, 0);
+    }
+
+    private int dfs1(List<List<Integer>> triangle, int i, int j) {
+        if (i == triangle.size()) {
+            return 0;
+        }
+        if (memo[i][j] != null) {
+            return memo[i][j];
+        }
+        return memo[i][j] = Math.min(dfs1(triangle, i + 1, j), dfs1(triangle, i + 1, j + 1)) + triangle.get(i).get(j);
+    }
 }

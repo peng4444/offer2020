@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.tree;
  * @ClassName: Demo666
  * @Author: pbj
  * @Date: 2020/3/12 14:03
- * @Description: TODO
+ * @Description: TODO 666.
  */
 public class Demo666 {
 

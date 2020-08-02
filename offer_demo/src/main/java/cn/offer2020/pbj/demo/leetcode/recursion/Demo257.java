@@ -7,7 +7,7 @@ import java.util.List;
  * @ClassName: Demo257
  * @Author: pbj
  * @Date: 2020/4/9 15:28
- * @Description: TODO
+ * @Description: TODO 257.二叉树的所有路径
  */
 public class Demo257 {
     public List<String> binaryTreePaths2(TreeNode root) {
@@ -20,7 +20,7 @@ public class Demo257 {
         if (node == null) {
             return;
         }
-        if (isLeaf(node)) {
+        if (node.left==null&&node.right==null) {
             sb.append(node.val);
             resultList.add(sb.toString());
             return;
@@ -31,10 +31,6 @@ public class Demo257 {
         binaryTreePaths(node.right,new StringBuilder().append(sb),resultList);
     }
 
-
-    private boolean isLeaf(TreeNode node) {
-        return node.left == null && node.right == null;
-    }
     //递归
     public List<String> binaryTreePaths(TreeNode root) {
         LinkedList<String> path = new LinkedList<>();

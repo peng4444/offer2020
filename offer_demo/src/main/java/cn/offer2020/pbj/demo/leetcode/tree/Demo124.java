@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.tree;
  * @ClassName: Demo124
  * @Author: pbj
  * @Date: 2020/1/11 21:14
- * @Description: TODO 二叉树中的最大路径和
+ * @Description: TODO 124.二叉树中的最大路径和
  */
 public class Demo124 {
 
@@ -35,7 +35,7 @@ public class Demo124 {
             return 0;
         }
         int left = Math.max(0, getMax(root.left));// 如果子树路径和为负则应当置0表示最大路径不包含子树
-        int right = Math.max((0), getMax(root.right));
+        int right = Math.max(0, getMax(root.right));
         ret = Math.max(ret, root.val + left + right);// 判断在该节点包含左右子树的路径和是否大于当前最大路径和
         return Math.max(left, right) + root.val;
     }

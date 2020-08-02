@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.tree;
  * @ClassName: Demo129
  * @Author: pbj
  * @Date: 2020/3/12 11:28
- * @Description: TODO 129. 求根到叶子节点数字之和
+ * @Description: TODO 129.求根到叶子节点数字之和
  */
 public class Demo129 {
 
