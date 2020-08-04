@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.link;
  * @ClassName: Demo147
  * @Author: pbj
  * @Date: 2020/5/22 11:57
- * @Description: TODO 147，148. 对链表进行插入排序,148. 排序链表
+ * @Description: TODO 147，148.对链表进行插入排序,148.排序链表
  */
 public class Demo147 {
     public class ListNode {

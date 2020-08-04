@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
  * @ClassName: Demo264
  * @Author: pbj
  * @Date: 2020/4/15 11:54
- * @Description: TODO 264. 丑数 II
+ * @Description: TODO 264.丑数II
  */
 public class Demo264 {
     //三指针，第一个丑数是1，以后的丑数都是基于前面的小丑数分别乘2，3，5构成的。

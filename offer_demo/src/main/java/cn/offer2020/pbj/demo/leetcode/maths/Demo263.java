@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.maths;
  * @ClassName: Demo263
  * @Author: pbj
  * @Date: 2020/4/15 11:51
- * @Description: TODO 263. 丑数
+ * @Description: TODO 263.丑数
  */
 public class Demo263 {
 
@@ -28,6 +28,5 @@ public class Demo263 {
             }
         }
         return true;
-
     }
 }

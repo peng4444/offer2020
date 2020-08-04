@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.arrays;
  * @ClassName: Demo75
  * @Author: pbj
  * @Date: 2020/4/6 11:11
- * @Description: TODO 75. 颜色分类
+ * @Description: TODO 75.颜色分类
  * 给定一个包含红色、白色和蓝色，一共n个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
  */
 public class Demo75 {

@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @Author: pbj
  * @Date: 2020/3/30 14:53
  * @Description: TODO 88.合并两个有序数组
- * 给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
+ * 给你两个有序整数数组nums1和nums2，请你将nums2合并到nums1中，使nums1成为一个有序数组。
  */
 public class Demo88 {
     public void merge3(int[] nums1, int m, int[] nums2, int n) {
@@ -62,5 +62,4 @@ public class Demo88 {
         System.arraycopy(nums2, 0, nums1, m, n);
         Arrays.sort(nums1);
     }
-
 }

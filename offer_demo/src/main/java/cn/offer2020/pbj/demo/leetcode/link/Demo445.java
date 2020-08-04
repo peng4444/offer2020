@@ -6,7 +6,7 @@ import java.util.Stack;
  * @ClassName: Demo445
  * @Author: pbj
  * @Date: 2020/1/13 14:02
- * @Description: TODO 两数相加 II
+ * @Description: TODO 445.两数相加II
  * 给定两个非空链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储单个数字。将这两数相加会返回一个新的链表。
  */
 public class Demo445 {
@@ -21,32 +21,30 @@ public class Demo445 {
     }
     // 双栈算法
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        Stack<Integer> l1Stack = buildStack(l1);
-        Stack<Integer> l2Stack = buildStack(l2);
-        ListNode head = new ListNode(-1);
+        Stack<Integer> stack1 = new Stack<>();
+        Stack<Integer> stack2 = new Stack<>();
+        while (l1 != null) {
+            stack1.push(l1.val);
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            stack2.push(l2.val);
+            l2 = l2.next;
+        }
+
         int carry = 0;
-        while (!l1Stack.isEmpty() || !l2Stack.isEmpty() || carry != 0) {
-            int x = l1Stack.isEmpty() ? 0 : l1Stack.pop();
-            int y = l2Stack.isEmpty() ? 0 : l2Stack.pop();
-            int sum = x + y + carry;
+        ListNode head = null;
+        while (!stack1.isEmpty() || !stack2.isEmpty() || carry > 0) {
+            int sum = carry;
+            sum += stack1.isEmpty()? 0: stack1.pop();
+            sum += stack2.isEmpty()? 0: stack2.pop();
             ListNode node = new ListNode(sum % 10);
-            node.next = head.next;
-            head.next = node;
-            carry = carry / 10;
+            node.next = head;
+            head = node;
+            carry = sum / 10;
         }
-        return head.next;
-
+        return head;
     }
-    private Stack<Integer> buildStack(ListNode l) {
-        Stack<Integer> stack = new Stack<>();
-        while (l != null) {
-            stack.push(l.val);
-            l = l.next;
-        }
-        return stack;
-    }
-
-    //递归法  计算出链表的长度，在链表前面补0
 
 
     //链表翻转

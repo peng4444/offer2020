@@ -6,7 +6,7 @@ import java.math.BigInteger;
  * @ClassName: Demo67
  * @Author: pbj
  * @Date: 2020/4/14 21:27
- * @Description: TODO 67. 二进制求和
+ * @Description: TODO 67.二进制求和
  */
 public class Demo67 {
 
