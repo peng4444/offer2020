@@ -9,7 +9,6 @@
 >> [参考博客>>五分钟学算法](https://www.cnblogs.com/fivestudy/tag/LeetCode/)
 
 >> [参考书籍>>漫画算法](https://github.com/peng4444/offer2020/blob/master/offer_book_reading/src/main/java/cn/offer2020/pbj/book_reading/%E6%BC%AB%E7%94%BB%E7%AE%97%E6%B3%95.md)
->> [五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd000000000)
 ### [24张图，九大数据结构安排得明明白白！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247489089&idx=2&sn=143d1572b6edc47cb2392f823046c605&chksm=fa0e79c0cd79f0d647b7debbf2e27f02db7b5417d00d8e0ed4f77367704c11f12b5a07f2d4cc&mpshare=1&scene=23&srcid=&sharer_sharetime=1590589545952&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd)
 ```markdown
 常用数据结构：
@@ -299,6 +298,7 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
 ```markdown
 20200801-233.数字1的个数,389.找不同,765.情侣牵手,632.最小区间,836.矩形重叠,223.矩形面积,763.划分字母区间
 20200802-114.二叉树展开为链表,64.最小路径和
+20200803-415.字符串相加,43.字符串相乘,989.数组形式的整数加法,258.各位相加
 136,137，
         189,21,10,22,206,92,162,33，22，
     从上到下的最小路径和,
@@ -315,7 +315,7 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
          23.合并K个排序链表,141.142环形链表,92:反转链表,203.移除链表元素,82.删除排序链表中的重复元素II,
          17.电话号码的字母组合,93.复原IP地址,784.字母大小写全排列
 ```
-## LeetCode冲刺专题
+## LeetCode 冲刺专题
 ```markdown
 字符串回文串【3.无重复字符的最长子串,647.回文子串,125.验证回文串,131.分割回文串,132.分割回文串II,
         5.最长回文子串,516.最长回文子序列,1143.最长公共子序列,1312.让字符串成为回文串的最少插入次数
@@ -329,6 +329,7 @@ DFS:589. N叉树的前序遍历,590. N叉树的后序遍历，
 树路径和-递归【112.路径总和,113.路径总和II,437.路径总和III,666.路径总和IV,
     257.二叉树的所有路径,687.最长同值路径,129.求根到叶子节点数字之和,124.二叉树中的最大路径和,988.从叶结点开始的最小字符串
     129.求根到叶子节点数字之和,988.从叶结点开始的最小字符串,124.二叉树中的最大路径和】
+链表【】
 ```
 ## LeetCode - good
 ```markdown
@@ -346,3 +347,4 @@ sort-1122.数组的相对排序,
 windows-3.无重复字符的最长子串,76.最小覆盖子串
 ```
 [Java实现LeetCode第30场双周赛（题号5177，5445，5446，5447）](https://www.cnblogs.com/a1439775520/p/13286935.html)
+[五分钟学算法-算法与数据结构文章详细分类与整理！](https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247486969&idx=2&sn=8cbaa7a6f84a373dccfc088de39452cf&chksm=fa0e6278cd79eb6ec8e0a1a1637004f845dca254ed8ba5ac2e70df91ca9ae8d64cc8280144c7&mpshare=1&scene=23&srcid=0614y7vEmpIJq68Rw426HZ9P&sharer_sharetime=1592103559192&sharer_shareid=d812adcc01829f0f7f8fb06aea118511#rd000000000)
