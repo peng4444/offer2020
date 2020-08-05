@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode;
  * @ClassName: Demo65
  * @Author: pbj
  * @Date: 2020/5/20 10:44
- * @Description: TODO 65. 有效数字
+ * @Description: TODO 65.有效数字
  * 验证给定的字符串是否可以解释为十进制数字。
  */
 public class Demo65 {

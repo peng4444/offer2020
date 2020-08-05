@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.link;
  * @ClassName: Demo61
  * @Author: pbj
  * @Date: 2020/4/1 10:53
- * @Description: TODO 61. 旋转链表
+ * @Description: TODO 61.旋转链表
  */
 public class Demo61 {
     public class ListNode {

@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.link;
  * @ClassName: Demo725
  * @Author: pbj
  * @Date: 2020/3/11 14:36
- * @Description: TODO 725. 分隔链表
+ * @Description: TODO 725.分隔链表
  */
 public class Demo725 {
 
