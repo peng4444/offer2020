@@ -10,6 +10,19 @@ import java.util.Arrays;
  * 给你两个有序整数数组nums1和nums2，请你将nums2合并到nums1中，使nums1成为一个有序数组。
  */
 public class Demo88 {
+
+    public void merge4(int[] A, int m, int[] B, int n) {
+        int k = m+n-1,i=m-1,j=n-1;
+        while(i>=0&&j>=0) {
+            if (A[i]<B[j]) {
+                A[k--]=B[j--];
+            }else {
+                A[k--]=A[i--];
+            }
+        }
+        while(j>=0) A[k--]=B[j--];
+    }
+
     public void merge3(int[] nums1, int m, int[] nums2, int n) {
         //从后向前插入，
         // l 表示从后向前当前插入位置

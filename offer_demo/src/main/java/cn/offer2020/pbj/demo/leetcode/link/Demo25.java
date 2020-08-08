@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.link;
  * @ClassName: Demo25
  * @Author: pbj
  * @Date: 2020/5/21 11:44
- * @Description: TODO 25. K 个一组翻转链表
+ * @Description: TODO 25. K个一组翻转链表
  * 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
  */
 public class Demo25 {
