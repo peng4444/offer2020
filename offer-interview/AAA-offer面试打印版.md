@@ -314,39 +314,164 @@ Lock 实现锁的底层原理？
     你应当保留两个分区中每个节点的初始相对位置。
 ```
 ### 手写单例模式【2+】
+[设计模式：单例模式介绍及8种写法（饿汉式、懒汉式、Double-Check、静态内部类、枚举）](https://www.cnblogs.com/lifegoeson/p/13474269.html)
+>> 单例模式使用的场景是：需要频繁创建和销毁的对象、创建对象耗时过多或耗资源太多（重型对象）、工具类对象、频繁访问数据库或者文件的对象（数据源、session工厂等），都应用单例模式去实现。
 >> 单例模式有哪些实现方式？双重检查锁怎么实现，为什么用volatile，序列化破坏单例了解吗，怎么避免？
->> 一个类的构造函数私有化，然后在类中定义一个私有静态变量，通过一个静态函数get获得私有变量实例即可实现单例。
-    如果想要懒加载，可以用上双重检验锁在get函数中。
->> 手写单例模式 1.写一个单例模式，
-   4.线程安全的单例模式：双重检查写法
-   4.用volatile+synchronized写一个单例模式，用双重校验锁方法，说出两个if判断语句的作用
-   写个单例保证线程安全(虽然写出了，但被问住了，告诉我代码不能死记硬背)
-   为什么还要再判断一次是否为空
-   怎样保证这个单例在序列化和反序列中还是这个单例枚举
+饿汉式（静态变量）,饿汉式（静态代码块）,懒汉式（线程不安全）,懒汉式（线程安全）,懒汉式（同步代码块）,双重检查锁,静态内部类,枚举。
+#### 1.饿汉式（静态变量）
 ```markdown
 class Singleton{
-    public static volatile Singleton uniqueInstance;
-    public static Singleton getUniqueInstance(){
-        if(uniqueInstance==null){
-            synchronized(Singleton.class){
-                if(uniqueInstance==null){
-                    uniqueInstance=new Singleton();
+    //1私有化构造方法 （防止用new来得到对象实例）
+    private Singleton(){}
+    //2创建对象实例
+    private final static Singleton instance = new Singleton();
+    //3对外提供公有静态方法
+    public static Singleton getInstance(){
+        return instance;
+    }
+}
+//获取对象就不能通过new的方式，而要通过Singleton.getInstance()；并且多次获取到的都是同一个对象。
+优点：
+    简单，类装载的时候就完成了实例化，避免了多线程同步的问题。
+缺点：
+    类装载的时候完成实例化，没有达到Lazy Loading（懒加载）的效果，如果从始至终都没用过这个实例呢？那就会造成内存的浪费。
+    （大多数的时候，调用getInstance方法然后类装载，是没问题的，但是导致类装载的原因有很多，可能有其他的方式或者静态方法导致类装载）
+```
+#### 2.饿汉式（静态代码块）
+```markdown
+class Singleton{
+    //1同样私有化构造方法
+    private Singleton(){}
+    //2创建对象实例
+    private static Singleton instance;
+    //在静态代码块里进行单例对象的创建
+    static {
+        instance = new Singleton();
+    }
+    //3提供静态方法返回实例对象
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+优缺点：和上一种静态常量的方式一样；
+原因：实现本来就是和上面的一样，因为类装载的时候一样马上会执行静态代码块中的代码。
+```
+#### 3.懒汉式（线程不安全）
+```markdown
+class Singleton{
+    private static Singleton instance;
+    private Singleton(){}
+    //提供静态公有方法，使用的时候才创建instance
+    public static Singleton getInstance(){
+        if(instance == null){
+            instance = new Singleton();
+        }
+        return  instance;
+    }
+}
+优点：
+    起到了Lazy Loading 的作用
+缺点：
+    但是只能在单线程下使用。如果一个线程进入了if判断，但是没来得及向下执行的时候，另一个线程也通过了这个if语句，
+    这时候就会产生多个实例，所以多线程环境下不能使用这种方式。
+```
+#### 4.懒汉式（线程安全）
+```markdown
+class Singleton{
+    private static Singleton instance;
+    private Singleton(){}
+    //使用的时候才创建instance,同时加入synchronized同步代码，解决线程不安全问题
+    public static synchronized Singleton getInstance(){
+        if(instance == null){
+            instance = new Singleton();
+        }
+        return  instance;
+    }
+}
+优点：
+    保留了单例的性质的情况下，解决了线程不安全的问题
+缺点：
+    效率太差了，每个线程想要获得类的实例的时候都调用getInstance方法，就要进行同步。
+    然而这个方法本身执行一次实例化代码就够了，后面的想要获得实例，就应该直接return，而不是进行同步。
+```
+#### 5.懒汉式（同步代码块）
+```markdown
+class Singleton{
+    private static Singleton instance;
+    private Singleton(){}
+    public static Singleton getInstance(){
+        if(instance == null){
+            synchronized( Singleton.class){
+                instance = new Singleton();
+            }
+        }
+        return  instance;
+    }
+}
+会导致可能别的线程同样进入if语句，回到了第三种的问题，所以来不及同步就会产生线程不安全的问题。
+```
+#### 6.双重检查锁【推荐开发使用】
+```markdown
+class Singleton{
+    private static volatile Singleton instance;
+    private Singleton(){}
+    //双重检查
+    public static Singleton getInstance(){
+        //第一次检查
+        if(instance == null){
+            synchronized (Singleton.class){
+                //第二次检查
+                if(instance == null){
+                    instance = new Singleton();
                 }
             }
         }
-        return uniqueInstance;
-    }
-    public static void main(String args[]){
-        for(int i=0;i<50;i++){
-            new Thread(new Runnable(){
-                public void run(){
-                    System.out.println(Thread.currentThread().getName()+":"+Singleton.getUniqueInstance().hashCode());
-                }
-            }).start();
-        }
+        return  instance;
     }
 }
+优点：double-check是多线程开发里经常用到的，满足了我们需要的线程安全&&避免反复进行同步的效率差&&lazy loading。
 ```
+#### 7.静态内部类
+```markdown
+class Singleton{
+    //构造器私有化
+    private Singleton(){}
+    //一个静态内部类，里面有一个静态属性，就是实例
+    private static class SingletonInstance{
+        private static final Singleton instance = new Singleton();
+    }
+    //静态的公有方法
+    public static Singleton getInstance(){
+        return SingletonInstance.instance;
+    }
+}
+静态内部类：用static修饰的内部类，称为静态内部类，完全属于外部类本身，不属于外部类某一个对象，外部类不可以定义为静态类，Java中静态类只有一种，那就是静态内部类。
+核心：
+    1.静态内部类在外部类装载的时候并不会执行，也就是满足了lazy loading；
+    2.调用getInstance的时候会取属性，此时才加载静态内部类，而jvm底层的类装载机制是线程安全的，所以利用jvm达到了我们要的线程安全；
+    3.类的静态属性保证了实例化也只会进行一次，满足单例。
+```
+#### 8.枚举
+```markdown
+enum Singleton{
+    instance;
+    public void sayOk(){
+        System.out.println("ok");
+    }
+}
+调用的时候也不用new，直接用Singleton.instance，拿到这个属性。（一般INSTANCE写成大写）
+优点：
+    满足单例模式要的特点，同时还能够避免反序列化重新创建新的对象。这种方法是effective java作者提供的方式。
+```
+#### 9.JDK中的单例模式
+```markdown
+untime类就是一个单例模式的类，并且可以看到，他是采用饿汉式（静态常量的方式）
+    1.私有构造器；
+    2.静态常量，类的内部直接将类实例化；
+    3.提供公有的静态方法。
+```
+### 手写工厂模式
+[设计模式：工厂设计模式介绍及3种写法（简单工厂、工厂方法、抽象工厂）](https://www.cnblogs.com/lifegoeson/p/13474404.html)
 ### 手写生产者消费者模型
 #### 用ArrayBlockingQueue实现的生产者消费者模型
 ```markdown
@@ -464,20 +589,18 @@ public class ProducerAndConsumer {
     }
 }
 ```
-### LRU【2+】
+### LRU【3+】
+#### 基于LinkedhashMap实现的LRU算法
+[基于LinkedhashMap实现的LRU算法](https://www.cnblogs.com/Young111/p/11470856.html)
 ```java
 import java.util.LinkedHashMap;
- 
 public class LRUCache extends LinkedHashMap {
- 
     //首先设定最大缓存空间 MAX_ENTRIES 为 3；
     private static final int MAX_ENTRIES = 3;
- 
     //之后使用LinkedHashMap的构造函数将 accessOrder设置为 true，开启 LRU顺序；
     public LRUCache() {
         super(MAX_ENTRIES, 0.75f, true);
     }
- 
     //最后覆盖removeEldestEntry(）方法实现，在节点多于 MAX_ENTRIES 就会将最近最少使用的数据移除。
     //因为这个函数默认返回false，不重写的话缓存爆了的时候无法删除最近最久未使用的节点
     @Override
@@ -485,7 +608,6 @@ public class LRUCache extends LinkedHashMap {
         //在容量超过最大允许节点数的时候返回true，使得在afterNodeInsertion函数中能执行removeNode()
         return size() > MAX_ENTRIES;
     }
- 
     public static void main(String[] args) {
         LRUCache cache = new LRUCache();
         cache.put(1, 1);
