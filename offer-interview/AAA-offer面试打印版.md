@@ -470,7 +470,7 @@ untime类就是一个单例模式的类，并且可以看到，他是采用饿�
     2.静态常量，类的内部直接将类实例化；
     3.提供公有的静态方法。
 ```
-### 手写工厂模式
+### 手写工厂模式【2+】
 [设计模式：工厂设计模式介绍及3种写法（简单工厂、工厂方法、抽象工厂）](https://www.cnblogs.com/lifegoeson/p/13474404.html)
 ### 手写生产者消费者模型
 #### 用ArrayBlockingQueue实现的生产者消费者模型
@@ -668,6 +668,7 @@ public class QuickSort {
 ```
 ### 等概率无重复的从n个数中选取m个数
 [等概率无重复的从n个数中选取m个数](https://blog.csdn.net/yusiguyuan/article/details/42607681)
+[面试经典问题——如何从非负整数[0,N)中等概率不重复地选择K个数](https://zhuanlan.zhihu.com/p/32845748)
 ```markdown
 问题描述：程序的输入包含两个整数m和n，其中m<n。
 输出是0~n-1范围内的m个随机整数，要求：每个数选择出现的概率相等，且按序输出。    
@@ -691,7 +692,37 @@ int genknuth(int m,int n){
             m--;
         }
     return 0;
-
+```
+### 统计有序数组里平方和的数目
+>> 排序数组-3,-2,-2,1,1,2,2,3,4输出每个元素平方后有多少个不同的元素空间O(1)
+```markdown
+public static int DifferentMi(int nums[]){
+   int cnt=0;
+   int i=0,j=nums.length-1;
+   while(i<j){
+       while(i<j && nums[i]*nums[i]==nums[j]*nums[j])
+           i++;
+       if(nums[i]*nums[i]>nums[j]*nums[j]){
+           while(i<j && nums[i]*nums[i]==nums[i+1]*nums[i+1])
+               i++;
+               i++;
+       }else{
+           while(i<j && nums[j]*nums[j]==nums[j-1]*nums[j-1])
+                j--;
+                j--;
+           }
+           cnt++;
+       }
+       return cnt;
+}
+public int handle(int[] nums) {
+    if(nums==null  || nums.length==0)
+        return 0;
+    HashSet<Integer> set = new HashSet<Integer>();
+    for (int number : nums)
+        set.add(Math.abs(number));
+    return set.size();
+}
 ```
 ### 100亿黑名单URL，每个64B，问这个黑名单要怎么存？判断一个URL是否在黑名单中
 ```markdown
@@ -718,3 +749,13 @@ LRU缓存机制
 数据流的中位数
 搜索旋转排序数组
 2.快速排序，堆排序，插入排序（其实八大排序算法都应该了解
+## 数据结构
+```markdown
+二叉树遍历方式：前序遍历、中序遍历、后序遍历
+二叉树遍历写法：递归、栈、还有什么？
+哈夫曼编码
+优先队列底层实现？-堆
+二叉排序树、二叉平衡树
+怎么从一个数组中找出出现次数大于一半的那个数字？
+判断链表中有环？
+```
