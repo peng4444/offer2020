@@ -9,7 +9,7 @@ import java.util.Queue;
  * @ClassName: Demo637
  * @Author: pbj
  * @Date: 2020/4/17 10:07
- * @Description: TODO 637. 二叉树的层平均值
+ * @Description: TODO 637.二叉树的层平均值
  * 给定一个非空二叉树, 返回一个由每层节点平均值组成的数组.
  */
 public class Demo637 {
@@ -64,5 +64,4 @@ public class Demo637 {
         average(t.left, i + 1, sum, count);
         average(t.right, i + 1, sum, count);
     }
-
 }

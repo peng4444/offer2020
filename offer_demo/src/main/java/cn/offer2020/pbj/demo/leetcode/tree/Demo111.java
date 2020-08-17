@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * @ClassName: Demo111
  * @Author: pbj
  * @Date: 2019/12/22 12:49
- * @Description: TODO 二叉树的最小深度
+ * @Description: TODO 111.二叉树的最小深度
  */
 public class Demo111 {
     public class TreeNode {
@@ -113,6 +113,4 @@ public class Demo111 {
         int right_depth = minDepth(root.right);
         return (left_depth == 0 || right_depth == 0) ? left_depth + right_depth + 1 : Math.min(left_depth,right_depth)+1;
     }
-
-
 }
