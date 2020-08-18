@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree;
  * @ClassName: Demo108
  * @Author: pbj
  * @Date: 2020/4/17 14:54
- * @Description: TODO 108. 将有序数组转换为二叉搜索树
+ * @Description: TODO 108.将有序数组转换为二叉搜索树
  */
 public class Demo108 {
     public class TreeNode{

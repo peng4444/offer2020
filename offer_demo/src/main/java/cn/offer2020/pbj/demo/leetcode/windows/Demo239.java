@@ -18,20 +18,27 @@ public class Demo239 {
     //        新进来的数如果大于等于队列中的数 则将这些数弹出 再添加
     //        当R-L+1=k 时 滑窗大小确定 每次R前进一步L也前进一步 保证此时滑窗中最大值的
     //        数组下标在[L，R]中，并将当前最大值记录
-    public int[] maxSlidingWindow0(int[] nums, int k) {
-        if(nums==null||nums.length<2) return nums;
+    public static int[] maxSlidingWindow0(int[] nums, int k) {
+        int right =0;
+        int[] res = new int[nums.length -k +1];
+        int index=0;
         LinkedList<Integer> list = new LinkedList<>();
-        int[] res = new int[nums.length-k+1];
-        for(int i = 0;i<nums.length;i++){
-            while(!list.isEmpty()&&nums[list.peekLast()]<=nums[i]){
-                list.pollLast();
+        // 开始构造窗口
+        while (right < nums.length) {
+            // 这里的list的首位必须是窗口中最大的那位
+            while (!list.isEmpty() && nums[right] > list.peekLast()) {
+                list.removeLast();
             }
-            list.addLast(i);
-            if(list.peek()<=i-k){
-                list.poll();
-            }
-            if(i-k+1>=0){
-                res[i-k+1] = nums[list.peek()];
+            // 不断添加
+            list.addLast(nums[right]);
+            right++;
+            // 构造窗口完成，这时候需要根据条件做一些操作
+            if (right >= k){
+                res[index++]=list.peekFirst();
+                // 如果发现第一个已经在窗口外面了，就移除
+                if(list.peekFirst() == nums[right-k]) {
+                    list.removeFirst();
+                }
             }
         }
         return res;

@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.tree.binary_search_tree;
  * @ClassName: Demo109
  * @Author: pbj
  * @Date: 2020/4/17 15:01
- * @Description: TODO 109. 有序链表转换二叉搜索树
+ * @Description: TODO 109.有序链表转换二叉搜索树
  * 给定一个单链表，其中的元素按升序排序，将其转换为高度平衡的二叉搜索树。
  */
 public class Demo109 {
