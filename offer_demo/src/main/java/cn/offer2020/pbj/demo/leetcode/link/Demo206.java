@@ -4,15 +4,15 @@ package cn.offer2020.pbj.demo.leetcode.link;
  * @ClassName: Demo206
  * @Author: pbj
  * @Date: 2019/12/11 11:20
- * @Description: TODO  反转链表
+ * @Description: TODO  206.反转链表
  */
 
 public class Demo206 {
-    class Node{
+    class ListNode{
         private int val;
-        private Node next;
+        private ListNode next;
 
-        Node(int x) {
+        ListNode(int x) {
             val = x;
         }
     }
@@ -24,16 +24,17 @@ public class Demo206 {
      * @auther: pbj
      * @date: 2019/12/11 11:28
      */
-    public Node reverseList(Node head) {
-        Node pre = null;
-        Node next = null;
-        while (head != null) {
-            next = head.next;
-            head.next = pre;
-            pre = head;
-            head = next;
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null; //前指针节点
+        ListNode curr = head; //当前指针节点
+        //每次循环，都将当前节点指向它前面的节点，然后当前节点和前节点后移
+        while (curr != null) {
+            ListNode nextTemp = curr.next; //临时节点，暂存当前节点的下一节点，用于后移
+            curr.next = prev; //将当前节点指向它前面的节点
+            prev = curr; //前指针后移
+            curr = nextTemp; //当前指针后移
         }
-        return pre;
+        return prev;
     }
 
     /* *
@@ -44,11 +45,12 @@ public class Demo206 {
      * @auther: pbj
      * @date: 2019/12/11 11:31
      */
-    public Node reverseList2(Node head) {
+    public ListNode reverseList2(ListNode head) {
+        ////1.递归结束条件
         if (head == null || head.next == null) {
             return head;
         }
-        Node p = reverseList2(head.next);
+        ListNode p = reverseList2(head.next);
         head.next.next = head;
         head.next = null;
         return p;

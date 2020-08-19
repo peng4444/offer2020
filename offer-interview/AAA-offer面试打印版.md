@@ -797,7 +797,7 @@ LRU缓存机制
 判断链表中有环？
 两个链表找公共节点
 两个链表排序，要求不破坏链表结构打印链表
-反转链表手写
+
 还有一个求数组中两个数字相乘，求最大值，并打印出来
 树转链表
 10个数，每个数在1~100之间，奇数从大到小输出，偶数从小到大。
@@ -806,6 +806,32 @@ LRU缓存机制
 如何用两个栈实现队列
 删除链表的倒数第K个节点
 topK
+```
+#### 1.反转链表手写
+```markdown
+public Node reverseList(Node head){
+    //1.递归结束条件
+    if(head==null||head.next==null) return head;
+    //递归反转 子链表
+    Node newList = reverseList(head.next);
+    //改变1,2结点的指向，通过head.next获取结点2  //让2的next指向2
+    head.next.next = head;
+    //1的next指向null
+    head.next = null;
+    //把调整之后的链表返回
+    return newList;
+}
+public ListNode reverseList(ListNode head) {
+        ListNode pre = null;
+        ListNode next = null;
+        while(head!=null){
+            next = head.next;
+            head.next = pre;
+            pre = head;
+            head = next;
+        }
+        return pre;
+    }
 ```
 ## 设计题
 ### LeetCode上的设计题

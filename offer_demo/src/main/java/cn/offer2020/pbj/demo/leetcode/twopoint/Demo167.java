@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @ClassName: Demo167
  * @Author: pbj
  * @Date: 2020/4/5 11:36
- * @Description: TODO 167. 两数之和 II - 输入有序数组
+ * @Description: TODO 167.两数之和 II - 输入有序数组
  * 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
  */
 public class Demo167 {

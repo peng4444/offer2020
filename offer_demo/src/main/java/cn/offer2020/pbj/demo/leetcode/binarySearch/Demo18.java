@@ -1,15 +1,12 @@
 package cn.offer2020.pbj.demo.leetcode.binarySearch;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName: Demo18
  * @Author: pbj
  * @Date: 2020/5/7 10:40
- * @Description: TODO 18. 四数之和
+ * @Description: TODO 18.四数之和
  * 给定一个包含n个整数的数组nums和一个目标值target，判断nums中是否存在四个元素a，b，c和 d，
  * 使得a+b+c+d的值与target相等？找出所有满足条件且不重复的四元组。
  */
@@ -80,5 +77,37 @@ public class Demo18 {
             }
         }
         return res;
+    }
+
+    public List<List<Integer>> fourSum3(int[] nums, int target) {
+        Set<List<Integer>> set = new HashSet<>();
+        Map<Integer, List<List<Integer>>> map = new HashMap<>();
+        Arrays.sort(nums);
+        // 先处理第一对，把它们的sum存下来
+        for(int i = 0; i < nums.length - 3; i++) {
+            for(int j = i + 1; j < nums.length - 2; j++) {
+                int currSum = nums[i] + nums[j];
+                List<List<Integer>> pairs = map.getOrDefault(currSum, new ArrayList<>());
+                pairs.add(Arrays.asList(i, j));
+                map.put(currSum, pairs);
+            }
+        }
+
+        // 在其后做two sum
+        for(int i = 2; i < nums.length - 1; i++) {
+            for(int j = i + 1; j < nums.length; j++) {
+                int currSum = nums[i] + nums[j];
+                List<List<Integer>> prevPairs = map.get(target - currSum);
+                if(prevPairs == null) {
+                    continue;
+                }
+                for(List<Integer> pair : prevPairs) {
+                    if(pair.get(1) < i) {
+                        set.add(Arrays.asList(nums[pair.get(0)], nums[pair.get(1)], nums[i], nums[j]));
+                    }
+                }
+            }
+        }
+        return new ArrayList<>(set);
     }
 }
