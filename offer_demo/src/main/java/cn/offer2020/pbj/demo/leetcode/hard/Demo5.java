@@ -162,4 +162,25 @@ public class Demo5 {
         }
         return ans;
     }
+
+    private int start,maxLen;
+    public String longestPalindrome4(String s) {
+        int len = s.length();
+        if(len <2) return s;
+        for(int i = 0;i<len-1;i++){
+            extendPalindrome(s,i,i);//odd length
+            extendPalindrome(s,i,i+1);
+        }
+        return s.substring(start,start+maxLen);
+    }
+    private void extendPalindrome(String s,int i,int j){
+        while(i>=0 && j<s.length() && s.charAt(i)==s.charAt(j)){
+            i--;
+            j++;
+        }
+        if(maxLen<j-i-1){
+            start = i+1;
+            maxLen = j-i-1;
+        }
+    }
 }
