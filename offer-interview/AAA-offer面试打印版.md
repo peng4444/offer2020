@@ -11,7 +11,7 @@
 是否有优化方案，如何优化你的项目
 上面这三个问题基本上是最常见也是最基本的问题，准备项目的时候，一定要把上面这些问题准备好。
 ```
-## 项目经验
+## 项目工作经验
 ```markdown
 1.介绍一下你简历上写的项目？自己主要做了什么？（简历上虽然写了，但是面试官还是问了）
 2.你觉得项目里给你最大的挑战是什么？遇到了什么问题？如何解决的？从中学到了什么？
@@ -148,7 +148,6 @@ mysql 问题排查都有哪些手段？怎么验证 mysql 的索引是否满足�
 ## Java语言基础
 ```markdown
 1. 基础
-
 面向对象、四个特性、重载重写、继承、多态、反射
 常见关键字 final、static、abstract、finalize、transient、native
 StringBuffer、StringBuilder 和 String、字符常量池
@@ -629,10 +628,6 @@ public class LRUCache extends LinkedHashMap {
 ```
 ### 快速排序
 ```markdown
-作者：酥悠沫
-链接：https://www.nowcoder.com/discuss/429362?type=2&channel=0&source_id=2
-来源：牛客网
-
 public class QuickSort {
     private  void quickSortC(int[] a, int l, int r) {
         if (l >= r) {
@@ -659,18 +654,6 @@ public class QuickSort {
         int temp=a[l];
         a[l]=a[r];
         a[r]=temp;
-    }
-    public static void main(String[] args) {
-        int a[]={9,8,6,1,2,5,3,7,10,4};
-        QuickSort quickSort=new QuickSort();
-        for(int a1:a){
-            System.out.print(a1+" ");
-        }
-        System.out.println();
-        quickSort.quickSortC(a,0,9);
-        for(int a1:a){
-            System.out.print(a1+" ");
-        }
     }
 }
 ```
@@ -732,6 +715,99 @@ public int handle(int[] nums) {
     return set.size();
 }
 ```
+### LeetCode 53.最大子序和
+```markdown
+public int maxSubArray(int[] nums) {
+        if(nums==null||nums.length==0) return 0;
+        int n = nums.length;
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        int res = dp[0];
+        for(int i = 1;i<n;i++){
+            dp[i] = Math.max(dp[i-1],0)+nums[i];
+            res = Math.max(res,dp[i]);
+        }
+        return res;
+    }
+public int maxSubArray(int[] nums) {
+        int sum = 0;
+        int res = nums[0];
+        for(int num:nums){
+            if(sum>0){
+                sum+=num;
+            }else{
+                sum = num;
+            }
+            res = Math.max(res,sum);
+        }
+        return res;
+    }
+```
+### 给定负数0正数组成的数组，给定一个目标值，找到一个最长连续子数组使其和为目标值。
+```java
+public class Main{
+    //暴力
+    public int maxLength(int[] nums,int key){
+        int res = 0;
+        for(int i = 0;i<nums.length;i++){
+            int sum = 0;
+            for(int j = i;j<nums.length;j++){
+                sum+=nums[j];
+                if(sum==key){
+                    res = Math.max(res,j-i+1);
+                }
+            }
+        }
+    }
+    //
+    public int maxLength(int[] nums,int key){
+        if(nums==null||nums.length==0) return 0;
+        // key 某个累加和sum value 这个累加和最早出现的位置
+        // 取以每个位置为结尾的等于定值的子数组的最大长度的最大值
+        HashMap<Integer,Integer> map = new HashMap<>();
+        map.put(0,-1);// 非常重要 意思是累加和为0 最早出现的位置为 -1 默认
+        int len = 0;
+        int sum = 0;// 前缀和 到i位置
+        for(int i = 0;i<nums.length;i++){
+            sum+=nums[i];// arr[0..i]的和 到当前位置的累加和
+            if(map.containsKey(sum-k)){// 能找到sum-aim出现的最早位置
+                len = Math.max(i-map.get(sum-k),len);// 更新最大长度 i-(map.get(sum-aim)+1)+1
+            }
+            if(!map.containsKey(sum)){// 只放和为sum出现的最早位置
+                map.put(sum,i);
+            }
+        }
+        return len;
+    }
+}
+```
+### 给定一个数组，值全是正数，请返回累加和为给定值k的最长子数组长度
+```markdown
+public static int getMaxLength(int[] arr, int k) {
+		if (arr == null || arr.length == 0 || k <= 0) {
+			return 0;
+		}
+		int left = 0;
+		int right = 0;
+		int sum = arr[0];
+		int len = 0;
+		while (right < arr.length) {
+			if (sum == k) {
+				len = Math.max(len, right - left + 1);
+				sum -= arr[left++];
+			} else if (sum < k) {
+				right++;
+				if (right == arr.length) {//边界判断
+					break;
+				}
+				sum += arr[right];
+			} else {
+				sum -= arr[left++];
+			}
+		}
+		return len;
+	}
+```
 ### 100亿黑名单URL，每个64B，问这个黑名单要怎么存？判断一个URL是否在黑名单中
 ```markdown
 ​ 散列表：
@@ -783,6 +859,9 @@ LRU缓存机制
 100亿数字找前10亿，空间1亿（没怎么说好，bitmap）
 10进制数转2进制数判断几个1
 写个hashmap
+1.一个圆上n个点，两两相连且连线不可交叉，找到所有可能性，奇数个点有一个点空余
+2.平面内n个点，找到距离最近的两个点
+3.找出n个数中最大的k个数
 ```
 ## 数据结构
 ```markdown
@@ -809,6 +888,7 @@ topK
 ```
 #### 1.反转链表手写
 ```markdown
+//递归实现
 public Node reverseList(Node head){
     //1.递归结束条件
     if(head==null||head.next==null) return head;
@@ -821,6 +901,7 @@ public Node reverseList(Node head){
     //把调整之后的链表返回
     return newList;
 }
+//迭代实现
 public ListNode reverseList(ListNode head) {
         ListNode pre = null;
         ListNode next = null;

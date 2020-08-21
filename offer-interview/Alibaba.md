@@ -1,5 +1,107 @@
 # Alibaba面试
-
+## 笔试
+### [阿里笔试8.19](https://www.nowcoder.com/discuss/482048)
+```markdown
+//给两个数组a,b和一个数组c，问c是否能由a,b按顺序合并而成
+import java.util.Scanner;
+public class Day_2020_8_19 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // 输入测试数据
+        int T = sc.nextInt();
+        for (int i = 0; i < T; i++) {
+            // 输入数组个数
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            int[] a = new int[n];
+            int[] b = new int[m];
+            // 输入数组a
+            for (int j = 0; j < n; j++) {
+                a[j] = sc.nextInt();
+            }
+            // 输入数组b
+            for (int k = 0; k < m; k++) {
+                b[k] = sc.nextInt();
+            }
+            int[] c = new int[n+m];
+            // 处理逻辑
+            boolean possible = isPossible(a, 0, b, 0, c, 0);
+            if (possible) {
+                System.out.println("possible");
+            } else {
+                System.out.println("no possible");
+            }
+        }
+    }
+    public static boolean isPossible(int[] a, int ta, int[] b, int tb,
+                                     int[] c, int tc) {
+        int aLen = a.length;
+        int bLen = b.length;
+        int cLen = c.length;
+        if (ta==aLen) {
+            while (tc!=cLen && tb!=bLen) {
+                if (c[tc]!=b[tb]) {
+                    return false;
+                }
+            }
+        } else if (tb==bLen) {
+            while (tc!=cLen && ta!=aLen) {
+                if (c[tc]!=a[ta]) {
+                    return false;
+                }
+            }
+        } else {
+            if (a[ta]==c[tc] && b[tb]==c[tc]) {
+                return isPossible(a, ta+1, b, tb, c, tc+1)
+                        || isPossible(a, ta, b, tb+1, c, tc+1);
+            } else if (a[ta]==c[tc]) {
+                return isPossible(a, ta+1, b, tb, c, tc+1);
+            } else if (b[tb]==c[tc]) {
+                return isPossible(a, ta, b, tb+1, c, tc+1);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+```markdown
+//给定一个数组，数组中的每个数字只能和连续相邻的数字组队，且队伍实力由木桶效应决定，即队伍里最小的数代表队伍的实力，求每个队伍人数为i(1<=i<=nums,size())时的实力最强队伍的实力．
+  30%代码，动态规划，每次求以nums[j]为起点队伍人数为i的队伍的实力时都是根据人数为i-1时转移而来的，dp[j] = std::min(dp[j],nums[j+k-1])，不知道为什么只能过30%，
+作者：alviney
+链接：https://www.nowcoder.com/discuss/481815?type=0&order=3&pos=98&page=1&source_id=discuss_tag&channel=666
+来源：牛客网
+public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    int n = in.nextInt();
+    int[] a = new int[n];
+    int[] minb = new int[n];
+    int max = 0;
+    int[] res = new int[n];
+    int mi = 0;
+    for(int i = 0; i < n; i++){
+        a[i] = in.nextInt();
+        minb[i] = a[i];
+        max = Math.max(max, a[i]);
+    }
+    res[mi++] = max;
+    for(int i = 1; i < n; i++){
+        max = 0;
+        for(int j = i; j < n; j++){
+            minb[j - i] = Math.min(minb[j - i], a[j]);
+        }
+        for(int k = 0; k < n - i; k++){
+            max = Math.max(max, minb[k]);
+        }
+        res[mi++] = max;
+    }
+    System.out.print(res[0]);
+    for(int i = 1; i < n; i++){
+        System.out.print(" " + res[i]);
+    }
+}
+```
 ## 一,实习
 ### [0229阿里淘系技术部一二面凉经](https://www.nowcoder.com/discuss/375916)
 ```markdown
