@@ -4,7 +4,7 @@ package cn.offer2020.pbj.demo.leetcode.beibao;
  * @ClassName: Demo983
  * @Author: pbj
  * @Date: 2020/4/26 09:30
- * @Description: TODO 983. 最低票价
+ * @Description: TODO 983.最低票价
  * 在一个火车旅行很受欢迎的国度，你提前一年计划了一些火车旅行。在接下来的一年里，你要旅行的日子将以一个名为days的数组给出。每一项是一个从 1到 365 的整数。
  */
 public class Demo983 {

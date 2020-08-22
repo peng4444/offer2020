@@ -6,7 +6,7 @@ import java.util.*;
  * @ClassName: TopK
  * @Author: pbj
  * @Date: 2020/3/27 17:30
- * @Description: TODO 215. 数组中的第K个最大元素
+ * @Description: TODO 215.数组中的第K个最大元素
  */
 public class TopK {
 
@@ -84,7 +84,7 @@ public class TopK {
         }
         return que.peek();
     }
-
+    //快速排序
     public int kthLargestElement(int k, int[] nums) {
         if (nums == null || nums.length == 0 || k < 1 || k > nums.length){
             return -1;

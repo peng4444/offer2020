@@ -6,12 +6,26 @@ import java.util.Arrays;
  * @ClassName: Demo322
  * @Author: pbj
  * @Date: 2019/12/31 17:22
- * @Description: TODO 零钱兑换
+ * @Description: TODO 322.零钱兑换
  * 给定不同面额的硬币 coins 和一个总金额 amount。 编写一个函数来计算可以凑成总金额所需的最少的硬币个数。
  * 如果没有任何一种硬币组合能组成总金额，返回 -1。
  */
 public class Demo322 {
-
+    public int coinChange0(int[] coins, int amount) {
+        int len = coins.length;
+        int[][] dp = new int[len+1][amount+1];//dp[i][j]表示前i个硬币的钱加起来为j最小个数
+        for(int i = 0;i<dp.length;i++){
+            Arrays.fill(dp[i],amount+1);
+            if(i>0) dp[i][0] = 0;
+        }
+        for(int i = 1;i<=len;i++){
+            for(int j = 1;j<=amount;j++){
+                if(j<coins[i-1]) dp[i][j] = dp[i-1][j];
+                else dp[i][j] = Math.min(dp[i-1][j],dp[i][j-coins[i-1]]+1);
+            }
+        }
+        return dp[len][amount] ==amount+1?-1:dp[len][amount];
+    }
     /* *
      * 功能描述:动态规划-自下而上[通过] 完全背包问题
      * 时间复杂度O(Sn)

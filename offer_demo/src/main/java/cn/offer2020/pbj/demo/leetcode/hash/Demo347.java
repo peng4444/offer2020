@@ -6,7 +6,7 @@ import java.util.*;
  * @ClassName: Demo347
  * @Author: pbj
  * @Date: 2020/4/6 10:29
- * @Description: TODO 347. 前 K 个高频元素
+ * @Description: TODO 347. 前K个高频元素
  * 给定一个非空的整数数组，返回其中出现频率前k高的元素。
  */
 public class Demo347 {
@@ -38,38 +38,25 @@ public class Demo347 {
         return topK;
     }
     //最小堆
-    public List<Integer> topKFrequent1(int[] nums, int k) {
-        // 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
-        HashMap<Integer,Integer> map = new HashMap();
-        for(int num : nums){
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
-            } else {
-                map.put(num, 1);
+    public int[] topKFrequent1(int[] nums, int k) {
+        //对每个数字计数
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int num:nums){
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+        //初始化堆，按照出现的次数排序
+        PriorityQueue<Map.Entry<Integer,Integer>> heap = new PriorityQueue<>((x,y)->x.getValue()-y.getValue());
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            heap.add(entry);
+            if(heap.size()>k){
+                heap.poll();
             }
         }
-        // 遍历map，用最小堆保存频率最大的k个元素
-        PriorityQueue<Integer> pq = new PriorityQueue<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer a, Integer b) {
-                return map.get(a) - map.get(b);
-            }
-        });
-        for (Integer key : map.keySet()) {
-            if (pq.size() < k) {
-                pq.add(key);
-            } else if (map.get(key) > map.get(pq.peek())) {
-                pq.remove();
-                pq.add(key);
-            }
+        int[] res = new int[k];
+        int i= 0;
+        while(!heap.isEmpty()){
+            res[i++] = heap.poll().getKey();
         }
-        // 取出最小堆中的元素
-        List<Integer> res = new ArrayList<>();
-        while (!pq.isEmpty()) {
-            res.add(pq.remove());
-        }
-        //List to 数组
-        int[] a = res.stream().mapToInt(Integer::valueOf).toArray();
         return res;
     }
 }

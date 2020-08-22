@@ -657,6 +657,10 @@ public class QuickSort {
     }
 }
 ```
+### 堆排序
+```markdown
+
+```
 ### 等概率无重复的从n个数中选取m个数
 [等概率无重复的从n个数中选取m个数](https://blog.csdn.net/yusiguyuan/article/details/42607681)
 [面试经典问题——如何从非负整数[0,N)中等概率不重复地选择K个数](https://zhuanlan.zhihu.com/p/32845748)
@@ -808,6 +812,65 @@ public static int getMaxLength(int[] arr, int k) {
 		return len;
 	}
 ```
+### LeetCode 3.最长无重复字符串
+```markdown
+//暴力-时间复杂度O(n^2)
+    public int lengthOfLongestSubstring2(String s) {
+        int len = s.length(),i=0,j,k,max = 0;
+        char[] chars = s.toCharArray();
+        for (j = 0; j < len; j++) {
+            for (k = i; k < j; k++) {
+                if (chars[k] == chars[j]) {
+                    i = k + 1;
+                    break;
+                }
+            }
+            if (j - i + 1 > max) {
+                max = j - i + 1;
+            }
+        }
+        return max;
+    }
+//优化的滑动窗口
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length(), ans = 0;
+        //创建map窗口,i为左区间，j为右区间，右边界移动
+        Map<Character, Integer> map = new HashMap<>();
+        for (int j = 0, i = 0; j < n; j++) {
+            // 如果窗口中包含当前字符
+            if (map.containsKey(s.charAt(j))) {
+                //左边界移动到 相同字符的下一个位置和i当前位置中更靠右的位置，这样是为了防止i向左移动
+                i = Math.max(map.get(s.charAt(j)), i);
+            }
+            //比对当前无重复字段长度和储存的长度，选最大值并替换
+            //j-i+1是因为此时i,j索引仍处于不重复的位置，j还没有向后移动，取的[i,j]长度
+            ans = Math.max(ans, j - i + 1);
+            // 将当前字符为key，下一个索引为value放入map中
+            // value为j+1是为了当出现重复字符时，i直接跳到上个相同字符的下一个位置，if中取值就不用+1了
+            map.put(s.charAt(j), j + 1);
+        }
+        return ans;
+    }
+//HashSet 滑动窗口
+    public class Solution {
+        public int lengthOfLongestSubstring(String s) {
+            int n = s.length();
+            Set<Character> set = new HashSet<>();
+            int ans = 0, i = 0, j = 0;
+            while (i < n && j < n) {
+                // try to extend the range [i, j]
+                if (!set.contains(s.charAt(j))) {
+                    set.add(s.charAt(j++));
+                    ans = Math.max(ans, j - i);
+                } else {
+                    set.remove(s.charAt(i++));
+                }
+            }
+            return ans;
+        }
+    }
+```
+
 ### 100亿黑名单URL，每个64B，问这个黑名单要怎么存？判断一个URL是否在黑名单中
 ```markdown
 ​ 散列表：
@@ -830,30 +893,21 @@ public static int getMaxLength(int[] arr, int k) {
 最长公共字串 （美团）
 单例模式 （美团）
 快速排序 （阿里）
-查找链表中倒数第N个节点 （头条）
-合并k个有序的链表 （快手）
 蓄水池 （快手）
 自定义实现parseDouble方法 （快手）
 a+b+c=0 （头条）
-二叉树前序遍历 （快手）
-二叉树按照前序遍历转换为只有右节点的树 （猿辅导）
-按照之字形遍历二叉树 （头条）
 保留有序链表中的重复元素，并且只保留一次 （阿里，这个很有意思，感兴趣的同学可以实现下）
 给定一个有序链表，保留链表中重复出现的元素，并且只保留一次，如给定链表1->1->1->2->3->3->4. 结果为1->3。请写出一个高效的算法
 使用三个线程分别打印A，B，C，按ABC CBA ABC CBA ...的顺序进行打印 (阿里)
 无重复字符的最长子串
-二叉树的直径
-二叉树最大宽度
 寻找旋转排序数组中的最小值
 旋转链表
 LRU缓存机制
 数据流的中位数
-无序数组中找中位数（这题我朋友面阿里也遇到过），快排patition解决
+无序数组中找中位数，快排patition解决
 搜索旋转排序数组
 2.快速排序，堆排序，插入排序（其实八大排序算法都应该了解 介绍快速排序
-1.给定一个字符串，请将字符串里的字符按照出现的频率降序排列。2.最长无重复字符串
-两个栈模拟队列？
-两个队列模拟栈，一个队列怎么做？
+1.给定一个字符串，请将字符串里的字符按照出现的频率降序排列。
 在十万的数字中找出前100？说了快排patition+二分，堆
 10亿的数字找前10万，空间给1亿（分治法加堆），分析时间复杂度
 100亿数字找前10亿，空间1亿（没怎么说好，bitmap）
@@ -861,31 +915,34 @@ LRU缓存机制
 写个hashmap
 1.一个圆上n个点，两两相连且连线不可交叉，找到所有可能性，奇数个点有一个点空余
 2.平面内n个点，找到距离最近的两个点
-3.找出n个数中最大的k个数
 ```
 ## 数据结构
 ```markdown
+怎么从一个数组中找出出现次数大于一半的那个数字？
+还有一个求数组中两个数字相乘，求最大值，并打印出来
+10个数，每个数在1~100之间，奇数从大到小输出，偶数从小到大。
+给你一个16*16矩阵，从最左上角到最右下角，有几条路径
+```
+### 栈队列算法题手写
+优先队列底层实现？-堆
+如何用两个栈实现队列
+两个队列模拟栈，一个队列怎么做？
+两个栈模拟队列？
+### 数算法题手写
 二叉树遍历方式：前序遍历、中序遍历、后序遍历
 二叉树遍历写法：递归、栈、还有什么？
+二叉树前序遍历 （快手）
+二叉树按照前序遍历转换为只有右节点的树 （猿辅导）
+按照之字形遍历二叉树 （头条）
 哈夫曼编码
-优先队列底层实现？-堆
 二叉排序树、二叉平衡树
 判断是否是子树
 手写打印二叉树的深度，递归和非递归都写了，并解释非递归的代码的含义
-怎么从一个数组中找出出现次数大于一半的那个数字？
-判断链表中有环？
-两个链表找公共节点
-两个链表排序，要求不破坏链表结构打印链表
-
-还有一个求数组中两个数字相乘，求最大值，并打印出来
-树转链表
-10个数，每个数在1~100之间，奇数从大到小输出，偶数从小到大。
-给你一个16*16矩阵，从最左上角到最右下角，有几条路径
 给你一棵二叉树，怎么获得它的镜像二叉树
-如何用两个栈实现队列
-删除链表的倒数第K个节点
-topK
-```
+树转链表
+二叉树的直径
+二叉树最大宽度
+### 链表算法题手写
 #### 1.反转链表手写
 ```markdown
 //递归实现
@@ -914,10 +971,149 @@ public ListNode reverseList(ListNode head) {
         return pre;
     }
 ```
+#### 2.删除链表的倒数第K个节点 查找链表中倒数第N个节点 （头条）
+#### 3.判断链表中有环？
+#### 4.两个链表找公共节点
+#### 5.两个链表排序，要求不破坏链表结构打印链表
+#### 6.合并k个有序的链表 （快手）
+
 ## 设计题
 ### LeetCode上的设计题
 ```markdown
 155. 最小栈
+```
+#### 322.零钱兑换
+```markdown
+//凑成总金额所需的最少的硬币个数
+public int coinChange(int[] coins, int amount) {
+        int max = amount+1;
+        int[] dp = new int[amount+1];
+        Arrays.fill(dp,max);
+        dp[0] = 0;
+        for(int i = 0;i<=amount;i++){
+            for(int j = 0;j<coins.length;j++){
+                if(coins[j]<=i){
+                    dp[i] = Math.min(dp[i],dp[i-coins[j]]+1);
+                }
+            }
+        }
+        return dp[amount]>amount?-1:dp[amount];
+    }
+//凑成总金额的硬币组合数
+public int change(int amount, int[] coins) {
+        int[] dp= new int[amount+1];
+        dp[0] = 1;
+        for(int coin:coins){
+            for(int j = 1;j<=amount;j++){
+                if(j>=coin){
+                    dp[j] = dp[j]+dp[j-coin];
+                }
+            }
+        }
+        return dp[amount];
+    }
+```
+#### 215,347.TopK 692. 前K个高频单词
+```markdown
+LeetCode 215. 数组中的第K个最大元素
+public int findKthLargest(int[] nums, int k) {
+        //快速排序，堆排序，调用库函数都可以
+        //利用优先队列构造堆排序
+        Queue<Integer> queue = new PriorityQueue<>();
+        for(int num:nums){
+            if(queue.size()<k){
+                queue.offer(num);
+            }else{
+                if(queue.peek()<num){
+                    queue.poll();
+                    queue.offer(num);
+                }
+            }
+        }
+        return queue.peek();
+    }
+LeetCode 347. 前K个高频元素
+//堆排序
+public int[] topKFrequent(int[] nums, int k) {
+        // 先对每个数字计数
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        // 初始化堆，按照出现次数升序
+        PriorityQueue<Map.Entry<Integer, Integer>> heap = new PriorityQueue<>((x, y) -> x.getValue() - y.getValue());
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            heap.add(entry);
+            // 维护堆的大小为 K，在堆里的都是最大的
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
+        int[] res = new int[k];
+        int i = 0;
+        while (!heap.isEmpty()) {
+            res[i++] = heap.poll().getKey();
+        }
+        return res;
+    }
+//桶排序法
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        List<Integer>[] buckets = new ArrayList[nums.length + 1];
+        for (int key : map.keySet()) {
+            int frequent = map.get(key);
+            if (buckets[frequent] == null) {
+                buckets[frequent] = new ArrayList<>();
+            }
+            buckets[frequent].add(key);
+        }
+        List<Integer> topK = new ArrayList<>();
+        for(int i = buckets.length-1;i>=0&&topK.size()<k;i--){
+            if (buckets[i] == null) {
+                continue;
+            }
+            if (buckets[i].size() <= (k - topK.size())) {
+                topK.addAll(buckets[i]);
+            } else {
+                topK.addAll(buckets[i].subList(0, k - topK.size()));
+            }
+        }
+        return topK;
+    }
+//692. 前K个高频单词
+public List<String> topKFrequent(String[] words, int k) {
+         Map<String, Integer> map = new HashMap<>(words.length);
+        // 建立哈希表统计单词频率
+        for (String word : words) {
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        }
+        // 小顶堆，相同频率下，字母顺序高的在前，方便入栈
+        PriorityQueue<String> queue = new PriorityQueue<>((o1, o2) -> {
+            Integer o1Count = map.get(o1);
+            Integer o2Count = map.get(o2);
+            if (o1Count.equals(o2Count)) {
+                return o2.compareTo(o1);
+            } else {
+                return o1Count - o2Count;
+            }
+        });
+        // 维持topK频率的单词
+        for (String word : map.keySet()) {
+            queue.offer(word);
+            if (queue.size() > k) {
+                queue.poll();
+            }
+        }
+        // 利用栈特性
+        LinkedList<String> stack = new LinkedList<>();
+        while (!queue.isEmpty()) {
+            stack.push(queue.poll());
+        };
+        return stack;
+    }
 ```
 ## 未来
 [Java社招（阿里头条快手百度美团等大厂）面经分享【纯干货】](https://www.nowcoder.com/discuss/424682?type=2&channel=0&source_id=2)
