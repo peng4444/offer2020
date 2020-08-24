@@ -484,7 +484,6 @@ untime类就是一个单例模式的类，并且可以看到，他是采用饿�
 ```markdown
 public class ArrayBlockingQueueDemo {
     private ArrayBlockingQueue blockingQueue = new ArrayBlockingQueue(3, true);
- 
     public static void main(String[] args) {
         ArrayBlockingQueueDemo test = new ArrayBlockingQueueDemo();
         Consumer c1 = test.new Consumer();//内部非静态类实例化方式
@@ -495,7 +494,6 @@ public class ArrayBlockingQueueDemo {
         //new Thread(p1).start();
         //new Thread(c1).start();
     }
- 
     class Consumer extends Thread {
         @Override
         public void run() {
@@ -512,10 +510,8 @@ public class ArrayBlockingQueueDemo {
             }
         }
     }
- 
     class Producer extends Thread {
         private int element = 0;
- 
         @Override
         public void run() {
             try {
@@ -544,7 +540,6 @@ public class ProducerAndConsumer {
     private final int MIN = 0;
     private Lock lock = new ReentrantLock();
     private Condition condition = lock.newCondition();
- 
     public static void main(String args[]) {
         ProducerAndConsumer test = new ProducerAndConsumer();
         Consumer c1 = test.new Consumer();
@@ -557,7 +552,6 @@ public class ProducerAndConsumer {
             service.execute(c1);
         }
     }
- 
     class Producer extends Thread {
         public void run() {
             try {
@@ -576,7 +570,6 @@ public class ProducerAndConsumer {
             }
         }
     }
- 
     class Consumer extends Thread {
         public void run() {
             try {
@@ -626,8 +619,193 @@ public class LRUCache extends LinkedHashMap {
     }
 }
 ```
-### 快速排序
+### 查找排序算法
+![](https://img2020.cnblogs.com/blog/1176183/202004/1176183-20200402212157028-1769221183.png)
+#### 二分查找
 ```markdown
+//迭代
+    int binarySearch(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1; // 注意
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] < target)
+                left = mid + 1; // 注意
+            else if (nums[mid] > target)
+                right = mid - 1; // 注意
+        }
+        return -1;
+    }
+    //寻找左侧边界的二分搜索
+    int left_bound(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else if (nums[mid] == target) {
+                // 别返回，锁定左侧边界
+                right = mid - 1;
+            }
+        }
+        // 最后要检查 left 越界的情况
+        if (left >= nums.length || nums[left] != target)
+            return -1;
+        return left;
+    }
+    //寻找右侧边界的二分查找   ​
+    int right_bound(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else if (nums[mid] == target) {
+                // 别返回，锁定右侧边界
+                left = mid + 1;
+            }
+        }
+        // 最后要检查 right 越界的情况
+        if (right < 0 || nums[right] != target)
+            return -1;
+        return right;
+    }
+
+```
+#### 选择排序 时间复杂度O(n^2) 不稳定排序
+```markdown
+//第一个跟后面的所有数相比，如果小于（或小于）第一个数的时候，暂存较小数的下标，
+   *   第一趟结束后，将第一个数，与暂存的那个最小数进行交换，第一个数就是最小（或最大的数）
+   *   下标移到第二位，第二个数跟后面的所有数相比，一趟下来，确定第二小（或第二大）的数
+   *   重复以上步骤，直到指针移到倒数第二位，确定倒数第二小（或倒数第二大）的数，那么最后一位也就确定了，排序完成。
+public int[] chanceSort(int[] array) {
+        if (null == array || array.length == 0) {
+            throw new RuntimeException("数组为null或长度为0");
+        }
+        int[] arr = Arrays.copyOf(array,array.length);
+        for (int i = 0; i < arr.length; i++) {
+            int min = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[min]) {
+                    min = j;
+                }
+            }
+            if (i != min) {
+                int temp = arr[i];
+                arr[i] = arr[min];
+                arr[min] = temp;
+            }
+        }
+        return arr;
+    }
+```
+#### 插入排序 时间复杂度O(n^2)
+```markdown
+//第一位数已经有序从第二位开始遍历，当前数（第一趟是第二位数）与前面的数依次比较，如果前面的数大于当前数，则将这个数放在当前数的位置上，当前数的下标-1，
+   * 重复以上步骤，直到当前数不大于前面的某一个数为止，这时，将当前数，放到这个位置。
+   * 1-3步就是保证当前数的前面的数都是有序的，内层循环的目的就是将当前数插入到前面的有序序列里
+   * 重复以上3步，直到遍历到最后一位数，并将最后一位数插入到合适的位置，插入排序结束。
+public int[] insertSort(int[] num) {
+        if (null == num || num.length == 0) {
+            throw new RuntimeException("数组为null或长度为0");
+        }
+        for (int i = 1, j, current; i < num.length; i++) {
+            current = num[i];
+            for (j = i - 1; j >= 0 && num[j] > current; j--) {
+                num[j + 1] = num[j];
+            }
+            num[j + 1] = current;
+        }
+        return num;
+    }
+```
+#### 冒泡排序 时间复杂度O(n^2)
+```markdown
+//把相邻的元素两两比较，当一个元素大于右侧相邻元素时，交换它们的位置；当一个元素小于或等于右侧相邻元素时，位置不变。
+//冒泡排序
+    public static void MaopaoSort(int[] array) {
+        if (null == array || array.length == 0) {
+            throw new RuntimeException("数组为null或长度为0");
+        }
+        //外循环是趟数，每一趟都会将未排序中最大的数放到尾端
+        for (int i = 0; i < array.length - 1; i++) {
+            //内循环是从第一个元素开始，依次比较相邻元素，
+            // 比较次数随着趟数减少，因为每一趟都排好了一个元素
+            for (int j = 0; j < array.length - i - 1; j++) {
+                int temp = 0;
+                if (array[j] > array[j + 1]) {
+                    temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+    }
+    //优化1：在最后一次交换开始之前，已经有序，就提前终止循环排序
+    public static void MaopaoSort2(int array[]) {
+        if (null == array || array.length == 0) {
+            throw new RuntimeException("数组为null或长度为0");
+        }
+        for (int i = 0; i < array.length; i++) {
+            //有序标记，每一轮的初始值都是true，假设每一趟开始前都假设已经有序
+            boolean sortFlag = true;
+            for (int j = 0; j < array.length - i - 1; j++) {
+                int temp = 0;
+                if (array[j] > array[j + 1]) {
+                    temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                    //因为有元素进行交换，所以不是有序的，标记为false
+                    sortFlag = false;
+                }
+            }
+            if (sortFlag) {
+                break;//如果某一轮有序标记为true，说明当前已有序，可以终止循环
+            }
+        }
+    }
+    //优化2：我们可以在每一轮排序后，记录下来最后一次元素交换的位置，该位置即为有序无序数列的边界，再往后就是有序区了
+    public static void MaopaoSort3(int array[]) {
+        if (null == array || array.length == 0) {
+            throw new RuntimeException("数组为null或长度为0");
+        }
+        //记录最后一次交换的位置
+        int lastExchangeIndex = 0;
+        //当前趟无序数列的边界，每次比较只需要比到这里为止
+        int sortBorder = array.length - 1;
+        for (int i = 0; i < array.length; i++) {
+            //有序标记，每一轮的初始值都是true，假设每一趟开始前都假设已经有序
+            boolean sortFlag = true;
+            for (int j = 0; j < array.length - i - 1; j++) {
+                int temp = 0;
+                if (array[j] > array[j + 1]) {
+                    temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                    //因为有元素进行交换，所以不是有序的，标记为false
+                    sortFlag = false;
+                    lastExchangeIndex = j;
+                }
+            }
+            sortBorder = lastExchangeIndex;
+            if (sortFlag) {
+                break;//如果某一轮有序标记为true，说明当前已有序，可以终止循环
+            }
+        }
+        // 还可以进一步优化， 有兴趣的可以去看看鸡尾酒排序
+    }
+```
+#### 快速排序 时间复杂度是O(nlogn) 不稳定排序
+```markdown
+//选一个数作为基数（这里我选的是第一个数），大于这个基数的放到右边，小于这个基数的放到左边，
+      等于这个基数的数可以放到左边或右边，一趟结束后，将基数放到中间分隔的位置，
+      第二趟将数组从基数的位置分成两半，分割后的两个的数组继续重复以上步骤，
 public class QuickSort {
     private  void quickSortC(int[] a, int l, int r) {
         if (l >= r) {
@@ -657,13 +835,88 @@ public class QuickSort {
     }
 }
 ```
-### 堆排序
+#### 堆排序 时间复杂度是O(nlogn) 不稳定排序
 ```markdown
-
+//把无序数组构建成二叉堆。需要从小到大排序，则构建成最大堆；需要从大到小排序，则构建成最小堆。
+  循环删除堆顶元素，替换到二叉堆的末尾，调整堆产生新的堆顶。
+    /*** “下沉”调整
+     * @param array 待调整的堆
+     * @param parentIndex “下沉”的父节点
+     * @param length 堆的有效大小
+     */
+    public static void downAdjust(int[] array, int parentIndex, int length) {
+        // temp 保存父节点值，用于最后的赋值
+        int temp = array[parentIndex];
+        int childIndex = 2 * parentIndex + 1;
+        while (childIndex < length) {
+            // 如果有右孩子，且右孩子大于左孩子的值，则定位到右孩子
+            if (childIndex + 1 < length && array[childIndex +1]> array[childIndex]) {
+                childIndex++;
+            }
+            // 如果父节点大于任何一个孩子的值，则直接跳出
+            if (temp >= array[childIndex]) break;
+            //无须真正交换，单向赋值即可
+            array[parentIndex] = array[childIndex];
+            parentIndex = childIndex;
+            childIndex = 2 * childIndex + 1;
+        }
+        array[parentIndex] = temp;
+    }
+    /*** 堆排序（升序）* @param array 待调整的堆*/
+    public static void heapSort(int[] array) {
+        // 1. 把无序数组构建成最大堆
+        for (int i = (array.length - 2) / 2; i >= 0; i--) {
+            downAdjust(array, i, array.length);
+        }
+        System.out.println(Arrays.toString(array));
+        // 2. 循环删除堆顶元素，移到集合尾部，调整堆产生新的堆顶
+        for (int i = array.length - 1; i > 0; i--) {
+            // 最后1个元素和第1个元素进行交换
+            int temp = array[i];
+            array[i] = array[0];
+            array[0] = temp;
+            // “下沉”调整最大堆
+            downAdjust(array, 0, i);
+        }
+    }
 ```
+#### 归并排序 时间复杂度O(nlogn)
+```markdown
+//归并排序就是先将要排序的数组递归地分成两半分别排序，然后将结果归并起来。
+   * 1.  向上归并排序的时候，需要一个暂存数组用来排序，
+   * 2.  将待合并的两个数组，从第一位开始比较，小的放到暂存数组，指针向后移，
+   * 3.  直到一个数组空，这时，不用判断哪个数组空了，直接将两个数组剩下的元素追加到暂存数组里，
+   * 4.  再将暂存数组排序后的元素放到原数组里，两个数组合成一个，这一趟结束。
+public static void mergeSort(int[] arr, int lo, int hi) {
+        if(lo==hi){
+            return;
+        }
+        int mid = ((hi-lo)>>1)+lo;
+        mergeSort(arr, lo, hi);
+        mergeSort(arr,mid+1,hi);
+        merge(arr,lo,mid,hi);
+    }
+    //二路归并的实现
+    public static void merge(int[] arr, int lo, int mid, int hi) {
+        int[] temp = arr.clone();
+        int k = lo, i = lo, j = mid + 1;
+        while (k <= hi) {
+            if (i > mid) {
+                arr[k++] = temp[j++];
+            } else if (j > hi) {
+                arr[k++] = temp[i++];
+            } else if (temp[j] < temp[i]) {
+                arr[k++] = temp[j++];
+            } else {
+                arr[k++] = temp[i++];
+            }
+        }
+    }
+```
+#### 计数排序和桶排序 时间复杂度O(n)
 ### 等概率无重复的从n个数中选取m个数
 [等概率无重复的从n个数中选取m个数](https://blog.csdn.net/yusiguyuan/article/details/42607681)
-[面试经典问题——如何从非负整数[0,N)中等概率不重复地选择K个数](https://zhuanlan.zhihu.com/p/32845748)
+###[面试经典问题——如何从非负整数[0,N)中等概率不重复地选择K个数](https://zhuanlan.zhihu.com/p/32845748)
 ```markdown
 问题描述：程序的输入包含两个整数m和n，其中m<n。
 输出是0~n-1范围内的m个随机整数，要求：每个数选择出现的概率相等，且按序输出。    

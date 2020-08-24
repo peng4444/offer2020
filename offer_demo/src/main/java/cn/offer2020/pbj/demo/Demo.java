@@ -21,20 +21,28 @@ public class Demo {
 //    }
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+        int Y = sc.nextInt();
         int M = sc.nextInt();
-        int[][] nums = new int[2][M];
-        int[] ans = new int[N];
-        for(int i=0;i<2;i++){
-            for(int j = 0;j<M;j++){
-                nums[i][j] = sc.nextInt();
-                ans[nums[i][j]]++;
-            }
+        int D = sc.nextInt();
+        System.out.println(help(Y,M)+D);
+    }
+
+    private static int help(int y,int m){
+        int sum = 0;
+        int[] months;
+        if(checkY(y)){
+            months = new int[]{31,29,31,30,31,30,31,31,30,31,30,31};
+        }else{
+            months = new int[]{31,28,31,30,31,30,31,31,30,31,30,31};
         }
-        int res = 0;
-        for(int i = 0;i<N;i++){
-            res +=ans[i]*i%100000009;
+        for(int i = 0;i<m-1;i++){
+            sum+=months[i];
         }
-        System.out.println(res);
+        return sum;
+    }
+
+    private static boolean checkY(int y){
+        if((y%4==0&&y%100!=0)||(y%400==0)) return true;
+        else return false;
     }
 }
