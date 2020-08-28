@@ -590,34 +590,37 @@ public class ProducerAndConsumer {
 }
 ```
 ### LRU【3+】
-#### 基于LinkedhashMap实现的LRU算法
-[基于LinkedhashMap实现的LRU算法](https://www.cnblogs.com/Young111/p/11470856.html)
+#### 基于LinkedhashMap实现的LRU算法 LeetCode146
 ```java
-import java.util.LinkedHashMap;
-public class LRUCache extends LinkedHashMap {
-    //首先设定最大缓存空间 MAX_ENTRIES 为 3；
-    private static final int MAX_ENTRIES = 3;
-    //之后使用LinkedHashMap的构造函数将 accessOrder设置为 true，开启 LRU顺序；
-    public LRUCache() {
-        super(MAX_ENTRIES, 0.75f, true);
+class LRUCache {
+    private int cap;
+    private Map<Integer,Integer> map = new LinkedHashMap<>();
+    public LRUCache(int capacity) {
+        this.cap = capacity;
     }
-    //最后覆盖removeEldestEntry(）方法实现，在节点多于 MAX_ENTRIES 就会将最近最少使用的数据移除。
-    //因为这个函数默认返回false，不重写的话缓存爆了的时候无法删除最近最久未使用的节点
-    @Override
-    protected boolean removeEldestEntry(java.util.Map.Entry eldest) {
-        //在容量超过最大允许节点数的时候返回true，使得在afterNodeInsertion函数中能执行removeNode()
-        return size() > MAX_ENTRIES;
+    
+    public int get(int key) {
+        if(map.keySet().contains(key)){
+            int val = map.get(key);
+            map.remove(key);
+            map.put(key,val);
+            return val;
+        }
+        return -1;
     }
-    public static void main(String[] args) {
-        LRUCache cache = new LRUCache();
-        cache.put(1, 1);
-        cache.put(2, 2);
-        cache.put(3, 3);
-        cache.get(1);
-        cache.put(4, 4);
-        System.out.println(cache.keySet());
+    
+    public void put(int key, int value) {
+        if(map.keySet().contains(key)){
+            map.remove(key);
+        }else if(map.size()==cap){
+            Iterator<Map.Entry<Integer,Integer>> iterator = map.entrySet().iterator();
+            iterator.next();
+            iterator.remove();
+        }
+        map.put(key,value);
     }
 }
+
 ```
 ### 查找排序算法
 ![](https://img2020.cnblogs.com/blog/1176183/202004/1176183-20200402212157028-1769221183.png)
@@ -1169,6 +1172,7 @@ LRU缓存机制
 1.一个圆上n个点，两两相连且连线不可交叉，找到所有可能性，奇数个点有一个点空余
 2.平面内n个点，找到距离最近的两个点
 ```
+
 ## 数据结构
 ```markdown
 怎么从一个数组中找出出现次数大于一半的那个数字？
@@ -1196,34 +1200,6 @@ LRU缓存机制
 二叉树的直径
 二叉树最大宽度
 ### 链表算法题手写
-#### 1.反转链表手写
-```markdown
-//递归实现
-public Node reverseList(Node head){
-    //1.递归结束条件
-    if(head==null||head.next==null) return head;
-    //递归反转 子链表
-    Node newList = reverseList(head.next);
-    //改变1,2结点的指向，通过head.next获取结点2  //让2的next指向2
-    head.next.next = head;
-    //1的next指向null
-    head.next = null;
-    //把调整之后的链表返回
-    return newList;
-}
-//迭代实现
-public ListNode reverseList(ListNode head) {
-        ListNode pre = null;
-        ListNode next = null;
-        while(head!=null){
-            next = head.next;
-            head.next = pre;
-            pre = head;
-            head = next;
-        }
-        return pre;
-    }
-```
 #### 2.删除链表的倒数第K个节点 查找链表中倒数第N个节点 （头条）
 #### 3.判断链表中有环？
 #### 4.两个链表找公共节点
