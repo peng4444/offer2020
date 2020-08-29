@@ -312,13 +312,10 @@ Lock 实现锁的底层原理？
 109. 有序链表转换二叉搜索树
 ```
 ```markdown
-手写消费者生产者模式
 堆排序的原理及时间复杂度，是否稳定，最坏及最坏场景。
 手写快速排序、插入排序、冒泡排序，并分析时间复杂度和空间复杂度，它们的稳定性。（内部排序，外部排序）
 二分查找算法简述如何改进。
 手写算法：从中序与后序遍历序列构造二叉树
-分隔链表；给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。
-    你应当保留两个分区中每个节点的初始相对位置。
 ```
 ### 手写单例模式【2+】
 [设计模式：单例模式介绍及8种写法（饿汉式、懒汉式、Double-Check、静态内部类、枚举）](https://www.cnblogs.com/lifegoeson/p/13474269.html)
@@ -1199,12 +1196,6 @@ LRU缓存机制
 树转链表
 二叉树的直径
 二叉树最大宽度
-### 链表算法题手写
-#### 2.删除链表的倒数第K个节点 查找链表中倒数第N个节点 （头条）
-#### 3.判断链表中有环？
-#### 4.两个链表找公共节点
-#### 5.两个链表排序，要求不破坏链表结构打印链表
-#### 6.合并k个有序的链表 （快手）
 
 ## 设计题
 ### LeetCode上的设计题
@@ -1242,7 +1233,7 @@ public int change(int amount, int[] coins) {
         return dp[amount];
     }
 ```
-#### 215,347.TopK 692. 前K个高频单词
+#### 215,347.TopK 692.前K个高频单词
 ```markdown
 LeetCode 215. 数组中的第K个最大元素
 public int findKthLargest(int[] nums, int k) {
@@ -1260,6 +1251,35 @@ public int findKthLargest(int[] nums, int k) {
             }
         }
         return queue.peek();
+    }
+//快速排序
+public int findKth(int[] a, int n, int K) {
+        quickSort(a,0,n-1);
+        return a[n-K];
+    }
+    public void  quickSort(int[] a,int start,int end){
+        if(start<end){
+            int i = partition(a,start,end);
+            quickSort(a,i+1,end);
+            quickSort(a,start,i-1);
+        }
+    }
+    public int partition(int[] a,int p,int q){
+        int x = a[p];
+        int i = p;
+        for(int j = p+1;j<=q;j++){
+            if(a[j]<x){
+                swap(a,i+1,j);
+                i++;
+            }
+        }
+        swap(a,p,i);
+        return i;
+    }
+    public void swap(int[] a,int i,int j){
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
 LeetCode 347. 前K个高频元素
 //堆排序
