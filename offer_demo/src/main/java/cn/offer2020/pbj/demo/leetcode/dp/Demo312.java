@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @pClassName: Demo312
  * @author: pengbingjiang
  * @create: 2020/7/19 17:21
- * @description: TODO
+ * @description: TODO 312. 戳气球
  */
 public class Demo312 {
     public int maxCoins(int[] nums) {

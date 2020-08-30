@@ -19,13 +19,13 @@ public class Demo {
 //        System.out.println(str1.equals(str2));
 //        //false
 //    }
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int Y = sc.nextInt();
-        int M = sc.nextInt();
-        int D = sc.nextInt();
-        System.out.println(help(Y,M)+D);
-    }
+//    public static void main(String[] args){
+//        Scanner sc = new Scanner(System.in);
+//        int Y = sc.nextInt();
+//        int M = sc.nextInt();
+//        int D = sc.nextInt();
+//        System.out.println(help(Y,M)+D);
+//    }
 
     private static int help(int y,int m){
         int sum = 0;
@@ -44,5 +44,21 @@ public class Demo {
     private static boolean checkY(int y){
         if((y%4==0&&y%100!=0)||(y%400==0)) return true;
         else return false;
+    }
+
+    public static void main(String[] args) {
+        int m = 5;
+        int[] arr = new int[]{4,1,2,5,3};
+        System.out.println(m-demo1(m,arr));
+    }
+
+    public static int demo1(int m,int[] arr) {
+        int[] dp = new int[m + 1];
+        int res = 0;
+        for(int num : arr) {
+            dp[num] = dp[num - 1] + 1;
+            res = Math.max(dp[num], res);
+        }
+        return res;
     }
 }
