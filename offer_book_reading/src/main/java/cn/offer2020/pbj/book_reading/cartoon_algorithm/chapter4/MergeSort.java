@@ -18,7 +18,7 @@ public class MergeSort {
             return;
         }
         int mid = ((hi-lo)>>1)+lo;
-        mergeSort(arr, lo, hi);
+        mergeSort(arr, lo, mid);
         mergeSort(arr,mid+1,hi);
         merge(arr,lo,mid,hi);
     }
