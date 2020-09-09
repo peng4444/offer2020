@@ -1,5 +1,4 @@
 # 面试打印版
->> [Java那些事儿](https://www.nowcoder.com/discuss/421353)
 ## 自我介绍
 ```markdown
 教育经历 + 工作经历 + 简单的性格介绍。而工作经历中的项目将成为接下来面试官询问的重点，所以最好能准备一个拿得出手的项目。
@@ -317,308 +316,7 @@ Lock 实现锁的底层原理？
 二分查找算法简述如何改进。
 手写算法：从中序与后序遍历序列构造二叉树
 ```
-### 手写单例模式【2+】
-[设计模式：单例模式介绍及8种写法（饿汉式、懒汉式、Double-Check、静态内部类、枚举）](https://www.cnblogs.com/lifegoeson/p/13474269.html)
->> 单例模式使用的场景是：需要频繁创建和销毁的对象、创建对象耗时过多或耗资源太多（重型对象）、工具类对象、频繁访问数据库或者文件的对象（数据源、session工厂等），都应用单例模式去实现。
->> 单例模式有哪些实现方式？双重检查锁怎么实现，为什么用volatile，序列化破坏单例了解吗，怎么避免？
-饿汉式（静态变量）,饿汉式（静态代码块）,懒汉式（线程不安全）,懒汉式（线程安全）,懒汉式（同步代码块）,双重检查锁,静态内部类,枚举。
-#### 1.饿汉式（静态变量）
-```markdown
-class Singleton{
-    //1私有化构造方法 （防止用new来得到对象实例）
-    private Singleton(){}
-    //2创建对象实例
-    private final static Singleton instance = new Singleton();
-    //3对外提供公有静态方法
-    public static Singleton getInstance(){
-        return instance;
-    }
-}
-//获取对象就不能通过new的方式，而要通过Singleton.getInstance()；并且多次获取到的都是同一个对象。
-优点：
-    简单，类装载的时候就完成了实例化，避免了多线程同步的问题。
-缺点：
-    类装载的时候完成实例化，没有达到Lazy Loading（懒加载）的效果，如果从始至终都没用过这个实例呢？那就会造成内存的浪费。
-    （大多数的时候，调用getInstance方法然后类装载，是没问题的，但是导致类装载的原因有很多，可能有其他的方式或者静态方法导致类装载）
-```
-#### 2.饿汉式（静态代码块）
-```markdown
-class Singleton{
-    //1同样私有化构造方法
-    private Singleton(){}
-    //2创建对象实例
-    private static Singleton instance;
-    //在静态代码块里进行单例对象的创建
-    static {
-        instance = new Singleton();
-    }
-    //3提供静态方法返回实例对象
-    public static Singleton getInstance() {
-        return instance;
-    }
-}
-优缺点：和上一种静态常量的方式一样；
-原因：实现本来就是和上面的一样，因为类装载的时候一样马上会执行静态代码块中的代码。
-```
-#### 3.懒汉式（线程不安全）
-```markdown
-class Singleton{
-    private static Singleton instance;
-    private Singleton(){}
-    //提供静态公有方法，使用的时候才创建instance
-    public static Singleton getInstance(){
-        if(instance == null){
-            instance = new Singleton();
-        }
-        return  instance;
-    }
-}
-优点：
-    起到了Lazy Loading 的作用
-缺点：
-    但是只能在单线程下使用。如果一个线程进入了if判断，但是没来得及向下执行的时候，另一个线程也通过了这个if语句，
-    这时候就会产生多个实例，所以多线程环境下不能使用这种方式。
-```
-#### 4.懒汉式（线程安全）
-```markdown
-class Singleton{
-    private static Singleton instance;
-    private Singleton(){}
-    //使用的时候才创建instance,同时加入synchronized同步代码，解决线程不安全问题
-    public static synchronized Singleton getInstance(){
-        if(instance == null){
-            instance = new Singleton();
-        }
-        return  instance;
-    }
-}
-优点：
-    保留了单例的性质的情况下，解决了线程不安全的问题
-缺点：
-    效率太差了，每个线程想要获得类的实例的时候都调用getInstance方法，就要进行同步。
-    然而这个方法本身执行一次实例化代码就够了，后面的想要获得实例，就应该直接return，而不是进行同步。
-```
-#### 5.懒汉式（同步代码块）
-```markdown
-class Singleton{
-    private static Singleton instance;
-    private Singleton(){}
-    public static Singleton getInstance(){
-        if(instance == null){
-            synchronized( Singleton.class){
-                instance = new Singleton();
-            }
-        }
-        return  instance;
-    }
-}
-会导致可能别的线程同样进入if语句，回到了第三种的问题，所以来不及同步就会产生线程不安全的问题。
-```
-#### 6.双重检查锁【推荐开发使用】
-```markdown
-class Singleton{
-    private static volatile Singleton instance;
-    private Singleton(){}
-    //双重检查
-    public static Singleton getInstance(){
-        //第一次检查
-        if(instance == null){
-            synchronized (Singleton.class){
-                //第二次检查
-                if(instance == null){
-                    instance = new Singleton();
-                }
-            }
-        }
-        return  instance;
-    }
-}
-优点：double-check是多线程开发里经常用到的，满足了我们需要的线程安全&&避免反复进行同步的效率差&&lazy loading。
-```
-#### 7.静态内部类
-```markdown
-class Singleton{
-    //构造器私有化
-    private Singleton(){}
-    //一个静态内部类，里面有一个静态属性，就是实例
-    private static class SingletonInstance{
-        private static final Singleton instance = new Singleton();
-    }
-    //静态的公有方法
-    public static Singleton getInstance(){
-        return SingletonInstance.instance;
-    }
-}
-静态内部类：用static修饰的内部类，称为静态内部类，完全属于外部类本身，不属于外部类某一个对象，外部类不可以定义为静态类，Java中静态类只有一种，那就是静态内部类。
-核心：
-    1.静态内部类在外部类装载的时候并不会执行，也就是满足了lazy loading；
-    2.调用getInstance的时候会取属性，此时才加载静态内部类，而jvm底层的类装载机制是线程安全的，所以利用jvm达到了我们要的线程安全；
-    3.类的静态属性保证了实例化也只会进行一次，满足单例。
-```
-#### 8.枚举
-```markdown
-enum Singleton{
-    instance;
-    public void sayOk(){
-        System.out.println("ok");
-    }
-}
-调用的时候也不用new，直接用Singleton.instance，拿到这个属性。（一般INSTANCE写成大写）
-优点：
-    满足单例模式要的特点，同时还能够避免反序列化重新创建新的对象。这种方法是effective java作者提供的方式。
-```
-#### 9.JDK中的单例模式
-```markdown
-untime类就是一个单例模式的类，并且可以看到，他是采用饿汉式（静态常量的方式）
-    1.私有构造器；
-    2.静态常量，类的内部直接将类实例化；
-    3.提供公有的静态方法。
-```
-### 手写工厂模式【2+】
-[设计模式：工厂设计模式介绍及3种写法（简单工厂、工厂方法、抽象工厂）](https://www.cnblogs.com/lifegoeson/p/13474404.html)
-### 手写生产者消费者模型
-#### 用ArrayBlockingQueue实现的生产者消费者模型
-```markdown
-public class ArrayBlockingQueueDemo {
-    private ArrayBlockingQueue blockingQueue = new ArrayBlockingQueue(3, true);
-    public static void main(String[] args) {
-        ArrayBlockingQueueDemo test = new ArrayBlockingQueueDemo();
-        Consumer c1 = test.new Consumer();//内部非静态类实例化方式
-        Producer p1 = test.new Producer();
-        ExecutorService service = Executors.newCachedThreadPool();
-        service.execute(p1);
-        service.execute(c1);
-        //new Thread(p1).start();
-        //new Thread(c1).start();
-    }
-    class Consumer extends Thread {
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    System.out.println("消费" + blockingQueue.take());
-                    if (blockingQueue.size() == 0) {
-                        System.out.println("队列为空，阻塞");
-                    }
-                }
-            } catch (InterruptedException e1) {
-                System.out.println("消费者等待时被打断");
-                e1.printStackTrace();
-            }
-        }
-    }
-    class Producer extends Thread {
-        private int element = 0;
-        @Override
-        public void run() {
-            try {
-                while (element < 20) {
-                    System.out.println("生产" + element);
-                    blockingQueue.put(element++);
-                }
-                if (blockingQueue.size() == 20) {
-                    System.out.println("队列满，阻塞");
-                }
-            } catch (InterruptedException e) {
-                System.out.println("生产者等空闲时被打断");
-                e.printStackTrace();
-            }
-            System.out.println("终止生产");
-        }
-    }
-}
-```
-#### 用ReentrantLock写生产者消费者模型
->> 手写一个生产者消费者模式，用的ReentrantLock，为什么判断当前count是否满足生产或者消费时用while
-```markdown
-public class ProducerAndConsumer {
-    private int number = 0;
-    private final int MAX = 10;
-    private final int MIN = 0;
-    private Lock lock = new ReentrantLock();
-    private Condition condition = lock.newCondition();
-    public static void main(String args[]) {
-        ProducerAndConsumer test = new ProducerAndConsumer();
-        Consumer c1 = test.new Consumer();
-        Producer p1 = test.new Producer();
-        ExecutorService service = Executors.newCachedThreadPool();
-        for (int i = 0; i < 10; i++) {
-            service.execute(p1);
-        }
-        for (int i = 0; i < 5; i++) {
-            service.execute(c1);
-        }
-    }
-    class Producer extends Thread {
-        public void run() {
-            try {
-                lock.lock();
-                while (number >= MAX) {//不用if是因为可能有错误唤醒的线程，while可以进行多次判断
-                    System.err.println("产品已满");
-                    condition.await();
-                }
-                number++;
-                System.out.println("生产了一个产品，现在有：" + number + "个产品");
-                condition.signalAll();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
-            }
-        }
-    }
-    class Consumer extends Thread {
-        public void run() {
-            try {
-                lock.lock();
-                while (number <= MIN) {
-                    condition.await();
-                }
-                number--;
-                System.out.println("消费了一个，现在有" + number);
-                condition.signalAll();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
-            }
-        }
-    }
-}
-```
-### LRU【3+】
-#### 基于LinkedhashMap实现的LRU算法 LeetCode146
-```java
-class LRUCache {
-    private int cap;
-    private Map<Integer,Integer> map = new LinkedHashMap<>();
-    public LRUCache(int capacity) {
-        this.cap = capacity;
-    }
-    
-    public int get(int key) {
-        if(map.keySet().contains(key)){
-            int val = map.get(key);
-            map.remove(key);
-            map.put(key,val);
-            return val;
-        }
-        return -1;
-    }
-    
-    public void put(int key, int value) {
-        if(map.keySet().contains(key)){
-            map.remove(key);
-        }else if(map.size()==cap){
-            Iterator<Map.Entry<Integer,Integer>> iterator = map.entrySet().iterator();
-            iterator.next();
-            iterator.remove();
-        }
-        map.put(key,value);
-    }
-}
 
-```
 
 ### 等概率无重复的从n个数中选取m个数
 [等概率无重复的从n个数中选取m个数](https://blog.csdn.net/yusiguyuan/article/details/42607681)
@@ -1073,10 +771,16 @@ public List<String> topKFrequent(String[] words, int k) {
 ```
 ### 手写算法
 ```java
+ 一个数组，前半部分增序，后半部分降序，以小于O(n)的时间复杂度找到最大值
+ 对K个长度为N的有序数组排序的时间复杂度
 找出多数元素（美团）找出数组中大于一半的数。下一个大于N的回文数
+判断是否有一个数在有序数组中出现次数多于数组长度一半
+无序序列的连续子序列长度
+最长无重复字符的子串。
+给定一个数组，求和为s的所有子数组
+两个字符串求最长公共子串
 最长公共字串 （美团）
-单例模式 （美团）
-快速排序 （阿里）
+快速排序  递归 非递归（阿里）
 蓄水池 （快手）
 自定义实现parseDouble方法 （快手）
 a+b+c=0 （头条）
@@ -1099,6 +803,8 @@ LRU缓存机制
 写个hashmap
 1.一个圆上n个点，两两相连且连线不可交叉，找到所有可能性，奇数个点有一个点空余
 2.平面内n个点，找到距离最近的两个点
+最大连续子序列和
+能用一个数组里数字组成的最大数字
 ```
 
 ## 数据结构
@@ -1106,7 +812,10 @@ LRU缓存机制
 怎么从一个数组中找出出现次数大于一半的那个数字？
 还有一个求数组中两个数字相乘，求最大值，并打印出来
 10个数，每个数在1~100之间，奇数从大到小输出，偶数从小到大。
+给定一个数组 [1,2,3] 和一个值 x，数字可以重复选取，输出所有和等于 x 的结果。
 给你一个16*16矩阵，从最左上角到最右下角，有几条路径
+第一个缺失的正数
+一个数字找出重复数字
 ```
 ### 栈队列算法题手写
 优先队列底层实现？-堆
