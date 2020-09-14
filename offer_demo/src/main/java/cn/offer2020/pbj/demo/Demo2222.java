@@ -1,5 +1,6 @@
 package cn.offer2020.pbj.demo;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -9,9 +10,30 @@ import java.util.Scanner;
  * @description: TODO
  */
 public class Demo2222 {
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int x = sc.nextInt();
-        System.out.println((x&(x-1))==0);
+    public static int sort (String inData) {
+        // write code here
+        String[] str = inData.split(" ");
+        int len = str.length;
+        int[] nums = new int[len];
+        int[] nums1 = new int[len];
+        for(int i = 0;i<str.length;i++){
+            nums[i] = Integer.valueOf(str[i]);
+            nums1[i] = Integer.valueOf(str[i]);
+        }
+        int j = 0;
+        int count = 0;
+        Arrays.sort(nums1);
+        for (int i = 0; i < len; i++) {
+            if(nums[i]==nums1[j]) {
+                j++;
+                count++;
+            }
+        }
+        return len-count;
+    }
+
+    public static void main(String[] args) {
+        String str = new String("19 5 9 25");
+        System.out.println(sort(str));
     }
 }
