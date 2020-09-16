@@ -1,7 +1,9 @@
 package cn.offer2020.pbj.demo;
 
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @pClassName: Demo

@@ -14,8 +14,6 @@ import java.util.TreeSet;
 public class Demo220 {
     //桶
     public class Solution {
-        // Get the ID of the bucket from element value x and bucket width w
-        // In Java, `-3 / 5 = 0` and but we need `-3 / 5 = -1`.
         private long getID(long x, long w) {
             return x < 0 ? (x + 1) / w - 1 : x / w;
         }
@@ -43,19 +41,19 @@ public class Demo220 {
     }
     //二叉搜索树
     public boolean containsNearbyAlmostDuplicate2(int[] nums, int k, int t) {
-        TreeSet<Integer> set = new TreeSet<>();
+        TreeSet<Long> set = new TreeSet<>();
         for (int i = 0; i < nums.length; ++i) {
             // Find the successor of current element
-            Integer s = set.ceiling(nums[i]);
+            Long s = set.ceiling((long)nums[i]);
             if (s != null && s <= nums[i] + t) return true;
 
             // Find the predecessor of current element
-            Integer g = set.floor(nums[i]);
+            Long g = set.floor((long)nums[i]);
             if (g != null && nums[i] <= g + t) return true;
 
-            set.add(nums[i]);
+            set.add((long)nums[i]);
             if (set.size() > k) {
-                set.remove(nums[i - k]);
+                set.remove((long)nums[i - k]);
             }
         }
         return false;

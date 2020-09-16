@@ -9,6 +9,22 @@ package cn.offer2020.pbj.demo.leetcode.windows;
  * 如果不存在符合条件的子数组，返回 0。
  */
 public class Demo209 {
+    //滑动窗口
+    class Solution {
+        public int minSubArrayLen(int s, int[] nums) {
+            int i = 0;
+            int sum = 0;
+            int len = 0;
+            for (int j = 0; j < nums.length; j++) {
+                sum += nums[j];
+                while (sum >= s) {
+                    len = len == 0 ? j - i + 1 : Math.min(len, j - i + 1);
+                    sum -= nums[i++];
+                }
+            }
+            return len;
+        }
+    }
     //双指针
     public int minSubArrayLen1(int s, int[] nums) {
         int len = nums.length;

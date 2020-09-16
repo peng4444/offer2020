@@ -1,6 +1,7 @@
 package cn.offer2020.pbj.demo.leetcode.hash;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * @ClassName: Demo219
@@ -10,6 +11,23 @@ import java.util.HashMap;
  * 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 至多为 k。
  */
 public class Demo219 {
+    //滑动窗口
+    public boolean containsNearbyDuplicate3(int[] nums, int k) {
+        if(nums == null || nums.length <= 1)
+            return false;
+        if(k <= 0)
+            return false;
+        HashSet<Integer> record = new HashSet<Integer>();
+        for(int i = 0 ; i < nums.length; i ++){
+            if(record.contains(nums[i]))
+                return true;
+            record.add(nums[i]);
+            if(record.size() == k + 1)
+                record.remove(nums[i-k]);
+        }
+
+        return false;
+    }
 
     //hash
     public boolean containsNearbyDuplicate2(int[] nums, int k) {
