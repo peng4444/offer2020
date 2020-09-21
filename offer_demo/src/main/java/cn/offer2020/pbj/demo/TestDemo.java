@@ -1,29 +1,56 @@
 package cn.offer2020.pbj.demo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Random;
 
 public class TestDemo {
-    public static int[] arrayMerge (int[] array1, int n, int[] array2, int m) {
-        // write code here
-        Arrays.sort(array2);
-        int len = m+n-1;
-        int i = n - 1;
-        int j = m -1;
-        while(i>=0&&j>=0){
-            array1[len--] = (array1[i]>array2[j])?array1[i--]:array2[j--];
+    /**
+     * 本方法会把 array 里面的 Item 顺序随机打乱，达到 “洗牌” 的效果。
+     * 例如:
+     * 调用本方法前，数组的内容是 {3, 2, 9}，
+     * 调用本方法后，数组的内容可能就是 {2, 3, 9}、{2, 9, 3}、{3, 2, 9}、{3, 9, 2}、{9, 2, 3}、{9, 3, 2}
+     **/
+    public static void myFunc(int[] array) {
+        Arrays.sort(array);
+        int len = array.length;
+        int[][] ans = new int[len][len];
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 0;i<len;i++){
+            list.add(array[i]);
         }
-        while(j>=0){
-            array1[len--] = array2[j--];
+        int index = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0;i<len;i++){
+            ans[i][index++]  = list.get(Math.round(len));
+            //map.add()
         }
-        return array1;
     }
 
-    public static void main(String[] args) {
-        int[] n1 = new int[]{1,2,3};
-        int[] n2 = new int[]{6,5,4};
-        int[] ints = arrayMerge(n1, 3, n2, 3);
-        for(int i = 0;i<ints.length;i++){
-            System.out.print(ints[i]+" ");
+    public static void main(String[] args){
+        Integer[] arr = {3,2,9};
+        flushArr(arr);
+        for(int num : arr){
+            System.out.print(num + " ");
         }
+    }
+
+    public static void flushArr(Integer[] arr){
+        int length = arr.length;
+
+        int index = length - 1;
+
+        for(int i = 0; i < length && index > 0 ; i++){
+            int num = createRandom(index);
+            int temp = arr[num];
+            arr[num] = arr[index];
+            arr[index] = temp;
+            index--;
+        }
+    }
+
+    public static int createRandom(int end){
+        return (new Random().nextInt(end));
     }
 }
