@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @pClassName: Demo0920
  * @author: pengbingjiang
  * @create: 2020/9/20 16:07
- * @description: TODO
+ * @description: TODO [达达0920](https://www.cnblogs.com/lixyuan/p/13701132.html)
  */
 public class Demo0920 {
     public static void main1(String[] args) {
