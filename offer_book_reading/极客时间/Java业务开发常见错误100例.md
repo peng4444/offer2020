@@ -1,3 +1,5 @@
+# Java开发中的一些常见错误&坏味道
+[消灭 Java 代码的“坏味道”](https://developer.aliyun.com/article/718160)
 ```markdown
 范例5：final修饰的对象调用成员变量
 class Other{
